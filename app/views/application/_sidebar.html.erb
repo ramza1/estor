@@ -37,7 +37,7 @@
             <div class="accordion-heading">
 
               <a class="accordion-toggle <%= opened_tab("dashboard") %>" href="<%= url_for admin_root_url %>">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/home.png" alt="Form Stuff">
+                <%= image_tag "img/icons/stuttgart-icon-pack/32x32/home.png"%>
                 <span>Dashboard</span>
               </a>
             </div>
@@ -46,7 +46,7 @@
             <div class="accordion-heading">
 
               <a class="accordion-toggle <%= opened_tab("products") %> <%= active_controller("brands") %> <%= opened_tab("properties") %> <%= opened_tab("variants") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-form-stuff">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+                <%= image_tag "img/icons/stuttgart-icon-pack/32x32/product.png"%>
                 <span>Merchandise</span>
 
 
@@ -70,7 +70,7 @@
             <div class="accordion-heading">
 
               <a class="accordion-toggle  <%= active_controller("overviews") %> <%= active_controller("adjustments") %> <%= active_controller("receivings") %> <%= active_controller("purchase_orders") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-overviews">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+                <%= image_tag "img/icons/stuttgart-icon-pack/32x32/product.png"%>
                 <span>Inventory</span>
 
 
@@ -99,7 +99,7 @@
             <div class="accordion-heading">
 
               <a class="accordion-toggle <%= opened_tab("customers") %>" href="<%= url_for admin_customers_url %>">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/customers.png" alt="Form Stuff">
+                <%= image_tag "img/icons/stuttgart-icon-pack/32x32/customers.png"%>
                 <span>Customers</span>
               </a>
             </div>
@@ -108,7 +108,7 @@
             <div class="accordion-heading">
 
               <a class="accordion-toggle <%= opened_tab("posts") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-blog">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/sitemap.png" alt="Form Stuff">
+                <%= image_tag "img/icons/stuttgart-icon-pack/32x32/sitemap.png"%>
                 <span>Blog Posts</span>
 
 
@@ -124,30 +124,12 @@
             </ul>
           </div>
 
-          <div class="accordion-group <%= active_controller("categories") %>">
-            <div class="accordion-heading">
 
-              <a class="accordion-toggle <%= opened_tab("categories") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-category">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/category.png" alt="Form Stuff">
-                <span>Product Categories</span>
-
-
-
-                <span class="arrow"></span>
-              </a>
-            </div>
-
-            <ul id="collapse-category" class="accordion-body collapse nav nav-list collapse <%= in_open("categories")%>">
-
-              <li class="<%= active_controller("categories", "new") %>"><%= link_to "Create Category", new_admin_category_path %></li>
-              <li class="<%= active_controller("categories", "index") %>"><%= link_to "Manage Categories", admin_categories_path %></li>
-            </ul>
-          </div>
           <div class="accordion-group <%= active_controller("mailing_lists") %>">
             <div class="accordion-heading">
 
               <a class="accordion-toggle <%= opened_tab("mailing_list") %>" href="<%= url_for admin_mailing_lists_url %>">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/email.png" alt="Form Stuff">
+                <%= image_tag "img/icons/stuttgart-icon-pack/32x32/email.png"%>
                 <span>Mailing List</span>
               </a>
             </div>
@@ -157,7 +139,7 @@
             <div class="accordion-heading">
 
               <a class="accordion-toggle <%= opened_tab("news_letters") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-news_letters">
-                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/milestone.png" alt="Form Stuff">
+                <%= image_tag "img/icons/stuttgart-icon-pack/32x32/milestone.png"%>
                 <span>News Letter</span>
 
 

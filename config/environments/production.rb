@@ -44,6 +44,13 @@ Shopnany::Application.configure do
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
+  # Add the fonts path
+  config.assets.paths << "#{Rails.root}/app/assets/fonts"
+
+  # Precompile additional assets
+  config.assets.precompile += %w( .svg .eot .woff .ttf )
+  config.assets.precompile += %w( *.js )
+  config.assets.precompile += [ 'admin.css']
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
