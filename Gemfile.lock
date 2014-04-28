@@ -6,12 +6,6 @@ GIT
       mime-types
       orm_adapter (~> 0.5.0)
 
-GIT
-  remote: https://github.com/net-ssh/net-ssh
-  revision: 2d9a19efcb26c52110041b6ec76a2078d047f050
-  specs:
-    net-ssh (2.8.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -152,6 +146,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nokogiri (1.6.1)
@@ -293,7 +288,7 @@ DEPENDENCIES
   jquery-ui-rails
   less-rails
   mysql2
-  net-ssh (~> 2.8.1)!
+  net-ssh (= 2.7.0)
   paperclip
   quiet_assets
   rails (= 4.0.2)
