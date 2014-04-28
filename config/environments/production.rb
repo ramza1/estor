@@ -81,6 +81,25 @@ Shopnany::Application.configure do
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
 
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+      :address        => 'smtp.sendgrid.net',
+      :port           => '587',
+      :authentication => :plain,
+      :user_name      => 'Blanck magazine',
+      :password       => 'workstation100',
+      :domain         => 'blanckdigital.com'
+  }
+
+  config.middleware.use ExceptionNotification::Rack,
+                        :email => {
+                            :email_prefix => "[Error] ",
+                            :sender_address => %{"plussizeboutique[Error Alert]" <error@plussizeboutique.com>},
+                            :exception_recipients => %w{ramzauchenna@gmail.com}
+                        }
+
+
+  config.action_mailer.default_url_options = {:host => 'plussizeboutique.com.ng'}
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
