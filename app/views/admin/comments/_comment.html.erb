@@ -1,0 +1,13 @@
+<%= div_for comment do %>
+   <%= comment.content %>
+   <div class="comment-desc">
+     By:
+   <% if comment.customer.present? %>
+       <%= comment.customer.display_name %>
+   <% else %>
+        <%= comment.shop_name %>
+   <% end %> | <%= time_ago_in_words(comment.created_at) %>
+   </div>
+<% end %>
+
+<hr>

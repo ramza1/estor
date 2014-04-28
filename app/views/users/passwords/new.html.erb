@@ -1,0 +1,28 @@
+<%= content_for(:login_page) do %>
+
+
+    <div class="container">
+      <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, class: "form-forgot" }) do |f| %>
+        <h2 class="form-heading">Forgot password</h2>
+        <p>Enter your email address to reset your password</p>
+          <%= devise_error_messages_custom! %>
+        <div class="input-prepend input-fullwidth">
+          <span class="add-on"><i class="icon-envelope-alt"></i></span>
+          <div class="input-wrapper">
+            <%= f.input :email, label: false, :required => true, as: :string, placeholder: "Email Address" %>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-success pull-right" type="submit">Send</button>
+        </div>
+          <div class="forget-password">
+            <%= render "shops/shared/links" %>
+          </div>
+      <% end %>
+      <div class="form-footer-copyright">
+        <%= Time.now.year %> © <small><%= link_to "Myshopnanny", root_url(subdomain: false) %> - Online Shop builder tool</small>
+      </div>
+
+    </div>
+
+<% end %>

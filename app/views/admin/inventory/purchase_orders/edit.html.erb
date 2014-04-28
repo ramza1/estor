@@ -1,0 +1,35 @@
+
+<% content_for :head do -%>
+    <%= javascript_include_tag 'admin/purchase_orders' %>
+<% end %>
+
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Edit Purchase Order</h4>
+      </div>
+      <div class="body">
+        <%= form_for @purchase_order, :url  => admin_inventory_purchase_order_path(@purchase_order), html: {class: "form-horizontal"} do |form| %>
+            <%= render "form", form: form %>
+            <div class="form-actions">
+              <%= submit_tag "Update Purchase Order", :class  => "btn btn-success" %>
+              <% if !@purchase_order.receive_po %>
+                  <%= link_to 'Receive PO', edit_admin_inventory_receiving_path(@purchase_order), class: "btn pull-right"  %>
+              <% end %>
+              <%= link_to 'Back', admin_inventory_purchase_orders_path, class: "btn pull-right"  %>
+            </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,49 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "View Theme", admin_shop_theme_path(@shop_theme) %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Slider Settings
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="offset1 span10">
+    <div class="social-box">
+      <div class="header">
+        <h4>Enable or disable slider</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop_theme], html: {class: 'form-horizontal' }) do |f| %>
+
+            <% if @shop_theme.errors.any? %>
+                <div class="alert alert-error" style="margin-top: 10px;">
+                  <h4><%= pluralize(@shop_theme.errors.count, "error") %> prohibited this settings from being saved:</h4>
+
+                  <ul>
+                    <% @shop_theme.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
+
+            <fieldset style="margin-top:20px">
+              <%= f.input :enable_slider, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit class: "btn btn-primary" %>  or <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

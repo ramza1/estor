@@ -1,0 +1,7 @@
+<% if @comment.save %>
+alert('your comment has been sent to us');
+$(".comments").append("<%= j render @comment %>")
+$("#new_comment")[0].reset();
+<% else %>
+alert("<%= raw j @comment.errors.full_messages.to_sentence %>");
+<% end %>

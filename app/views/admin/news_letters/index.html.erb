@@ -1,0 +1,20 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "News Letters", admin_news_letters_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Manage News Letters <span class="right-icon"><%= link_to "Create News Letter", new_admin_news_letter_path, class: "btn" %></span>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <%= render @news_letters %>
+  </div>
+</div>

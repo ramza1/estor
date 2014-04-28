@@ -1,0 +1,38 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require diagonal/bootstrap.min
+ *= require diagonal/style
+  *= require diagonal/nouislider
+ */
+
+.special_email_field{
+  display: none;
+}
+
+.selecter{
+  width: 30%;
+  height: 100%;
+}
+
+input[type="password"], textarea {
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 45px;
+  background: #d6d8d7;
+  color: white;
+  border: none;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}

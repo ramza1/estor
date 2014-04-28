@@ -1,0 +1,22 @@
+<div class="accordion-group <%= active_controller("shipping_categories") %> <%= active_controller("tax_rates") %> <%= active_controller("shipping_methods") %> <%= active_controller("shipping_rates") %> <%= active_controller("shipping_zones") %> <%= active_controller("countries") %>">
+  <div class="accordion-heading">
+
+    <a class="accordion-toggle <%= opened_tab("tax_rates") %> <%= opened_tab("shipping_categories") %> <%= opened_tab("shipping_methods") %> <%= opened_tab("shipping_rates") %> <%= opened_tab("shipping_zones") %> <%= opened_tab("countries") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-config">
+      <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+      <span>Config</span>
+
+
+
+      <span class="arrow"></span>
+    </a>
+  </div>
+
+  <ul id="collapse-config" class="accordion-body collapse nav nav-list collapse <%= in_open("tax_rates") %> <%= in_open("shipping_methods") %> <%= in_open("shipping_rates") %> <%= in_open("shipping_zones") %> <%= in_open("shipping_categories")%> <%= in_open("countries")%>">
+    <li class="<%= active_controller("countries") %>"><%= link_to "Countries", admin_config_countries_url %></li>
+    <li class="<%= active_controller("shipping_categories") %>"><%= link_to "Shipping Categories", admin_config_shipping_categories_url %></li>
+    <li class="<%= active_controller("shipping_zones") %>"><%= link_to "Shipping Zones", admin_config_shipping_zones_url %></li>
+    <li class="<%= active_controller("shipping_rates") %>"><%= link_to "Shipping Rates", admin_config_shipping_rates_url %></li>
+    <li class="<%= active_controller("shipping_methods") %>"><%= link_to "Shipping Methods", admin_config_shipping_methods_url %></li>
+    <li class="<%= active_controller("tax_rates") %>"><%= link_to "Tax Rates", admin_config_tax_rates_url %></li>
+  </ul>
+</div>

@@ -1,0 +1,41 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "My shop details", admin_shop_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      Edit Bank Details
+
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Edit Bank Details
+<% end %>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Bank Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :bank_name, hint: "The name of your bank to transfer your total sales", input_html: {class: "input-xlarge"} %>
+              <%= f.input :account_number, input_html: {class: "input-xlarge"} %>
+              <%= f.input :account_name,  input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Bank Details", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

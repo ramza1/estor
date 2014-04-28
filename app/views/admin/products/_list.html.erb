@@ -1,0 +1,31 @@
+<table class="table table-striped table-bordered dataTable" style="margin-top: 10px;">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Available</th>
+    <th>Product Type</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, admin_product_path(product) %></td>
+        <td><%=  product.available? ? 'Yes' : 'No' %></td>
+        <td><%=  product.product_type.name %></td>
+        <td>
+          <div class="pull-right">
+            <%= link_to "Edit Variants", edit_admin_multi_product_variant_path(product), class: "btn" %>
+            <%= link_to  edit_admin_product_path(product), class: "btn" do %>
+                Edit
+            <% end %>
+            <%= link_to admin_product_path(product), method: :delete, class: "btn btn-danger" do %>
+               Delete
+            <% end %>
+          </div>
+        </td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,20 @@
+<li class="span3 item">
+  <%= link_to truncate(product.name, length: 25), product, class: "prdocutname", "data-toggle"=>"tooltip", "title"=> product.name %>
+  <div class="thumbnail">
+    <%= link_to image_tag(product.featured_image(:product), style: "min-width: 260px; min-height: 173px;", title: product.name), product %>
+    <div class="caption">
+      <div class="price pull-left">
+        <span class="newprice"><%= number_to_currency product.price_range.first %>
+          <% if product.price_range? %>
+                        to
+              <%= number_to_currency product.price_range.last %>
+                    <% end %>
+        </span> <br/>
+      </div>
+      <a href="<%= url_for product %>" class="cartadd pull-right tooltip-test" title="Add to Cart"> Add to Cart </a>
+                  <span class="links pull-left"><%= link_to "Buy Now", product_path(product), class: "info" %>
+                    <a class="wishlist" href="<%= url_for product %>">View full details</a>
+                  </span>
+    </div>
+  </div>
+</li>

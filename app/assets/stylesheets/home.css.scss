@@ -1,0 +1,69 @@
+/*
+*= require_self
+*= require reset
+*= require foundation
+*= require style2
+*= require flexslider
+*= require prettyphoto
+*= require pricing_table
+
+*/
+
+.special_email_field{
+  display: none;
+}
+
+.theme-list{
+  border-bottom: 1px solid #e0e0e0;
+  img{
+    padding: 2px;
+    border: 1px solid #dadada;
+    margin-left: -13px;
+  }
+  h3{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  .meta {
+    float: left;
+    line-height: 16px;
+    font-size: 11px;
+  }
+  .sale-info {
+    padding-top: 5px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.content-box {
+  background: #f4f4f4;
+  border: 1px solid #bbb;
+  display: block;
+  padding: 20px;
+}
+
+.item-preview {
+  min-height: 245px;
+  padding: 12px;
+  position: relative;
+  text-align: center;
+  img{
+    border: 1px solid #bbb;
+  }
+}
+.item{
+   img{
+     padding: 2px;
+     border: 1px solid rgb(218, 218, 218);
+   }
+}
+
+.add_to_store{
+  display: block;
+  padding-top: 19px;
+  padding-bottom: 10px;
+}
+

@@ -1,0 +1,42 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Slide", admin_posts_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    <%= @slide.title %>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="media social-box">
+      <div class="header">
+        <h4><%= @slide.title %></h4>
+      </div>
+      <div class="media-body social-body">
+        <% if @slide.slide_image.present? %>
+            <div class="social-share-image">
+              <%= image_tag @slide.slide_image(:large) %>
+            </div>
+        <% elsif @slide.video_url.present? %>
+            <iframe src="<%= @slide.video_url %>" width="380" height="260" ></iframe>
+        <% end %>
+        <div class="body">
+          <%= raw @slide.description %><br/>
+          <div class="btn-group hidden-phone">
+            <%= link_to "Add new slide", new_admin_slide_url, class: "btn" %>
+            <%= link_to "Edit", edit_admin_slide_path(@slide), class: "btn btn-info" %>
+            <%= link_to "Delete", admin_slide_path(@slide), method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure you want to delete this slide"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,157 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Products", admin_products_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    <%= @product.name %>
+<% end %>
+
+<%= content_for :bottom_head do %>
+     <%= javascript_include_tag "jquery.mousewheel.min", "jquery.colorbox-min" %>
+    <script>
+        $(function(){
+            $('.cboxElement').colorbox({rel:'gallery_group'});
+        })
+    </script>
+<% end %>
+<%= content_for :head do %>
+    <%= stylesheet_link_tag "colorbox" %>
+<% end %>
+<p class="alert alert-info">
+  <b><i class="icon-screenshot"></i> Drag and drop image(s) any were on this page to upload it instantly</b>
+</p>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <div class=" hidden-phone">
+          <%= link_to  admin_product_wizard_url, class: "btn btn-primary" do %>
+              <i class="icon-plus-sign"></i> Add new product
+          <% end %>
+          <%= link_to edit_admin_product_path(@product), class: "btn btn-success" do %>
+              <i class="icon-edit"></i> Edit Product
+          <% end %>
+          <% if @product.available? %>
+              <%= link_to 'Active', admin_product_path(@product),
+                          :method => :delete,
+                          :data => {:confirm => "This will inactivate the product,  Are you sure?"},
+                          :class => 'btn btn-success' %>
+          <% else %>
+              <%= link_to 'Not Active', activate_admin_product_path(@product),
+                          :method => 'PUT',
+                          :data => {:confirm => "This will activate the product,  Are you sure?"},
+                          :class => 'btn btn-danger' %>
+          <% end %>
+
+           <%= render "product_links", product: @product %>
+        </div>
+      </div>
+      <div class="body">
+        <div class="boxed-group">
+          <div class="boxed-group-inner">
+
+            <fieldset>
+              <label>Description (<%= link_to 'edit', edit_admin_products_description_path(@product) %>)</label>
+              <p class="product-show "><%= raw @product.description %></p>
+
+              <label>Meta Keywords</label>
+              <p class="product-show "><%= @product.meta_keywords %></p>
+
+              <label>Meta Description</label>
+              <p class="product-show "><%= @product.meta_description %></p>
+
+              <label>Product Type</label>
+              <p class="product-show "><%= @product.product_type.name %></p>
+
+              <label>Shipping Category</label>
+              <p class="product-show "><%= @product.shipping_category.name %></p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Properties</legend>
+              <% @product.product_properties.each do |product_prop|  %>
+                  <label><%= product_prop.property.identifing_name %>:</label>
+                  <p class="product-show "><%= product_prop.description %></p>
+              <% end %>
+            </fieldset>
+
+            <fieldset id="admin-product-properties">
+              <legend>Variants</legend>
+
+              <% if @product.variants.size == 0 %>
+                  <p class="product-show ">No variants created yet. <b><%= link_to 'Create some variants?', edit_admin_multi_product_variant_path(@product), class: "btn" %></b></p>
+              <% else %>
+                  <p><%= link_to 'Edit Variants', edit_admin_multi_product_variant_path(@product), class: "btn" %></p>
+                  <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                      <th>SKU</th>
+                      <th>Price</th>
+                      <th>Cost</th>
+                      <th>Brand</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                    <% @product.variants.each do |variant|  %>
+                        <tr style='<%= 'color:#FFAEB9;' unless variant.active? %>'>
+                          <td><%= variant.sku %></td>
+                          <td><%= variant.price %></td>
+                          <td><%= variant.cost %></td>
+                          <td><%= variant.brand.try(:name) %></td>
+                          <td><%= link_to 'View', admin_product_variant_path(@product, variant) %></td>
+                        </tr >
+                    <% end %>
+                  </table>
+              <% end %>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Photos of <%= @product.name %></h4>
+      </div>
+      <div class="body gallery">
+        <p class="custom_p2">
+          <i class="icon-screenshot"></i>
+          Drag and drop images to the upload form or select multiple images to be uploaded at once
+        </p>
+        <ul id="images" class="product-images thumbnails">
+          <%= render @product.images %>
+        </ul>
+        <div class="clear"></div>
+        <div class="photo-upload">
+          <%= simple_form_for @product.images.new, :url  => admin_product_images_path(@product), html: {class: "form-inline fileupload"} do |f| %>
+              <%= file_field_tag(:photo, multiple: true, name: "image[photo]") %>
+              <%#= f.input :photo, label: "Upload product image(s)", as: :file, input_html: {multiple: true, name: "image[photo]"} %>
+          <% end %>
+        </div>
+
+        <script id="template-upload" type="text/x-tmpl">
+          <div class="upload">
+            {%=o.name%}
+            <div class="progress progress-striped active"><div class="bar" style="width: 0%"></div></div>
+          </div>
+        </script>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

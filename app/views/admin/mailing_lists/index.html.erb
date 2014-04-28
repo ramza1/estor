@@ -1,0 +1,48 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Mailing Lists", admin_mailing_lists_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Mailing lists
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+         My Subscribers
+      </div>
+      <div class="body">
+        <% if @mailing_lists.empty? %>
+            <p class="alert-info">
+              No subscribers yet
+            </p>
+        <% else %>
+            <table class="table table-striped table-bordered dataTable">
+              <thead>
+              <tr>
+                <th>Email</th>
+                <th>Subscribed at</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @mailing_lists.each do |mailing_list| %>
+                  <tr>
+                    <td><%= mailing_list.email %></td>
+                    <td><%= mailing_list.created_at.to_date.to_s(:long) %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

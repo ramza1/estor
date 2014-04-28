@@ -1,0 +1,58 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+<% order = @purchase_order %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Receive Purchase Order</h4>
+      </div>
+      <div class="body">
+
+        <div class="admin_purchase_orders">
+          <table class="table table-bordered table-striped">
+            <thead>
+            <tr class='odd'>
+              <th>Invoice Number</th>
+              <th>Tracking Number</th>
+              <th>Name</th>
+              <th>Qty</th>
+              <th>Cost</th>
+              <th>Receive All</th>
+              <th></th>
+            </tr>
+            </thead>
+            <%= form_for @purchase_order, :url  => admin_inventory_receiving_path(@purchase_order),
+                         :html => {:class => 'prepend-4'}  do |form| %>
+                <tr class='<%= cycle("odd", "")%>'>
+                  <td><%= order.invoice_number %></td>
+                  <td><%= order.tracking_number %></td>
+                  <%= form.fields_for :purchase_order_variants,  @purchase_order.purchase_order_variants do |po_variant_form| %>
+                      <%= render :partial => 'form', :locals => { :po_variant_form => po_variant_form } %>
+                  <% end %>
+                  <td><%= form.check_box :receive_po %></td>
+                  <td>
+                    <div class=" generic_submit_button">
+                      <%= submit_tag "Update",
+                                     :class  => "btn",
+                                     :id     => "create_purchase_order_button" %>
+                      <%= link_to 'Back', admin_inventory_receivings_path, class: "btn" %>
+                    </div>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

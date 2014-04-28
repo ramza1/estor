@@ -1,0 +1,30 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Image Groupe", admin_image_groups_path %>
+    </li>
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <div class="btn-group hidden-phone">
+          <%= link_to "Add Image Group", new_admin_image_group_url, class: "btn btn-primary" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @image_groups.empty? %>
+            <p>
+              No Image Group
+            </p>
+        <% else %>
+            <%= render "list" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

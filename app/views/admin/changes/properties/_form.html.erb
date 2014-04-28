@@ -1,0 +1,42 @@
+<div class="row-fluid">
+<%= simple_form_for(@product, :url => admin_changes_product_property_path(@product.id), html: {class: 'form-horizontal' }) do |f| %>
+    <% if @product.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@product.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
+
+          <ul>
+            <% @product.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <fieldset id="admin-product-properties">
+      <div id="product_properties">
+        <%# @product.product_properties.each do |product_property| %>
+
+        <%= f.fields_for :product_properties do |product_property_form|%>
+            <div class="variant_form row-fluid">
+              <%= render :partial => 'product_property', :locals => {:product_property_form => product_property_form } %>
+            </div>
+        <% end %>
+        <%= new_child_fields_template f, :product_properties, :form_builder_local => :product_property_form %>
+
+        <%# end %>
+      </div>
+
+    </fieldset>
+
+    <div style='margin-top:20px;'>
+      <%= add_child_button "New Property", :product_properties %>
+    </div>
+      <div class="clear clearfix"></div>
+    <div class=" generic_submit_button form-actions">
+      <%= submit_tag "Update", :class => "btn btn-success", :id => "create_property_button" %>
+      <%= link_to "Back to Product", admin_product_url(@product), :class => "btn btn-danger" %>
+    </div>
+<% end %>
+
+</div>

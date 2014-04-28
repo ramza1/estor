@@ -1,0 +1,182 @@
+<aside class="social-sidebar sidebar-full">
+
+  <div class="user-settings">
+    <div class="arrow"></div>
+
+    <h3 class="user-settings-title">Settings shortcuts</h3>
+
+    <div class="user-settings-content">
+
+      <a href="<%= url_for admin_root_url %>">
+        <div class="icon">
+          <i class="icon-user"></i>
+        </div>
+        <div class="title">My Shop's Details</div>
+        <div class="content">View my shop details</div>
+      </a>
+    </div>
+  </div>
+
+
+
+  <div class="social-sidebar-content nano">
+    <div class="content">
+
+      <div class="user">
+        <span data-toggle="dropdown"><%= truncate "Shop Name", length: 10 %><br/>(Total Sales: <%= number_to_currency 0, unit: "₦", precision: 0%>)</span>
+
+        <i class="icon-user trigger-user-settings"></i>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <section class="menu">
+
+        <div class="accordion" id="accordion2">
+          <div class="accordion-group <%= active_controller("dashboard") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle <%= opened_tab("dashboard") %>" href="<%= url_for admin_root_url %>">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/home.png" alt="Form Stuff">
+                <span>Dashboard</span>
+              </a>
+            </div>
+          </div>
+          <div class="accordion-group <%= active_controller("brands") %> <%= active_controller("image_groups") %> <%= active_controller("prototypes") %> <%= active_controller("product_types") %> <%= active_controller("products") %> <%= active_controller("products") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle <%= opened_tab("products") %> <%= active_controller("brands") %> <%= opened_tab("properties") %> <%= opened_tab("variants") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-form-stuff">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+                <span>Merchandise</span>
+
+
+
+                <span class="arrow"></span>
+              </a>
+            </div>
+
+            <ul id="collapse-form-stuff" class="accordion-body collapse nav nav-list collapse <%= in_open("products")%> <%= in_open("variants")%> <%= in_open("brands")%> <%= in_open("properties")%>">
+              <li class="<%= active_controller("products") %>"><%= link_to 'Products', admin_products_path %></li>
+              <li class="<%= active_controller("properties") %>"><%= link_to 'Properties', admin_properties_path %></li>
+              <li class="<%= active_controller("product_types") %>"><%= link_to 'Product Types', admin_product_types_path %></li>
+              <li class="<%= active_controller("prototypes") %>"><%= link_to 'Prototypes', admin_prototypes_path %></li>
+              <li class="<%= active_controller("image_groups") %>"><%= link_to 'Image Groups', admin_image_groups_path %></li>
+              <li class="<%= active_controller("brands") %>"><%= link_to 'Brands', admin_brands_path %></li>
+            </ul>
+          </div>
+
+
+          <div class="accordion-group <%= active_controller("overviews") %> <%= active_controller("adjustments") %> <%= active_controller("receivings") %> <%= active_controller("suppliers") %> <%= active_controller("purchase_orders") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle  <%= active_controller("overviews") %> <%= active_controller("adjustments") %> <%= active_controller("receivings") %> <%= active_controller("purchase_orders") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-overviews">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+                <span>Inventory</span>
+
+
+
+                <span class="arrow"></span>
+              </a>
+            </div>
+
+            <ul id="collapse-overviews" class="accordion-body collapse nav nav-list collapse <%= in_open("adjustments") %> <%= in_open("purchase_orders") %> <%= in_open("receivings") %> <%= in_open("overviews")%> <%= in_open("suppliers")%>">
+              <li class="<%= active_controller("overviews") %>"><%= link_to 'Overview', admin_inventory_overviews_url %></li>
+              <li class="<%= active_controller("suppliers") %>"><%= link_to 'Suppliers', admin_inventory_suppliers_url %></li>
+              <li class="<%= active_controller("purchase_orders") %>"><%= link_to 'Purchase Order', admin_inventory_purchase_orders_url %></li>
+              <li class="<%= active_controller("receivings") %>"><%= link_to 'Receive Purchase Order', admin_inventory_receivings_url %></li>
+              <li class="<%= active_controller("adjustments") %>"><%= link_to 'Adjustments', admin_inventory_adjustments_url %></li>
+            </ul>
+          </div>
+
+
+
+          <%= render "config" %>
+          <%= render "cupon" %>
+          <%= render "order" %>
+
+
+          <div class="accordion-group <%= active_controller("customers") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle <%= opened_tab("customers") %>" href="<%= url_for admin_customers_url %>">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/customers.png" alt="Form Stuff">
+                <span>Customers</span>
+              </a>
+            </div>
+          </div>
+          <div class="accordion-group <%= active_controller("posts") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle <%= opened_tab("posts") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-blog">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/sitemap.png" alt="Form Stuff">
+                <span>Blog Posts</span>
+
+
+
+                <span class="arrow"></span>
+              </a>
+            </div>
+
+            <ul id="collapse-blog" class="accordion-body collapse nav nav-list collapse <%= in_open("posts")%>">
+
+              <li class="<%= active_controller("posts", "new") %>"><%= link_to "Create blog post", new_admin_post_path %></li>
+              <li class="<%= active_controller("posts", "index") %>"><%= link_to "Manage blog posts", admin_posts_path %></li>
+            </ul>
+          </div>
+
+          <div class="accordion-group <%= active_controller("categories") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle <%= opened_tab("categories") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-category">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/category.png" alt="Form Stuff">
+                <span>Product Categories</span>
+
+
+
+                <span class="arrow"></span>
+              </a>
+            </div>
+
+            <ul id="collapse-category" class="accordion-body collapse nav nav-list collapse <%= in_open("categories")%>">
+
+              <li class="<%= active_controller("categories", "new") %>"><%= link_to "Create Category", new_admin_category_path %></li>
+              <li class="<%= active_controller("categories", "index") %>"><%= link_to "Manage Categories", admin_categories_path %></li>
+            </ul>
+          </div>
+          <div class="accordion-group <%= active_controller("mailing_lists") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle <%= opened_tab("mailing_list") %>" href="<%= url_for admin_mailing_lists_url %>">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/email.png" alt="Form Stuff">
+                <span>Mailing List</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="accordion-group <%= active_controller("news_letters") %>">
+            <div class="accordion-heading">
+
+              <a class="accordion-toggle <%= opened_tab("news_letters") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-news_letters">
+                <img src="/assets/img/icons/stuttgart-icon-pack/32x32/milestone.png" alt="Form Stuff">
+                <span>News Letter</span>
+
+
+
+                <span class="arrow"></span>
+              </a>
+            </div>
+
+            <ul id="collapse-news_letters" class="accordion-body collapse nav nav-list collapse <%= in_open("news_letters")%>">
+
+              <li class="<%= active_controller("news_letters", "new") %>"><%= link_to "Create a News Letter", new_admin_news_letter_path %></li>
+              <li class="<%= active_controller("news_letters", "index") %>"><%= link_to "Manage News Letters", admin_news_letters_path %></li>
+            </ul>
+          </div>
+
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+</aside>

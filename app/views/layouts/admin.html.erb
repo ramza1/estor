@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyShopnanny Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <%= stylesheet_link_tag "admin" %>
+
+  <%= javascript_include_tag "admin" %>
+
+  <style type="text/css">body{padding-top:40px;padding-bottom:40px;background-color:#e9eaed;}</style>
+
+
+
+  <!--[if lt IE 9]>
+      <%= javascript_include_tag "html5shiv"%>
+  <![endif]-->
+  <%= yield(:head) %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if content_for?(:login_page )%>
+     <%= content_for :head do %>
+        <style>.wraper #main{margin-top:40px;}</style>
+     <% end %>
+     <%= yield(:login_page) %>
+<% else %>
+   <div class="wraper sidebar-full">
+
+  <%= render "header" %>
+<%= render "sidebar" %>
+  <div id="main">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <h3 class="page-title">
+            <%= yield(:page_title) %>
+          </h3>
+         <% if content_for?(:breadcrumb) %>
+          <ul class="breadcrumb">
+            <%= yield(:breadcrumb) %>
+          </ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <%= render "payment" %>
+      <%= yield %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+
+<%= yield(:bottom_head) %>
+<%= render "javascript_flash_info"%>
+<%#= render "javascript_help" %>
+</body>
+</html>

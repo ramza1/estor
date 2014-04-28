@@ -1,0 +1,36 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "My Themes", admin_shop_themes_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Manage Themes
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <div class="btn-group hidden-phone">
+          <%= link_to "Browse themes", admin_themes_url, class: "btn btn-primary" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @shop_themes.empty? %>
+            <p>
+              No theme
+            </p>
+        <% else %>
+            <%= render "list" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

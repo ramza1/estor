@@ -1,0 +1,40 @@
+namespace :trial_users do
+  desc "Notify trial users more than two days to renew their subscription"
+  task :trial_mail_notice => :environment do
+    Shop.trial_shops.next_renewal_period.find_each do |shop|
+      TrialWorker.perform_async(shop.id)
+    end
+  end
+
+  desc "Deactivate due trial accounts"
+  task :deactivate_pending_account => :environment do
+    Shop.trial_shops.deactivate_shops.find_each do |shop|
+      DeactivatePendingAccountWorker.perform_async(shop.id)
+    end
+  end
+
+  desc "Mail all trial users"
+  task :mail_all_trial => :environment do
+    Shop.trial_shops.find_each do |shop|
+      TrialUsersWorker.perform_async(shop.id)
+    end
+  end
+end
+
+namespace :shop_owners do
+  desc "Deactivate due subscribed shops"
+  task :deactivate_shop_account => :environment do
+  Shop.activated_shops.deactivate_shops.find_each do |shop|
+    ShopOwnersWorker.perform_async(shop.id)
+  end
+end
+end
+
+namespace :deactivated_shop_owners do
+   desc "Send mails to all pending accounts"
+   task :mail_deactivated_shops => :environment do
+     Shop.pending_shops.deactivate_pending_shops.find_each do  |shop|
+       MailPendingShopsWorker.perform_async(shop.id)
+     end
+   end
+end

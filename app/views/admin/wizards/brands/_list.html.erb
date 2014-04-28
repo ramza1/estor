@@ -1,0 +1,25 @@
+<table class="table table-striped table-bordered dataTable" style="margin-top: 10px;">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Amount of products</th>
+    <th>Date Added</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @brands.each do |brand| %>
+      <tr>
+        <td><%= link_to brand.name, admin_brand_path(brand) %></td>
+        <td style="text-align: center;"><%= brand.products.size %></td>
+        <td><%= link_to brand.created_at.to_date.to_s(:long)%></td>
+        <td>
+          <div class="<%= 'selected' if selected?(brand.id) %> ">
+            <%= button_to 'Use', admin_wizards_brand_path(brand), :class => "btn", :method => :put %>
+          </div>
+        </td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>

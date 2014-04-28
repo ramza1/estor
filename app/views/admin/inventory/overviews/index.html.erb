@@ -1,0 +1,56 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Product Overview</h4>
+      </div>
+      <div class="body">
+        <div class="admin_inventory_overviews">
+          <% @products.each do |product| %>
+              <table class="table table-bordered table-striped">
+                <thead>
+                <tr  class='odd'>
+                  <th colspan='3' class='column1_header' >
+                    <%= product.name %></th>
+                  <th>
+                    <%= link_to 'edit product', edit_admin_product_path(product), :class => 'btn btn-small normal-font'%>
+                    <%= link_to 'change inventory', admin_inventory_adjustment_path(product), :class => 'btn btn-small normal-font' %>
+                  </th>
+                </tr>
+                <tr>
+                  <th>SKU</th><th>price</th><th>Qty</th><th>description</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% product.variants.each do |variant|%>
+                    <tr class='<%= cycle("odd", "")%>'>
+                      <td><%= variant.sku %></td>
+                      <td><%= variant.price %></td>
+                      <td><%= variant.count_on_hand %></td>
+                      <td>
+                        <ul class='vertical-list'>
+                          <% variant.variant_properties.each do |vp| %>
+                              <li><%= vp.property_name %>: &nbsp; &nbsp; &nbsp;<%= vp.description %> </li>
+                          <% end %>
+                        </ul>
+                      </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+          <% end %>
+        </div>
+
+        <%= will_paginate @products %>
+      </div>
+    </div>
+  </div>
+</div>

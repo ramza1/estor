@@ -1,0 +1,40 @@
+<div class="navbar navbar-fixed-top" id="main-nav">
+  <div class="container">
+    <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <nav class="nav-collapse collapse" style="height:0px">
+      <ul class="nav">
+        <li class="active"><%= link_to "Home", root_url %>
+        </li>
+        <li><%= link_to "My Account", myaccount_root_url %>
+        </li>
+        <li>
+          <%= link_to "Shopping Cart", shopping_cart_items_path %>
+        </li>
+        <li>
+          <%= link_to "create your store", "#" %>
+        </li>
+            <li>
+              <%= link_to "Admin Dashboard", admin_root_url %>
+            </li>
+      </ul>
+    </nav>
+    <ul class="nav pull-right left-tablet">
+      <li class="dropdown hover">
+        <a data-toggle="" class="dropdown-toggle" href="#">Categories<b class="caret"></b></a>
+        <ul class="dropdown-menu currency">
+          <% all_categories.each do |category| %>
+          <li><%= link_to category.name, category %></li>
+          <% end %>
+        </ul>
+      </li>
+      <li>
+        <a href="/blog">Blog</a>
+      </li>
+      <%= render "shopping_cart" %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<% if @customer.errors.any? %>
+    <div class="alert alert-error">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+        <% @customer.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<legend>Basic details</legend>
+<fieldset class="user-fieldset">
+  <div class="row-fluid">
+    <div class="control-group span6">
+      <label class="control-label">First Name</label>
+      <div class="controls">
+        <%= form.text_field :first_name, class: "span12" %>
+      </div>
+    </div>
+
+    <div class="control-group span6">
+      <label class="control-label">Last Name</label>
+      <div class="controls">
+        <%= form.text_field :last_name, class: "span12" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="control-group span6">
+      <label class="control-label">Status</label>
+      <div class="controls">
+        <%= form.select :state, @states, {}, :class => "span12" %>
+      </div>
+    </div>
+    <div class="control-group span6">
+      <label class="control-label">Email</label>
+      <div class="controls">
+        <%= form.text_field :email, class: "span12" %>
+      </div>
+    </div>
+  </div>
+
+
+
+</fieldset>
+
+<legend>Password Details</legend>
+
+<fieldset class="user-fieldset">
+  <p class="help-block">Leave blank if you don't want to change the password.</p>
+
+  <div class="row-fluid">
+    <div class="control-group span12">
+      <label class="control-label">Current Password</label>
+      <div class="controls">
+        <%= form.password_field :current_password, class: "span12" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="control-group span12">
+      <label class="control-label">Password</label>
+      <div class="controls">
+        <%= form.password_field :password, class: "span12" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="control-group span12">
+      <label class="control-label">Password Confirmation</label>
+      <div class="controls">
+        <%= form.password_field :password_confirmation, class: "span12" %>
+      </div>
+    </div>
+  </div>
+
+
+
+</fieldset>

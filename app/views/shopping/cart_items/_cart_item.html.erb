@@ -1,0 +1,18 @@
+<tr>
+  <td class="image"><%= image_tag item.variant.featured_image %></td>
+  <td  class="name"><%= link_to item.variant.product_name, item.variant.product %><br/>
+    <%=  item.variant.brand_name.blank? ? '' : ['-', item.variant.brand_name].join(' ') %><br/>
+    <%= item.variant.display_stock_status('', '') %>
+  </td>
+  <td class="quantity"><%= cart_items_form.text_field :quantity, :size=>"2", class: "span2" %></td>
+  <td class="price"><%= number_to_currency(item.price, unit: "₦", precision: 0) %></td>
+  <td class="total"><%= number_to_currency(item.total, unit: "₦", precision: 0) %></td>
+  <td>
+    <%= link_to image_tag('update.png'),
+                move_to_shopping_cart_item_path(item, :variant_id => item.variant_id,
+                                                :item_type_id => ItemType::SAVE_FOR_LATER_ID),
+                :method => 'put', class: "tooltip-test", "data-original-title"=>"Save for later" %>
+    <%= link_to image_tag('remove.png'), shopping_cart_item_path(item, :variant_id => item.variant_id),
+                :method => :delete, class: "tooltip-test", "data-original-title"=>"Remove" %>
+  </td>
+</tr>

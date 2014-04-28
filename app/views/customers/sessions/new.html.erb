@@ -1,0 +1,31 @@
+  <h1 class="headingmain"><span>Account Login</span></h1>
+  <section class="newcustomer">
+    <h2 class="heading2">New Customer </h2>
+    <div class="loginbox">
+      <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+      <br>
+      <%= link_to "Create an Account", new_customer_registration_path, class: "btn btn-success"%>
+    </div>
+  </section>
+  <section class="returncustomer">
+    <h2 class="heading2">Returning Customer </h2>
+    <div class="loginbox">
+      <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "form-vertical"}) do |f| %>
+        <fieldset>
+          <%= f.input :email, :required => false, :autofocus => true, input_html: {class: "span3"} %>
+          <%= f.input :password, :required => false, input_html: {class: "span3"}  %>
+          <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
+          <%= f.button :submit, "Login", class: "btn btn-success" %>
+        </fieldset>
+      <% end %>
+    </div>
+
+
+
+    <%= render "devise/shared/links" %>
+  </section>
+
+
+<%= content_for(:account) do %>
+    <%= render "account_menu" %>
+<% end %>

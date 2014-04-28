@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Upload product images</h1>
+</div>
+
+
+
+<%= form_for @image, :url  => admin_product_images_path(@parent), html: {class: "form-inline"} do |f| %>
+    <% if @image.errors.any? %>
+        <div class="alert alert-error">
+          <h4 class="maroon"><%= pluralize(@image.errors.count, "error") %> prohibited this album from being saved:</h4>
+
+          <ul>
+            <% @image.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <%= f.file_field :photo, multiple: true, name: "image[photo]" %>
+    <%= f.submit %>
+<% end %>

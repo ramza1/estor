@@ -1,0 +1,42 @@
+
+
+
+
+
+<%= content_for(:breadcrumb) do %>
+    <%= render :partial => '/admin/wizards/sub_header'%>
+<% end %>
+
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <% if  @brands.empty? %>
+           <h4>New Brand</h4>
+        <% else %>
+           <h4> Pick a Brand</h4>
+        <% end %>
+        <div class="btn-group hidden-phone">
+          <%#= link_to "Create a brand", new_admin_brand_url, class: "btn btn-primary" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @brands.any? %>
+            <%= render "list" %>
+            <hr/>
+        <% end %>
+
+
+
+        <% unless  @brands.empty? %>
+            <h3>Create a New Brand</h3>
+        <% end %>
+        <%= simple_form_for @brand, :url => admin_wizards_brands_path, html: {class: "form-horizontal"} do |brand_form| %>
+            <%= render :partial =>  'form', :locals => {:f => brand_form}  %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

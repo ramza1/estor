@@ -1,0 +1,42 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "Shiping categories", admin_config_shipping_categories_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Add a new Shipping Category
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>New Shipping Category</h4>
+      </div>
+      <div class="body">
+        <p>
+          An example Shipping Category could be "Clothing".  Use shipping category to group products that can be shipped with the same shipping method.  For Example:
+        <ul>
+          <li>Product "A" can be shipped UPS next day and UPS ground.</li>
+          <li>Product "B" can be shipped UPS next day and UPS ground.</li>
+          <li>Product "C" can only be shipped UPS ground.</li>
+        </ul>
+        <br/>
+        You will assign Product A & B to the same shipping category.  But Product C would need a different shipping Category.
+        </p>
+
+        <%= simple_form_for(@shipping_category, :url => admin_config_shipping_categories_path, html: {class: "form-horizontal"}) do |f| %>
+            <%= render 'form', f:  f %>
+        <% end %>
+   </div>
+    </div>
+  </div>
+</div>
+

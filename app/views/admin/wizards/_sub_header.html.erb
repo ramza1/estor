@@ -1,0 +1,17 @@
+
+      <li class="active"><%= link_to 'Brand', admin_wizards_brands_path %>
+        <span class="icon-angle-right"></span>
+      </li>
+      <li><%= link_to 'Product Type', admin_wizards_product_types_path %>
+        <span class="icon-angle-right"></span>
+      </li>
+      <li><%= link_to 'Properties', admin_wizards_properties_path %>
+        <span class="icon-angle-right"></span>
+      </li>
+      <li><%= link_to 'Shipping Categories', admin_wizards_shipping_categories_path %>
+        <% unless next_wizard_form %>
+        <span class="icon-angle-right"></span>
+         <% end %>
+      </li>
+      <li><%= link_to 'Product', new_admin_wizards_product_path unless next_wizard_form %></li>
+

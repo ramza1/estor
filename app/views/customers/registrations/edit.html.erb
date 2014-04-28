@@ -1,0 +1,51 @@
+
+<h1 class="headingmain"><span>Edit <%= resource_name.to_s.humanize %></span></h1>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {class: "form-horizontal", :method => :put}) do |f| %>
+    <%= f.error_notification %>
+    <h3 class="heading3">Your Personal Details</h3>
+    <div class="registerbox">
+      <fieldset>
+        <%= f.input :first_name, :required => true %>
+        <%= f.input :last_name, :required => true %>
+        <%= f.input :email, :required => true, :autofocus => true %>
+        <%= f.input :phone_number, :required => true %>
+      </fieldset>
+    </div>
+    <h3 class="heading3">Your Address</h3>
+    <div class="registerbox">
+      <fieldset>
+        <%= f.input :address %>
+        <%= f.input :country %>
+        <%= f.input :state %>
+        <%= f.input :zip %>
+      </fieldset>
+    </div>
+    <h3 class="heading3">Your Password</h3>
+    <div class="registerbox">
+      <fieldset>
+        <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+        <%= f.input :password_confirmation, :required => false %>
+        <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+      </fieldset>
+    </div>
+    <div class="pull-right">
+      <%= f.button :submit, "Update", class: "btn btn-success" %>
+    </div>
+<% end %>
+<div class="clearfix"></div><br>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+
+<%= link_to "Back", :back %>
+
+
+
+
+<%= content_for(:account) do %>
+    <%= render "account_menu" %>
+<% end %>
+
+
+

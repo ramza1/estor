@@ -1,0 +1,35 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Products", admin_products_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Manage Products
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <div class="hidden-phone">
+          <%= link_to "Add new product", new_admin_product_url, class: "btn btn-primary" %>
+          <%= link_to "Use Product Wizard", admin_wizards_brands_path, class: "btn" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @products.empty? %>
+            <p>
+              <%= t("no_product") %>
+            </p>
+        <% else %>
+            <%= render "admin/products/list" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

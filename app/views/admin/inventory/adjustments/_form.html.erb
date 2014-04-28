@@ -1,0 +1,27 @@
+<% if @variant.errors.any? %>
+    <div class="alert alert-error" style="margin-top: 10px;">
+      <h4><%= pluralize(@variant.errors.count, "error") %> prohibited this purchase_order from being saved:</h4>
+
+      <ul>
+        <% @variant.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<div class="control-group">
+  <%= f.label :qty_to_add, class: "control-label" %>
+  <div class="controls">
+    <%= f.number_field :qty_to_add, {:step => 1, class: "input-xlarge"} %>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label">Amount ($$$) Refunded by the Supplier</label>
+  <div class="controls">
+    <%= number_field_tag :refund, 0.00, {:step => 0.01, class: "input-xlarge"} %>
+  </div>
+</div>
+
+<div class='clear'></div>

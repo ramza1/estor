@@ -1,0 +1,22 @@
+<%= simple_form_for([:admin, @product_type], html: {class: 'form-horizontal' }) do |f| %>
+
+
+    <fieldset style="margin-top:20px">
+    <%= f.input :name, input_html: {class: "input-xlarge"} %>
+
+      <div class="control-group">
+        <%= f.label :parent, class: " control-label" %>
+        <div class="controls">
+          <%= f.select :parent_id,
+                          nested_set_options(ProductType, @product_type) {|i| "#{'-' * i.level} #{i.name}" },
+                          { include_blank: true }, class: "input-xlarge" %>
+        </div>
+      </div>
+
+
+
+    <div class="form-actions">
+      <%= f.submit class: "btn" %>  or <%= link_to "Cancel", :back %>
+    </div>
+    </fieldset>
+<% end %>

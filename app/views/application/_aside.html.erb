@@ -1,0 +1,33 @@
+<div class="span3 mt50">
+  <aside>
+    <div class="sidewidt">
+      <h1 class="heading1"><span>Categories</span></h1>
+      <ul class="nav nav-list categories">
+        <% product_types.each do |pt_tab| %>
+            <li> <%= link_to_unless_current pt_tab.name.capitalize, products_path(:product_type_id => pt_tab.id) %> </li>
+        <% end %>
+        <li>
+          <%= link_to 'All Products', products_path %>
+        </li>
+      </ul>
+    </div>
+    <div class="sidewidt">
+      <h1 class="heading1"><span>Featured Products</span></h1>
+      <ul class="bestseller">
+
+      </ul>
+    </div>
+    <% if Brand.any? %>
+        <div class="sidewidt">
+          <h1 class="heading1"><span>Brands</span></h1>
+          <ul class="nav nav-list categories">
+            <% Brand.all.each do |brand| %>
+                <li>
+                  <%= link_to brand.name, brand %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  </aside>
+</div>

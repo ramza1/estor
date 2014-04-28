@@ -1,0 +1,28 @@
+<%= simple_form_for([:admin, @slide], html: {class: 'form-horizontal' }) do |f| %>
+
+    <% if @slide.errors.any? %>
+        <div class="alert alert-error" style="margin-top: 10px;">
+          <h4><%= pluralize(@slide.errors.count, "error") %> prohibited this blog post from being saved:</h4>
+
+          <ul>
+            <% @slide.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <fieldset style="margin-top:20px">
+      <%= f.input :title, input_html: {class: "input-xlarge"} %>
+      <%= f.input :description, :as => :text, input_html: {class: "input-xlarge", rows: 3} %>
+      <%= f.input :slide_image, as: :file %>
+      <%= f.input :link_url, label: "Button Link url", input_html: {class: "input-xlarge"} %>
+      <%= f.input :video_url, label: "Youtube or Vimeo video url", input_html: {class: "input-xlarge"} %>
+
+
+
+      <div class="form-actions">
+        <%= f.submit class: "btn btn-primary" %>  or <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+      </div>
+    </fieldset>
+<% end %>

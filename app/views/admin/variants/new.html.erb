@@ -1,0 +1,12 @@
+<div class="boxed-group">
+  <h3>Create a span variant for <%= link_to @product.name, admin_product_path(@product) %></h3>
+  <div class="boxed-group-inner">
+    <p class="custom_p2">
+      <%= t("variant_info") %>
+    </p>
+    <%= simple_form_for @variant, :url  => admin_product_variant_path(@product, @variant),
+                 :html => {:class => 'form-horizontal'}  do |form| %>
+      <%= render "form", f: f %>
+    <% end %>
+  </div>
+</div>

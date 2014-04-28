@@ -1,0 +1,19 @@
+<div class="accordion-group <%= active_controller("coupons") %> <%= active_controller("deals") %> <%= active_controller("sales") %>">
+  <div class="accordion-heading">
+
+    <a class="accordion-toggle <%= opened_tab("deals") %> <%= opened_tab("coupons") %> <%= opened_tab("sales") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-coupons">
+      <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+      <span>Coupons/Deals</span>
+
+
+
+      <span class="arrow"></span>
+    </a>
+  </div>
+
+  <ul id="collapse-coupons" class="accordion-body collapse nav nav-list collapse <%= in_open("coupons") %> <%= in_open("deals") %> <%= in_open("sales") %>">
+    <li class="<%= active_controller("coupons") %>"><%= link_to "Coupons", admin_generic_coupons_url %></li>
+    <li class="<%= active_controller("deals") %>"><%= link_to "Deals", admin_generic_deals_url %></li>
+    <li class="<%= active_controller("sales") %>"><%= link_to "Sales", admin_generic_sales_url %></li>
+  </ul>
+</div>

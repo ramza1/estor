@@ -1,0 +1,20 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Blog posts", admin_posts_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Manage Blog Posts <span class="right-icon"><%= link_to "Create Blog post", new_admin_post_path, class: "btn" %></span>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <%= render @posts %>
+  </div>
+</div>

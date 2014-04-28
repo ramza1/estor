@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+<h1>Hi <%= @resource.email %>,</h1>
+<p>
+  Thanks you using MyShopnanny, we like to inform you that your free 14-days trial is active.
+</p>
+
+<p>
+  your store url is <a href="<%= root_url %>">http://<%= root_url %></a> <br/>
+  and your admin panel url is <a href="<%= admin_root_url %>">http://<%= admin_root_url%>></a>
+</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+
+<p>Thank you for using MyShopnanny and have a great day!</p>
+</body>
+</html>
+
+
+

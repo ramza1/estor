@@ -1,0 +1,16 @@
+<% if @shipping_category.errors.any? %>
+  <div id="alert alert-error">
+    <h2><%= pluralize(@shipping_category.errors.count, "error") %> prohibited this admin_config_shipping_category from being saved:</h2>
+
+    <ul>
+    <% @shipping_category.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= f.input :name, input_html: {class: "span9"} %>
+ <div class="form-actions">
+   <%= f.submit "Create Shipping Category", :class => "btn" %>
+ </div>

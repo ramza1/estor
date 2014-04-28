@@ -1,0 +1,242 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current requested_shop.name, admin_shop_path(requested_shop) %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    My shop's details
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span3">
+     <% if @shop.logo.present? %>
+        <%= image_tag @shop.logo(:original) %>
+     <% else %>
+         <p class="alert alert-info">
+           No logo yet. upload a logo for your shop <%= link_to "Here", logo_update_admin_shop_path(@shop) %>
+         </p>
+    <% end %>
+  </div>
+  <div class="span9">
+    <div class="social-box">
+      <div class="header">
+        <div class="btn-group hidden-phone">
+          <%= link_to edit_admin_shop_path(@shop), class: "btn btn-success" do %>
+              <i class="icon-edit"></i> Edit Shop Details
+          <% end %>
+        </div>
+      </div>
+      <div class="body">
+        <div class="boxed-group">
+          <h4>Basic Details</h4>
+          <p>Shop Name: <b><%= @shop.name %></b></p>
+          <p>Email: <%= @shop.email %></p>
+          <div class="btn-group hidden-phone">
+            <%= link_to basic_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit Basic
+            <% end %>
+          </div>
+          <hr>
+
+          <h4>About Us Details</h4>
+             <% if @shop.about.present? %>
+               <%= simple_format @shop.about %>
+             <% else %>
+              <span class="none">None given</span>
+             <% end %>
+          <div class="btn-group hidden-phone">
+            <%= link_to about_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit About Us
+            <% end %>
+          </div>
+            <hr>
+
+          <h4>Contact Details</h4>
+            <ul>
+              <li>
+                Phone Number
+                <% if @shop.phone_number.present? %>
+                  <%= @shop.phone_number %>
+                <% else %>
+                    <span class="none">None given</span>
+                <% end %>
+              </li>
+              <li>
+                Mobile Number
+                <% if @shop.mobile_number.present? %>
+                    <%= @shop.mobile_number %>
+                <% else %>
+                    <span class="none">None given</span>
+                <% end %>
+              </li>
+              <li>
+                Work Number
+                <% if @shop.work_number.present? %>
+                    <%= @shop.work_number %>
+                <% else %>
+                    <span class="none">None given</span>
+                <% end %>
+              </li>
+            </ul>
+          <div class="btn-group hidden-phone">
+            <%= link_to contact_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit Contact Details
+            <% end %>
+          </div>
+          <hr>
+          <h4>Social Details</h4>
+          <ul>
+            <li>
+              Facebook page url:
+              <% if @shop.facebook_page_url.present? %>
+                <%= link_to @shop.facebook_page_url, @shop.facebook_page_url %>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+            </li>
+            <li>
+              Twitter page:
+              <% if @shop.twitter_username.present? %>
+                  <a href="http//:twitter.com/<%= @shop.twitter_username %>">@<%= @shop.twitter_username %></a>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+            </li>
+            <li>linkedin:
+              <% if @shop.linkedin.present? %>
+                  <%= link_to @shop.linkedin, @shop.linkedin %>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+            </li>
+            <li>g+:
+              <% if @shop.google_plus.present? %>
+                <%= link_to @shop.google_plus, @shop.google_plus %>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+            </li>
+            <li>skyp:
+              <% if @shop.skype.present? %>
+                <%= link_to @shop.skype, @shop.skype %>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+
+            </li>
+            <li>
+              flickr:
+              <% if @shop.flickr.present? %>
+                 <%= link_to @shop.flickr, @shop.flickr %>
+              <% else %>
+                <span class="none">None given</span>
+              <% end %>
+            </li>
+          </ul>
+          <div class="btn-group hidden-phone">
+            <%= link_to social_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit Social Details
+            <% end %>
+          </div>
+          <hr>
+
+          <h4>Search Engine Details</h4>
+         <ul>
+           <li>Title:
+             <% if @shop.title.present? %>
+                 <%= @shop.title %>
+             <% else %>
+                 <span class="none">None given</span>
+             <% end %>
+           </li>
+           <li>Meta Description:
+             <% if @shop.meta_description.present? %>
+                 <%= @shop.meta_description %>
+             <% else %>
+                 <span class="none">None given</span>
+             <% end %>
+           </li>
+           <li>Meta Keywords:
+             <% if @shop.meta_keywords.present? %>
+                <%= @shop.meta_keywords %></li>
+             <% else %>
+                 <span class="none">None given</span>
+             <% end %>
+         </ul>
+          <div class="btn-group hidden-phone">
+            <%= link_to search_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit Search Engine Details
+            <% end %>
+          </div>
+          <hr>
+
+          <h4>Bank Details</h4>
+
+          <ul>
+            <li>Bank Name:
+              <% if @shop.bank_name.present? %>
+                  <%= @shop.bank_name %>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+            </li>
+            <li>Account Number:
+              <% if @shop.account_number.present? %>
+                  <%= @shop.account_number %>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+            </li>
+            <li>Account Name:
+              <% if @shop.account_name.present? %>
+                  <%= @shop.account_name %>
+              <% else %>
+                  <span class="none">None given</span>
+              <% end %>
+            </li>
+          </ul>
+          <div class="btn-group hidden-phone">
+            <%= link_to bank_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit Bank Details
+            <% end %>
+          </div>
+          <hr>
+          <h4>
+            Privacy
+          </h4>
+          <% if @shop.privacy.present? %>
+             <%= simple_format @shop.privacy %>
+          <% else %>
+              <span class="none">None given</span>
+         <% end %>
+          <div class="btn-group hidden-phone">
+            <%= link_to privacy_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit Privact Details
+            <% end %>
+          </div>
+          <hr>
+          <h4>Terms</h4>
+          <% if @shop.terms.present? %>
+             <%= simple_format @shop.terms %>
+          <% else %>
+              <span class="none">None given</span>
+
+          <% end %>
+          </ul>
+          <div class="btn-group hidden-phone">
+            <%= link_to terms_update_admin_shop_path(@shop), class: "btn btn-info" do %>
+                <i class="icon-edit"></i> Edit Terms and conditions Details
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

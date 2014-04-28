@@ -1,0 +1,24 @@
+<%= content_for(:login_page) do %>
+    <div class="container">
+      <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "form-login"}) do |f| %>
+        <h2 class="form-heading">User Login</h2>
+        <%= f.input :email, label: false, placeholder: "Email address", :required => false, :autofocus => true, input_html: {class: "input-block-level"} %>
+        <%= f.input :password, label: false, placeholder: "password", :required => false, input_html: {class: "input-block-level"} %>
+        <div class="row-fluid">
+          <label class="checkbox span6">
+          <%= f.check_box :remember_me if devise_mapping.rememberable? %> Remember me
+          </label>
+          <button class="btn btn-primary pull-right span6" type="submit">Log in</button>
+        </div>
+          <%#= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
+        <div class="forget-password">
+          <%= render "users/shared/links" %>
+        </div>
+      <% end %>
+      <div class="form-footer-copyright">
+        <%= Time.now.year %> © <small><%= link_to "My Store", root_url %> - Online Shop builder tool</small>
+      </div>
+    </div>
+
+<% end %>
+

@@ -1,0 +1,27 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "Shiping Methods", admin_config_shipping_methods_url%>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Edit Shipping Method <%= @shipping_method.name %></h4>
+      </div>
+      <div class="body">
+        <p class="help-block">An example Shipping Method could be "UPS 3-5 day"</p>
+        <%= simple_form_for(@shipping_method, :url => admin_config_shipping_method_url(@shipping_method), html: {class: "form-horizontal"}) do |f| %>
+            <%= render 'form', f:  f %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

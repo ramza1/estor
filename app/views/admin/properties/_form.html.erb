@@ -1,0 +1,7 @@
+<%= simple_form_for([:admin, @property], html: {class: 'form-horizontal' }) do |f| %>
+    <%= f.input :identifing_name, input_html: {class: "input-xlarge"} %>
+    <%= f.input :display_name , input_html: {class: "input-xlarge"} %>
+    <div class=" generic_submit_button form-actions">
+      <%= f.submit :class => "btn", :id => "create_property_button" %>
+    </div>
+<% end %>

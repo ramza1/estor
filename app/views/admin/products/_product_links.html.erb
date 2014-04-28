@@ -1,0 +1,11 @@
+<span class="pull-right btn-group">
+             <%= link_to 'Description', edit_admin_products_description_path(product), class: "btn" %>
+  <%= link_to 'Variants', edit_admin_multi_product_variant_path(product), class: "btn" %>
+  <%= link_to 'Properties',
+              edit_admin_changes_product_property_path(product.id),
+              :class => "btn #{product.properties.size == 0 ? 'btn-danger' : ''}" %>
+  <%= link_to "Product", admin_product_path(product), class: "btn" %>
+  <%= link_to 'Images',
+              edit_admin_images_product_path(product), class: "btn #{product.images.size == 0 ? 'btn-danger' : ''}" %>
+  <%= link_to "Inventory", admin_inventory_adjustment_path(product), class: "btn" %>
+          </span>

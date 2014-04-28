@@ -1,0 +1,15 @@
+<% @all_properties.each do |property| %>
+  <div class="property_form " class="row-fluid">
+    <% checked = @prototype.name && @prototype.properties.include?(property)%>
+    <div class="control-group">
+      <label class="control-label">
+        <%= property.display_name %> (<%= property.identifing_name %>)
+      </label>
+      <div class="controls">
+        <label class="checkbox">
+          <%= check_box_tag "prototype[property_ids][]", property.id, checked, class: "boolean optional input-xlarge" %>
+        </label>
+      </div>
+    </div>
+  </div>
+<% end %>

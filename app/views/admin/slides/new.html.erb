@@ -1,0 +1,32 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "Slides", admin_slides_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Create slide", new_admin_slide_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Add a new slider
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="offset1 span10">
+    <div class="social-box">
+      <div class="header">
+        <h4>Add a new slider</h4>
+      </div>
+      <div class="body">
+        <%= render "form" %>
+      </div>
+    </div>
+  </div>
+</div>
+

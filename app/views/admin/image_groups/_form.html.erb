@@ -1,0 +1,44 @@
+<%= simple_form_for([:admin, @image_group], html: {class: 'form-horizontal' }) do |f| %>
+    <% if @image_group.errors.any? %>
+        <div class="alert alert-error">
+          <h4><%= pluralize(@image_group.errors.count, "error") %> prohibited this purchase_order from being saved:</h4>
+          <ul>
+            <% @image_group.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <fieldset style="margin-top:20px">
+      <%= f.input :name, input_html: {class: "input-xlarge"} %>
+
+      <div class="control-group">
+        <%= f.label :product_id, class: " control-label" %>
+        <div class="controls">
+          <%= f.select :product_id, products, {:include_blank => true,}, class: "input-xlarge" %>
+        </div>
+      </div>
+
+    </fieldset>
+
+    <fieldset>
+      <legend>Images - <%= add_child_link "Add New Image", :images %></legend>
+
+      <%= new_child_fields_template f, :images, :form_builder_local => :image_form %>
+
+      <div id="image_group_images">
+        <% @image_group.images.each do |image| %>
+            <div id='image_<%= image.id %>' class="variant_form left span-16 last">
+              <%= f.fields_for :images, image do |image_form|%>
+                  <%= render :partial => 'image', :locals => {:image_form => image_form } %>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
+    </fieldset>
+
+    <div class="form-actions">
+      <%= f.submit class: "btn btn-success" %>  or <%= link_to "Cancel", :back %>
+    </div>
+<% end %>

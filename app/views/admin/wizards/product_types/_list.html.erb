@@ -1,0 +1,23 @@
+<table class="table table-striped table-bordered dataTable" style="margin-top: 10px;">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @product_types.each do |product_type| %>
+      <tr>
+        <td><%= link_to product_type.name, admin_product_type_path(product_type) %></td>
+        <td>
+          <div class="btn-group <%= 'selected' if selected?(product_type.id) %> ">
+            <%= button_to 'Use', admin_wizards_product_type_path(product_type),
+                          :class => "btn ",
+                          :method => :put %>
+          </div>
+        </td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>

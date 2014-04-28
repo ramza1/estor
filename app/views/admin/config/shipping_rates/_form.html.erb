@@ -1,0 +1,13 @@
+
+<fieldset style="margin-top:20px">
+  <%= f.association :shipping_method, collection: @shipping_methods, input_html: {class: "input-xlarge"} %>
+  <%= f.input :rate, input_html: {class: "input-xlarge"} %>
+  <%= f.input :minimum_charge, input_html: {class: "input-xlarge"} %>
+  <%= f.association :shipping_rate_type, collection: @shipping_rate_types, input_html: {class: "input-xlarge"} %>
+  <%= f.association :shipping_category, collection: @shipping_categories, input_html: {class: "input-xlarge"} %>
+
+
+  <div class="form-actions">
+    <%= f.submit class: "btn btn-primary" %>  or <%= link_to "Cancel", :back, class: "btn" %>
+  </div>
+</fieldset>

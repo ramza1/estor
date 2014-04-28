@@ -1,0 +1,9 @@
+<%= simple_form_for([:admin, @brand], html: {class: 'form-horizontal' }) do |f| %>
+    <%= f.error_notification %>
+    <fieldset style="margin-top:20px">
+      <%= f.input :name, input_html: {class: "input-xlarge"} %>
+      <div class="form-actions">
+        <%= f.submit class: "btn btn-primary" %>  or <%= link_to "Cancel", :back, class: "btn" %>
+      </div>
+    </fieldset>
+<% end %>

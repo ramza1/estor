@@ -1,0 +1,18 @@
+<table class="table table-striped table-bordered dataTable">
+  <thead>
+  <tr>
+    <th>Amount</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @withdrawals.each do |withdrawal| %>
+      <tr>
+        <td><%= number_to_currency withdrawal.amount, unit: "₦", precision: 0  %></td>
+        <td><%= withdrawal.created_at.to_date.to_s(:long) %></td>
+        <td><%= withdrawal.state %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

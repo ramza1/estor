@@ -1,0 +1,180 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "My shop details", admin_shop_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      Edit Shop Details
+
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Edit Shop Details
+<% end %>
+
+
+<%= render "shop_error_message"%>
+
+<%= render "logo_update" %>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Basic Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal'}) do |f| %>
+
+            <fieldset style="margin-top:20px">
+              <%= f.input :email, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Basic", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "about_update"  %>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Bank Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal'}) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :bank_name, hint: "The name of your bank to transfer your total sales", input_html: {class: "input-xlarge"} %>
+              <%= f.input :account_number, input_html: {class: "input-xlarge"} %>
+              <%= f.input :account_name,  input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Bank Details", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Social Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :facebook_page_url, label: "Your Shop Name", hint: "Ex: http://facebook.com/myshopnanny", input_html: {class: "input-xlarge"} %>
+              <%= f.input :twitter_username, hint: "Do not include the @ sign", input_html: {class: "input-xlarge"} %>
+              <%= f.input :rss, input_html: {class: "input-xlarge"} %>
+              <%= f.input :flickr, input_html: {class: "input-xlarge"} %>
+              <%= f.input :skype, input_html: {class: "input-xlarge"} %>
+              <%= f.input :google_plus, input_html: {class: "input-xlarge"} %>
+              <%= f.input :linkedin, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Social Details", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Contact Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal'}) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :phone_number, input_html: {class: "input-xlarge"} %>
+              <%= f.input :mobile_number, hint: "Mobile Number is displayd on your shop", input_html: {class: "input-xlarge"} %>
+              <%= f.input :work_number, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Contact Details", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Search Engine Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :meta_description, hint: "Brif description about your shop", input_html: {class: "input-xlarge"} %>
+              <%= f.input :title, hint: "Title is displayed at the top of the web browser", input_html: {class: "input-xlarge"} %>
+              <%= f.input :meta_keywords,  input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Search Engine Details", class: "btn" %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Privacy Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :privacy, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Privacy Details", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Terms and Conditions Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :terms, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Terms and Conditions Details", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,10 @@
+<%= content_tag :li, class: "span3 item", id: "image_#{image.id}" do %>
+  <a rel="gallery_group" href="<%= image_path image.photo(:original) %>" class="thumbnail cboxElement">
+    <div class="zoom">
+      <%= image_tag image.photo(:product) %>
+    </div>
+  </a>
+  <p style="text-align: center;"><%= link_to "Delete", admin_product_image_path(image.imageable, image), method: :delete,
+      data: {confirm: "Are You Sure"}, remote: true %>
+  </p>
+<% end %>

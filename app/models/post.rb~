@@ -1,0 +1,58 @@
+class Post < ActiveRecord::Base
+  #attr_accessible :body, :description, :published_at, :title, :post_image
+  has_attached_file :post_image,
+                    :styles => {
+                        :large => "760x509>"
+                    }
+  validates_attachment_content_type :post_image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_size :post_image, :less_than => 1.megabyte
+
+  validates :body, :description, :published_at, :title, :presence => true
+  scope :published, lambda { where('published_at <= ?', Time.now.utc) }
+  scope :recent, :order => "published_at desc"
+
+  validates :body, :title, uniqueness: {:scope => :shop_id}
+  before_validation :sanitize_data
+  before_save :sanitize_data
+  default_scope { where(shop_id: Shop.current_id) }
+
+
+  def self.search_published(query, tag_id = nil)
+    published.primitive_search(query)
+  end
+
+  def self.primitive_search(query, join = "AND")
+    find(:all, :conditions => primitive_search_conditions(query, join))
+  end
+
+  def similar_stories_all
+    self.class.limit(3).primitive_search(title, "OR")
+  end
+
+  def similar_stories
+    self.class.published.limit(3).primitive_search(title, "OR")
+  end
+
+  def sanitize_data
+    self.description = body.gsub(/<\/?[^>]*>/, "").squeeze(" ").strip[0..240]
+  end
+
+  def published?
+    published_at <= Time.zone.now
+  end
+
+  def summary
+    self.description.gsub("&nbsp;", "")
+  end
+
+
+
+  private
+
+  def self.primitive_search_conditions(query, join)
+    query.split(/\s+/).map do |word|
+      '(' + %w[title].map { |col| "#{col} LIKE #{sanitize('%' + word.to_s + '%')}" }.join(' OR ') + ')'
+    end.join(" #{join} ")
+  end
+
+end

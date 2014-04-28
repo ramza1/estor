@@ -1,0 +1,41 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "My shop details", admin_shop_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      Edit Search Engine Details
+
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Edit Search Engine Details
+<% end %>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Search Engine Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :meta_description, hint: "Brif description about your shop", input_html: {class: "input-xlarge"} %>
+              <%= f.input :title, hint: "Title is displayed at the top of the web browser", input_html: {class: "input-xlarge"} %>
+              <%= f.input :meta_keywords,  input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Search Engine Details", class: "btn" %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

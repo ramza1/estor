@@ -1,0 +1,59 @@
+<%= f.error_notification %>
+<div class="row-fluid">
+     <div class="span12">
+       <div class="row-fluid">
+         <div class="span6"><%= f.input :first_name, :required => true, input_html: {class: "span12"} %></div>
+         <div class="span6"><%= f.input :last_name, :required => true, input_html: {class: "span12"}  %></div>
+       </div>
+     </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="row-fluid">
+      <div class="span12"><%= f.input :address1, :required => true, input_html: {class: "span12"} %>
+<%= f.input :address2, :required => true, input_html: {class: "span12"}  %></div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="row-fluid">
+      <div class="span12"><%= f.input :city, :required => true, input_html: {class: "span12"} %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="row-fluid">
+      <div class="span6">
+        <% if requested_shop.require_state_in_address? %>
+        <%= f.label    :state_id, "State/Province" %>
+        <%= f.select   :state_id, @states,
+                       {:include_blank => true}, class: "span12" %>
+        <% elsif countries.size == 1 %>
+            <%= f.label :country_id, "Country" %>
+            <%= countries.first.name %>
+            <%= f.hidden_field   :country_id %>
+        <% else %>
+            <%= f.label    :country_id, "Country" %>
+            <%= f.select   :country_id, select_countries,
+                           {:include_blank => true}, class: "span12" %>
+        <% end %>
+      </div>
+      <div class="span6"><%= f.input :zip_code, :required => true, input_html: {class: "span12"}  %></div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <%= f.input :default, label: "Make this my default shipping method" %>
+</div>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn btn-success" %>
+    </div>
+

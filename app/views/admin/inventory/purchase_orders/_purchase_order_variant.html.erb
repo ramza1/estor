@@ -1,0 +1,34 @@
+<fieldset class="twelve columns <%= po_form.object.new_record? ? 'new_fields' : 'fields' %>">
+  <div class='field six large-6 span12'>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <td></td>
+        <td>
+            <%= remove_child_link('remove', po_form) %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Variant: </td>
+        <td>
+          <% if po_form.object.id %>
+              <%= po_form.select :variant_id, @select_variants, { :include_blank => true }, :class => "chzn-select select_variants input-xlarge" %>
+          <% else %>
+              <%= po_form.select :variant_id, @select_variants, { :include_blank => true }, :class => "select_variants input-xlarge" %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Quantity</td>
+        <td>
+          <%= po_form.text_field :quantity, class: "input-xlarge" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Cost</td>
+        <td><%= po_form.text_field :cost, class: "input-xlarge" %></td>
+      </tr>
+    </table>
+  </div>
+</fieldset>

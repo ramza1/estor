@@ -1,0 +1,32 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Customers", admin_customers_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    People Signed up to your shop(customers)
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>My Customers</h4>
+      </div>
+      <div class="body">
+        <% if @customers.empty? %>
+            <p>
+              <%= t("no_customers_signed_up_yet") %>
+            </p>
+        <% else %>
+            <%= render "list"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

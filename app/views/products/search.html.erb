@@ -1,0 +1,12 @@
+<section id="latest">
+  <h1 class="headingfull"><span>Search results for <%= @q %></span></h1>
+  <% if @products.empty? %>
+      <p>No Product(s) Found for <%= @q %></p>
+  <% else %>
+  <ul class="thumbnails" id="container">
+
+
+        <%= render @products %>
+  </ul>
+  <% end %>
+</section>

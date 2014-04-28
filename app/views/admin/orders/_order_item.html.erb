@@ -1,0 +1,12 @@
+  <tr>
+    <td><%= image_tag(items.first.product.featured_image(:mini)) %></td>
+    <td><%= link_to items.first.product.name, admin_product_path(items.first.product) %></td>
+       <% product = items.first.product %>
+   <td>
+     <% product.properties.each do |name, value| %>
+         <b><%= name.humanize %>:</b> <%= value %>,
+     <% end %>
+   </td>
+    <td><%= items.size %></td>
+    <td><%= items.first.product.sku  %></td>
+ </tr>

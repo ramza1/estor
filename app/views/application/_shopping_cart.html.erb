@@ -1,0 +1,41 @@
+<li class="dropdown hover topcart">
+  <a  class="dropdown-toggle" href="#">
+    <i class="carticon"></i> Shopping Cart <span class="label label-success font14"><%= pluralize session_cart.shopping_cart_items.count, "item" if session_cart %></span> -
+    <%= number_to_currency(session_cart.sub_total, unit: "&#8358;", precision: 0) if session_cart %><b class="caret"></b></a>
+  <ul class="dropdown-menu topcartopen">
+    <li>
+      <table>
+        <tbody>
+        <% session_cart.shopping_cart_items.each do |item| %>
+            <tr>
+              <td class="image"><%= link_to image_tag(item.variant.featured_image(:small)), product_path(item.variant.product) %></td>
+              <td class="name"><%= link_to item.variant.name, product_path(item.variant.product) %></td>
+              <td class="quantity">x&nbsp;<%= item.quantity %></td>
+              <td class="total"><%= number_to_currency(item.total, unit: "&#8358;", precision: 0) %></td>
+              <td class="remove">
+                <%= link_to shopping_cart_item_path(item, :variant_id => item.variant.product_id),
+                            :method => :delete, class: "tooltip-test", "data-original-title"=>"Remove" do %>
+                    <i class="icon-remove"></i>
+                <% end %>
+                </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+        <tr>
+          <td class="textright"><b>Sub-Total:</b></td>
+          <td class="textright"><%= number_to_currency session_cart.sub_total, unit: "&#8358;", precision: 0 %></td>
+        </tr>
+        </tbody>
+      </table>
+      <%= form_for session_cart, :url => shopping_cart_item_path(session_cart), :as => :cart do |cart_form| %>
+      <div class="well pull-right">
+        <%= link_to "View Cart", shopping_cart_items_path, class: "btn btn-success" %>
+            <%= cart_form.submit 'checkout', {:checkout => 1, class: "btn btn-success"} %>
+      </div>
+      <% end %>
+    </li>
+  </ul>
+</li>

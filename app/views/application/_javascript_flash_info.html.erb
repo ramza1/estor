@@ -1,0 +1,8 @@
+
+    <% if flash.any? %>
+              <% flash.each do |name, msg| %>
+            <%= js add_gritter(
+                           "#{msg}", :title => "#{name == :notice ? "success" : "error"}", class_name: "gritter-#{name == :notice ? "success" : "error"}", :time => 10000) %>
+            <% end %>
+    <% end %>
+

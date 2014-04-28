@@ -1,0 +1,16 @@
+<%= simple_form_for([:admin, @prototype], html: {class: 'form-horizontal' }) do |f| %>
+    <fieldset>
+    <%= f.input :name, input_html: {class: "input-xlarge"} %>
+    <%= f.input :active , input_html: {class: "input-xlarge"} %>
+    </fieldset>
+
+    <fieldset>
+      <legend>Properties</legend>
+      <div id="prototype_properties">
+        <%= render :partial => "property_form", :locals => { :form => f } %>
+      </div>
+    </fieldset>
+    <div class=" generic_submit_button form-actions">
+      <%= submit_tag "Create", :class => "btn", :id => "create_property_button" %>
+    </div>
+<% end %>

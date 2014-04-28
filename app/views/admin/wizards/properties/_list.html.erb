@@ -1,0 +1,23 @@
+<table class="table table-striped table-bordered dataTable" style="margin-top: 10px;">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @prototypes.each do |prototype| %>
+      <tr>
+        <td><%= prototype.name %></td>
+        <td>
+          <div class="btn-group">
+            <%= button_to 'Use', admin_wizards_prototype_path(prototype),
+                          :class => 'btn spade inline-block',
+                          :method => :put %>
+          </div>
+        </td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>

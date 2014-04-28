@@ -1,0 +1,40 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "Image Groups", admin_image_groups_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4><%= @image_group.name %> Image Group </h4>
+      </div>
+      <div class="body">
+        <p>
+          <label>Product:</label>
+          <%= link_to @image_group.product.try(:name), admin_product_url(@image_group.product) %>
+        </p>
+
+        <div class="row-fluid">
+          <% @image_group.image_urls.each do |image_url|%>
+              <div class='span3'>
+                <%= image_tag image_url %>
+              </div>
+          <% end %>
+        </div>
+        <div class="btn-group">
+          <%= link_to "Edit", edit_admin_image_group_path(@image_group), :class => 'btn' %> |
+          <%= link_to "View All", admin_image_groups_path, :class => 'btn' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

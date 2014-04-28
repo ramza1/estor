@@ -1,0 +1,44 @@
+
+  <h1 class="headingmain"><span>Register Account</span></h1>
+  <br>
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {class: "form-horizontal"}) do |f| %>
+      <%= f.error_notification %>
+    <div class="registerbox">
+      <fieldset>
+        <%= f.input :first_name %>
+        <%= f.input :last_name  %>
+        <%= f.input :email, :required => true, :autofocus => true %>
+        <%= f.input :phone_number %>
+      </fieldset>
+    </div>
+    <div class="registerbox">
+      <fieldset>
+        <%= f.input :address %>
+
+      </fieldset>
+    </div>
+    <div class="registerbox">
+      <fieldset>
+        <%= f.input :password, :required => true %>
+        <%= f.input :password_confirmation, :required => true %>
+      </fieldset>
+    </div>
+    <div class="registerbox">
+      <fieldset>
+        I have read and agree to the <a href="#" >Privacy Policy</a>
+      </fieldset>
+    </div>
+    <div class="form-actions">
+      &nbsp;
+      <%= f.button :submit, "Sign up", class: "btn btn-success" %>
+    </div>
+ <% end %>
+  <div class="clearfix"></div><br>
+
+
+
+
+
+  <%= content_for(:account) do %>
+      <%= render "account_menu" %>
+  <% end %>

@@ -1,0 +1,80 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Themes", admin_themes_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    <%= theme.name.titleize %>
+<% end %>
+
+<%= content_for :bottom_head do %>
+    <%= javascript_include_tag "jquery.mousewheel.min", "jquery.colorbox-min" %>
+    <script>
+        $(function(){
+            $('.cboxElement').colorbox({rel:'gallery_group'});
+        })
+    </script>
+<% end %>
+<%= content_for :head do %>
+    <%= stylesheet_link_tag "colorbox" %>
+<% end %>
+
+<div class="row-fluid">
+  <div class="span3">
+    <a rel="gallery_group" href="<%= image_path theme.featured_image_big %>" class="thumbnail cboxElement">
+      <div class="zoom">
+        <%= image_tag theme.featured_image_big %>
+      </div>
+    </a>
+  </div>
+  <div class="span9">
+    <div class="social-box">
+      <div class="header">
+        <div class="btn-group hidden-phone">
+          <%= link_to  apply_theme_admin_theme_path(theme), class: "btn btn-primary", method: :post do %>
+              <i class="icon-plus-sign"></i> Add Theme Shop collection
+          <% end %>
+          <%= link_to  new_master_theme_url, class: "btn btn-info" do %>
+              <i class="icon-plus-sign"></i> Add Theme Shop collection and apply
+          <% end %>
+        </div>
+      </div>
+      <div class="body">
+        <div class="boxed-group">
+          <h5><%= @theme.name.humanize %></h5>
+          <div class="boxed-group-inner">
+            <p><b>Description:</b> <%= simple_format theme.description %></p>
+            <p><b>Price:</b> <%= number_to_currency(theme.price, unit: "₦", precision: 0) %></p>
+            <p><b>Public</b> <%= theme.public? ? "Yes" : "No" %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Photos of <%= theme.name.titleize %></h4>
+      </div>
+      <div class="body gallery">
+        <ul id="images" class="product-images thumbnails">
+          <%= render partial: "master/theme_images/theme_image", collection:  theme.theme_images %>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

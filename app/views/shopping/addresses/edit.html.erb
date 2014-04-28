@@ -1,0 +1,5 @@
+<h1 class="headingmain"><span>Edit Address</span></h1>
+
+<%= simple_form_for(@shopping_address, :url => shopping_address_path(@shopping_address), html: {class: "form-horizontal"}) do |f| %>
+    <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>

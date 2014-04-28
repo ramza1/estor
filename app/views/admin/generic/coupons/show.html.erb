@@ -1,0 +1,65 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h3>Coupon</h3>
+      </div>
+      <div class="body">
+        <p>
+          <strong>Code:</strong>
+          <%= @coupon.code %>
+        </p>
+
+        <p>
+          <strong>Amount:</strong>
+          <%= @coupon.amount %>
+        </p>
+
+        <p>
+          <strong>Minimum Value:</strong>
+          <%= @coupon.minimum_value %>
+        </p>
+
+        <p>
+          <strong>Percent:</strong>
+          <%= @coupon.percent %>
+        </p>
+
+        <p>
+          <strong>Description:</strong>
+          <%= @coupon.description %>
+        </p>
+
+        <p>
+          <strong>combine:</strong>
+          <%= @coupon.combine? ? "Yes" : "No" %>
+        </p>
+
+        <p>
+          <strong>Starts at:</strong>
+          <%= @coupon.display_start_time %>
+        </p>
+
+        <p>
+          <strong>Expires at:</strong>
+          <%= @coupon.display_expires_time %>
+        </p>
+
+        <p>
+          <%= link_to "Edit", edit_admin_generic_coupon_path(@coupon), :class => 'btn' %>
+          <%= link_to "View All", admin_generic_coupons_path, :class => 'btn' %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

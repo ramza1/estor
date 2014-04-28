@@ -1,0 +1,69 @@
+<% if @purchase_order.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@purchase_order.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
+
+    <ul>
+    <% @purchase_order.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <div class="control-group">
+    <label class="control-label">Supplier</label>
+    <div class="controls">
+      <%= form.select :supplier_id, @select_suppliers, { :include_blank => true }, :class => "chzn-select input-xlarge chosen-select" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Invoice Number</label>
+    <div class="controls">
+      <%= form.text_field :invoice_number, class: "input-xlarge" %>
+     </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Total Cost</label>
+    <div class="controls">
+      <%= form.text_field :total_cost, class: "input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Tracking Number</label>
+    <div class="controls">
+      <%= form.text_field :tracking_number, class: "input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Notes</label>
+    <div class="controls">
+      <%= form.text_field :notes, class: "input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Ordered At</label>
+    <div class="controls">
+      <%= form.text_field :ordered_at, class: "input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Estimated Arrival on</label>
+    <div class="controls">
+      <%= form.text_field :estimated_arrival_on, class: "input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="six columns">
+    <%= form.fields_for :purchase_order_variants,  @purchase_order.purchase_order_variants do |po_variant_form| %>
+      <%= render :partial => 'purchase_order_variant', :locals => { :po_form => po_variant_form } %>
+    <% end %>
+    <p><%= link_to "New Variant", '#add_variant', :class => 'add_variant btn', 'data-association' => "purchase_order_variants" %></p>
+    <%= new_child_fields_template form, :purchase_order_variants, :form_builder_local => :po_form %>
+    </div>
+</fieldset>

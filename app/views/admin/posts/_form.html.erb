@@ -1,0 +1,25 @@
+<%= simple_form_for([:admin, @post], html: {class: 'form-horizontal' }) do |f| %>
+
+    <% if @post.errors.any? %>
+        <div class="alert alert-error" style="margin-top: 10px;">
+          <h4><%= pluralize(@post.errors.count, "error") %> prohibited this blog post from being saved:</h4>
+
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <fieldset style="margin-top:20px">
+      <%= f.input :title, input_html: {class: "input-xlarge"} %>
+      <%= f.input :body, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'}} %>
+      <%= f.input :post_image, as: :file %>
+      <%= f.input :published_at, as: :string %>
+
+      <div class="form-actions">
+        <%= f.submit class: "btn btn-primary" %>  or <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+      </div>
+    </fieldset>
+<% end %>

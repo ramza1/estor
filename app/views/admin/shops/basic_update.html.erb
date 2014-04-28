@@ -1,0 +1,40 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "My shop details", admin_shop_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      Edit Basic Details
+
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Edit Basic Details
+<% end %>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Basic Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :name, label: "Your Shop Name", hint: "The name of your shop is also the subdomain", input_html: {class: "input-xlarge"} %>
+              <%= f.input :email, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Basic", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

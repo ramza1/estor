@@ -1,0 +1,29 @@
+<div class="span3">
+  <aside>
+    <div class="sidewidt">
+      <h1 class="heading1"><span>Account</span></h1>
+      <ul class="nav nav-list categories">
+        <li>
+          <%= link_to "My Account", myaccount_root_url %>
+        </li>
+        <% if current_customer %>
+            <li>
+              <%= link_to "Wish List / Saved Items", wish_items_path %>
+            </li>
+            <li>
+              <%= link_to "Order History", myaccount_orders_path %>
+            </li>
+        <%  else %>
+            <li>
+              <%= link_to "Login / Register", customer_session_path %>
+            </li>
+            <li>
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+                  <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+              <% end -%>
+            </li>
+      <% end %>
+      </ul>
+    </div>
+  </aside>
+</div>

@@ -1,0 +1,41 @@
+<div class="row-fluid">
+  <%= simple_form_for(@product, :url => admin_images_product_path(@product), html: {class: 'form-horizontal', :multipart => true }) do |f| %>
+      <% if @product.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@product.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
+
+            <ul>
+              <% @product.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <fieldset>
+        <legend>Images - <%= add_child_link "Add New Image", :images %></legend>
+
+        <%= new_child_fields_template f, :images, :form_builder_local => :image_form %>
+
+        <div id="product_images">
+          <% @product.images.each do |image| %>
+              <div id='image_<%= image.id %>' class="variant_form left span-16 last">
+                <%= f.fields_for :images, image do |image_form|%>
+                    <div class="row-fluid">
+                      <%= render :partial => 'image', :locals => {:image_form => image_form } %>
+                    </div>
+                <% end %>
+              </div>
+          <% end %>
+        </div>
+      </fieldset>
+
+      <div class="clear clearfix"></div>
+      <div class=" generic_submit_button form-actions">
+        <%= submit_tag "Upload Image", :class => "btn btn-success", :id => "create_property_button" %>
+        <%= link_to "View Image", admin_images_product_path(@product), :class => "btn btn-info" %>
+        <%= link_to "Back to Product", admin_product_url(@product), :class => "btn btn-danger" %>
+      </div>
+  <% end %>
+
+</div>

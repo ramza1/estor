@@ -1,0 +1,53 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h3>Deal</h3>
+      </div>
+      <div class="body">
+  <p>
+    <b>Buy Quantity:</b> <%= @deal.buy_quantity %>
+  </p>
+  <p>
+    <b>Get Percentage:</b>
+    <%= @deal.get_percentage %>
+  </p>
+
+          <p>
+            <b>Deal Type:</b>
+            <%= @deal.deal_type.name %>
+          </p>
+          <p>
+            <b>Product Type:</b>
+            <%= @deal.product_type.name %>
+          </p>
+          <p>
+            <b>Get Amount:</b>
+            <%= @deal.get_amount %>
+          </p>
+          <p>
+            <b>Deleted At:</b>
+            <%= @deal.deleted_at %>
+          </p>
+        <p>
+          <%#  YOU SHOULD NOT EDIT THIS..  OLD ORDERS WILL NO LONGER CALCULATE CORRECTLY.  set Deleted_at and create a new promotion %>
+          <%#= link_to "Edit", edit_admin_generic_deal_path(@deal), :class => 'button' %>
+          <%= link_to "Destroy", [:admin, :generic, @deal], :data => {:confirm => 'Are you sure?'}, :method => :delete, :class => 'btn btn-danger' %>
+          <%= link_to "View All", admin_generic_deals_path, :class => 'btn' %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

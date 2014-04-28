@@ -1,0 +1,36 @@
+<div id="admin-product-properties"
+     class=' <%= image_form.object.new_record? ? 'new_fields' : 'fields' %> '>
+  <div class='field six large-6 span6'>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <td>
+          <% if !image_form.object.new_record? %>
+              <%= image_tag image_form.object.photo.url(:small) %>
+          <% end %>
+        </td>
+        <td><%= remove_child_link('remove', image_form) %></td>
+      </tr>
+
+      <tr>
+        <td>Position: </td><td><%= image_form.select       :position, [1,2,3,4,5,6], {}, class: "input-xlarge" %></td>
+      </tr>
+      <tr>
+        <td>Caption</td>
+        <td><%= image_form.text_field   :caption, class: "input-xlarge" %></td>
+      </tr>
+
+      <tr>
+        <td>Photo</td>
+        <td><%= image_form.file_field   :photo %></td>
+      </tr>
+
+      <tr>
+        <td>Link to Image</td>
+        <td><%= image_form.text_field   :photo_from_link, class: "input-xlarge" %></td>
+      </tr>
+    </table>
+  </div>
+  <% if image_form.object.new_record? %>
+      <hr/>
+  <% end %>
+</div>

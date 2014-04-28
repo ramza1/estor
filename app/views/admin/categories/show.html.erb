@@ -1,0 +1,43 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "categories", admin_categories_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current @category.name, admin_category_path(@category) %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    <%= @category.name %>'s Category
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <div class="btn-group hidden-phone">
+          <%= link_to "Create a new category", new_admin_category_path, class: "btn" %>
+          <%= link_to "Add new product", admin_product_wizard_path, class: "btn btn-primary" %>
+          <%= link_to "Edit", edit_admin_category_path(@category), class: "btn btn-info" %>
+          <%= link_to "Delete", admin_category_path(@category), method: :delete, data: {confirm: "Are you sure"}, class: "btn btn-danger" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @products.empty? %>
+          <p class="alert alert-info">
+            No product for this category yet.
+          </p>
+        <% else %>
+          <%= render "admin/products/list"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

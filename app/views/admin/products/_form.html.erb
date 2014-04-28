@@ -1,0 +1,87 @@
+<%= simple_form_for([:admin, @product], html: {class: 'form-horizontal' }) do |f| %>
+
+    <% if @product.errors.any? %>
+        <div class="alert alert-error" style="margin-top: 10px;">
+          <h4><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h4>
+
+          <ul>
+            <% @product.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <fieldset style="margin-top:20px">
+      <legend>General Info</legend>
+     <%= f.input :name, input_html: {class: "input-xlarge"} %>
+     <%= f.input :permalink, input_html: {class: "input-xlarge"} %>
+     <%= f.input :set_keywords, hint: "(separate with a comma)", input_html: {class: "input-xlarge"} %>
+     <%= f.input :meta_keywords, input_html: {class: "input-xlarge"} %>
+     <%= f.input :meta_description, as: :text, input_html: {class: "input-xlarge"} %>
+     <div class="control-group">
+       <%= f.label :product_type, class: " control-label" %>
+        <div class="controls">
+          <%= f.select :product_type_id,
+                       nested_set_options(ProductType, ProductType.new) {|i| "#{'-' * i.level} #{i.name}" },
+                       { :include_blank => true }, class: "input-xlarge" %>
+        </div>
+      </div>
+     <%= f.association :brand, prompt: "select a brand"  %>
+     <%= f.association :shipping_category  %>
+    </fieldset>
+
+    <fieldset id="admin-product-properties" class='seven large-7 column last'>
+      <legend>Properties</legend>
+
+      <div id='select-product-prototype'>
+        <% select_prototypes = [] << Prototype.new %>
+        <div class="control-group">
+          <%= f.label :prototype, class: " control-label" %>
+          <div class="controls">
+            <%= f.select :prototype_id,
+                         @prototypes,
+                         { :include_blank => true },{'data-product_id' => @product.id, class: "input-xlarge"} %>
+          </div>
+        </div>
+      </div>
+
+      <div id="product_properties" class=' '>
+        <% @all_properties.each do |property| %>
+            <div  id='property_<%= property.id %>'
+                  class="property_form "
+                  <%= "style=display:none;" if @product.id && !@product.properties.detect {|p| p.id == property.id} %>>
+              <%= f.fields_for :product_properties,
+                                  property.product_properties.find_or_initialize_by(product_id: @product.id) do |product_property_form|%>
+                  <div class='six'>
+                    <div class="control-group">
+                      <label class="control-label"><%= property.identifing_name %></label>
+                      <div class="controls">
+                        <%= product_property_form.text_field    :description, class: "input-xlarge" %>
+                      </div>
+                    </div>
+                    <%= product_property_form.hidden_field  :property_id %>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
+    </fieldset>
+
+
+    <div class="form-actions">
+      <%= f.submit class: "btn btn-primary" %>  or <%= link_to "Cancel", :back %>
+    </div>
+<% end %>
+
+<% content_for :bottom_head do %>
+<script>
+    Hadean.AdminMerchandiseProductForm.initialize(<%= @product.id %>);
+</script>
+<% end %>
+
+
+
+
+
+

@@ -1,0 +1,43 @@
+<% if @country.errors.any? %>
+    <div class="alert alert-error">
+      <h2><%= pluralize(@country.errors.count, "error") %> prohibited this country from being saved:</h2>
+
+      <ul>
+        <% @country.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+<fieldset>
+  <div class="control-group">
+    <div class="control-group">
+      <label class="control-label">Name</label>
+      <div class="controls">
+        <%= form.text_field :name, class: "input-xlarge" %>
+      </div>
+    </div>
+
+    <label class="control-label">Shipping Zone</label>
+    <div class="controls">
+      <%= form.select :shipping_zone_id, @shipping_zones, { :include_blank => true }, :class => "chzn-select input-xlarge chosen-select" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Abbreviation</label>
+    <div class="controls">
+      <%= form.text_field :abbreviation, class: "input-xlarge" %>
+    </div>
+  </div>
+
+
+
+  <div class="six columns">
+    <%= form.fields_for :states,  @country.states do |state_form| %>
+        <%= render :partial => 'state', :locals => { :po_form => state_form } %>
+    <% end %>
+    <p><%= link_to "New State", '#add_variant', :class => 'add_variant btn', 'data-association' => "states" %></p>
+    <%= new_child_fields_template form, :states, :form_builder_local => :po_form %>
+  </div>
+</fieldset>

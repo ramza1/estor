@@ -1,0 +1,19 @@
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing About Us</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :about, label: "About Us", input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update About Us", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

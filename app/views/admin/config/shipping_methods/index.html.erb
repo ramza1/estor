@@ -1,0 +1,29 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Shipping Methods</h4>
+        <div class="btn-group hidden-phone pull-right">
+          <%= link_to "Create a shipping Method", new_admin_config_shipping_method_url, class: "btn btn-primary" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @shipping_methods.empty? %>
+            <p class="alert alert-info">
+              No Shipping Methods Available Yet
+            </p>
+        <% else %>
+            <%= render "list" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

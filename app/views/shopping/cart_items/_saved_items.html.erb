@@ -1,0 +1,41 @@
+<h1 class="headingmain"><span><%= session_cart.saved_cart_items.size %> Item(s) saved for later</span></h1>
+
+<div class="cart-info">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th class="image">Image</th>
+      <th class="name">Product Name</th>
+      <th class="quantity">Quantity</th>
+      <th class="quantity">Date Added</th>
+      <th class="price">Unit Price</th>
+      <th class="total">Total</th>
+      <th></th>
+    </tr>
+    <% @saved_cart_items.each_with_index do |item, i| %>
+        <tr>
+          <td class="image"><%= image_tag item.variant.featured_image %></td>
+          <td  class="name"><%= link_to item.variant.product_name, item.variant.product %>
+            <%=  item.variant.brand_name.blank? ? '' : ['-', item.variant.brand_name].join(' ') %><br/>
+            <%= item.variant.display_stock_status('', '') %>
+          </td>
+          <td  class="name"><%= item.quantity %></td>
+          <td class="quantity">
+            Item added on <%= item.created_at.strftime(I18n.translate('time.formats.long_date')) %>
+          </td>
+
+
+          <td class="price"><%= number_to_currency item.price, unit: "₦", precision: 0 %></td>
+          <td class="total"><%= number_to_currency item.total, unit: "₦", precision: 0 %></td>
+          <td>
+            <%= link_to image_tag('addcart.png'),
+                        move_to_shopping_cart_item_path(item, :variant_id => item.variant_id,
+                                                        :item_type_id => ItemType::SHOPPING_CART_ID),
+                        :method => 'put', class: "tooltip-test", "data-original-title"=>"Move to Cart" %>
+            <%= link_to image_tag('remove.png'), shopping_cart_item_path(item, :variant_id => item.variant_id),
+                        :method => :delete, class: "tooltip-test", "data-original-title"=>"Remove" %>
+          </td>
+        </tr>
+    <% end %>
+
+  </table>
+</div>

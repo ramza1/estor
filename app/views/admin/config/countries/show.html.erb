@@ -1,0 +1,38 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "Countries", admin_config_countries_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4><%= @country.name %> States</h4>
+        <div class="pull-right">
+          <%= link_to "Create a Country", new_admin_config_country_url, class: "btn" %>
+          <%= link_to "Edit", edit_admin_config_country_url(@country), class: "btn btn-info" %>
+          <%= link_to "Delete", admin_config_country_url(@country), method: :delete, data: {confirm: "Are you sure"}, class: "btn btn-danger" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @states.empty? %>
+            <p class="alert alert-info">
+              No State for this country yet.
+            </p>
+        <% else %>
+            <%= render "states"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

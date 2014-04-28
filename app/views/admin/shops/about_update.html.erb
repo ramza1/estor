@@ -1,0 +1,22 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "My shop details", admin_shop_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "Edit about us details", about_update_admin_shop_path(@shop) %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Edit about us details
+<% end %>
+
+
+
+<%= render "about_update"  %>

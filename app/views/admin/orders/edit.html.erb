@@ -1,0 +1,18 @@
+<div class="boxed-group">
+  <h3>Enter shipping Fee<span class="right-remove"><i class="icon-plus-sign"></i></span></h3>
+  <div class="boxed-group-inner">
+    <p class="custom_p2">
+      Leave blank or 0 for free shipping
+    </p>
+    <%= simple_form_for([:admin, @order], html: {class: 'form-horizontal' }) do |f| %>
+        <dl class="form">
+          <%= f.input :shipping_fee, input_html: {class: "input-xlarge"} %>
+          <div class="form">
+            <%= f.submit "Update delivery fee", class: "btn" %>  or <%= link_to "Cancel", :back %>
+          </div>
+        </dl>
+    <% end %>
+  </div>
+</div>
+
+

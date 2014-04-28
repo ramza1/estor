@@ -1,0 +1,20 @@
+<div class="page-header">
+  <h2>Add Product Images</h2>
+</div>
+
+<div class='span-18 '>
+  <%= form_for @product, :url  => admin_product_path(@product),
+               :html => {:class => '', :multipart => true}  do |form| %>
+      <%= form.fields_for :images do |image_form|%>
+          <%= image_form.file_field :photo %>
+      <% end %>
+      <div class=" generic_submit_button">
+        <%= submit_tag "Create",
+                       :class  => "button",
+                       :id     => "create_product_button" %>
+      </div>
+  <% end %>
+
+  <%= link_to 'View Images', admin_product_images_path(@product), :class  => "button"%>
+  <%= link_to 'Product Details', admin_product_path(@product), :class  => "button" %>
+</div>

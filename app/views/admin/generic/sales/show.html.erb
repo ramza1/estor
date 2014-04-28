@@ -1,0 +1,42 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h3>Sale</h3>
+      </div>
+      <div class="body">
+        <p>
+          <b>Product:</b>
+          <%= @sale.product_id %>
+        </p>
+        <p>
+          <b>Percent Off:</b>
+          <%= @sale.percent_off %>
+        </p>
+        <p>
+          <b>Starts At:</b>
+          <%= @sale.starts_at %>
+        </p>
+        <p>
+          <b>Ends At:</b>
+          <%= @sale.ends_at %>
+        </p>
+        <p>
+          <%= link_to "Edit", edit_admin_generic_sale_path(@sale), :class => 'btn' %>
+          <%= link_to "Destroy", [:admin, :generic, @sale], :data => { :confirm => 'Are you sure?' }, :method => :delete, :class => 'btn btn-danger' %>
+          <%= link_to "View All", admin_generic_sales_path, :class => 'btn' %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

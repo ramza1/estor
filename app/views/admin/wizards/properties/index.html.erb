@@ -1,0 +1,64 @@
+
+<%= content_for(:breadcrumb) do %>
+    <%= render :partial => '/admin/wizards/sub_header'%>
+<% end %>
+
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <% if  @properties.empty? %>
+            <h5>New Property</h5>
+        <% else %>
+            <h5>Pick a Property</h5>
+        <% end %>
+      </div>
+      <div class="body">
+        <%= form_for @property, :url => admin_wizards_property_path(:id => 0), :method => 'PUT', html: {class: 'form-horizontal'} do |product_form| %>
+            <div class="control-group">
+              <%= product_form.label "Chose Properties", class: " control-label" %>
+              <div class="controls">
+            <div id='properties_selections' class=''>
+              <%= select_tag 'property[ids][]',
+                             options_from_collection_for_select(@properties, "id", "full_name", @selected),
+                             :class => 'chzn-select column span9',
+                             :multiple => 'true',
+                             :style    => 'overflow:scroll; width: 350px',
+                             'data-placeholder' => 'Choose Properties' %>
+            </div>
+            </div>
+            </div>
+
+            <div class="form-actions">
+               <%= product_form.submit 'Use Properties', :class => 'btn', style: "margin-top:10px;" %>
+            </div>
+
+        <% end %>
+        <br/>
+        <% unless  @properties.empty? %>
+            <h5>New Property</h5>
+            <p class="alert alert-info">If all the you want properties don't exist, create it now.</p>
+        <% end %>
+        <%= simple_form_for @property, :url => admin_wizards_properties_path, html: {class: "form-horizontal"} do |property_form| %>
+            <%= render :partial =>  'form', :locals => {:form => property_form}  %>
+        <% end %>
+
+        <% unless  @prototypes.empty? %>
+            <br/>
+            <div class='nine large-9 last column'>
+              <h5>New Prototype</h5>
+              <p class="alert alert-info">If you have a prototype created, select it here.</p>
+              <%= render "list" %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% content_for :bottom_head do -%>
+  <%= javascript_include_tag 'properties.js' %>
+<% end %>

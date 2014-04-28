@@ -1,0 +1,126 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap_and_overrides
+ *= require social
+ *= require DT_bootstrap
+ *= require jquery.ui.all
+ *= require social.plugins
+ *= require chosen
+ *= require_self
+ */
+
+
+.right-icon{
+  float: right;
+}
+
+body{
+  font-size: 12px;
+}
+
+.breadcrumb{
+  font-size: 14px;
+}
+
+.media.social-box {
+  background: none!important;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled= false);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.media.social-box .media-body.social-body {
+  padding: 10px;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0px 1px 2px rgba(196,197,201,0.75);
+  -moz-box-shadow: 0px 1px 2px rgba(196,197,201,0.75);
+  box-shadow: 0px 1px 2px rgba(196,197,201,0.75);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.media.social-box .media-body.social-body .social-share-image .social-share-image-text {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
+
+.media.social-box .media-body.social-body .social-share-image {
+  margin: -10px;
+  color: #ffffff!important;
+  position: relative;
+}
+
+
+.media.social-box .media-body.social-body .social-heading {
+  color: #939AA4!important;
+  font-size: 11.9px;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 6px;
+  margin-left: -10px;
+  margin-right: -10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#gritter-notice-wrapper{
+  a{
+    color: #ddd;
+  }
+}
+
+.none {
+  color: #999;
+}
+
+.left-image{
+
+}
+
+
+.wraper #main {
+  margin-top: 0;
+}
+
+
+.social-sidebar .menu .accordion-group .accordion-heading a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.input-xlarge{
+  width: 68%;
+}
+
+
+.product-show {
+  margin-bottom: 20px;
+}
+
+.vertical-list{
+  list-style: none;
+  li{
+    display: block;
+  }
+}
+
+.normal-font{
+  font-weight: normal !important;
+}
+
+.user-fieldset {
+  border: solid 1px #dddddd;
+  padding: 1.25em;
+  margin: 1.125em 0;
+  margin-top: -21px;
+}

@@ -1,0 +1,23 @@
+
+
+    <% if @supplier.errors.any? %>
+        <div class="alert alert-error" style="margin-top: 10px;">
+          <h4><%= pluralize(@supplier.errors.count, "error") %> prohibited this supplier from being saved:</h4>
+
+          <ul>
+            <% @supplier.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  
+<fieldset id="admin-supplier-names">
+  <%= f.input :name, input_html: {class: "input-xlarge"} %>
+  <%= f.input :email, input_html: {class: "input-xlarge"} %>
+</fieldset>
+
+<div class="form-actions">
+  <%= f.submit class: "btn btn-success" %>
+  <%= link_to "View all suppliers", admin_inventory_suppliers_url, class: "btn" %>
+</div>

@@ -1,0 +1,17 @@
+<div class="accordion-group <%= active_controller("orders") %> <%= active_controller("carts") %>">
+  <div class="accordion-heading">
+
+    <a class="accordion-toggle <%= opened_tab("orders") %> <%= opened_tab("carts") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-orders">
+      <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+      <span>Orders</span>
+
+
+
+      <span class="arrow"></span>
+    </a>
+  </div>
+
+  <ul id="collapse-orders" class="accordion-body collapse nav nav-list collapse <%= in_open("carts") %>">
+    <li class="<%= active_controller("carts") %>"><%= link_to "Create Order", admin_shopping_carts_url %></li>
+  </ul>
+</div>

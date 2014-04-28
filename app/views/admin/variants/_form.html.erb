@@ -1,0 +1,35 @@
+<%= f.error_notification %>
+
+    <dl class="form">
+      <%= f.input :sku, input_html: {class: "input-xlarge"} %>
+      <%= f.input :name, input_html: {class: "input-xlarge"} %>
+      <%= f.input :price, input_html: {class: "input-xlarge"} %>
+      <%= f.input :cost, input_html: {class: "input-xlarge"} %>
+      <%= f.input :master %>
+
+        <legend>Properties</legend>
+
+        <div id="variant_properties" class='last'>
+          <% @product.properties.each do |property| %>
+              <div  id='variant_<%= property.id %>'
+                    class="variant_form last">
+                <%= f.fields_for :variant_properties,
+                                 property.variant_properties.find_or_initialize_by_variant_id(@variant.id) do |variant_property_form|%>
+                    <div class='span2'>
+                      <%= property.display_name %>:
+                    </div>
+                    Primary?: <%= variant_property_form.check_box  :primary %> <br/>
+                    <%= variant_property_form.hidden_field  :property_id %>
+                    Description: <%= variant_property_form.text_field    :description, class: "span4" %><br/>
+                <% end %>
+              </div>
+          <% end %>
+        </div>
+
+    </dl>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn btn-primary" %> <%= link_to "cancel", admin_product_path(@product), class: "btn" %>
+    </div>
+
+

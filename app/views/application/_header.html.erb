@@ -1,0 +1,22 @@
+<header>
+  <nav class="navbar navbar-blue navbar-fixed-top social-navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+
+
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".social-sidebar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">
+         Admin Control Panel
+        </a>
+          <ul class="nav">
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "View Shop", root_url %></li>
+          </ul>
+      </div>
+    </div>
+  </nav>
+</header>

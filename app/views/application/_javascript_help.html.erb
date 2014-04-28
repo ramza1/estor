@@ -1,0 +1,95 @@
+<% if controller_name == "dashboard" %>
+     <%= js add_gritter(
+               "
+                   <ol>
+    <li>Go to #{link_to 'Admin Users', admin_users_path, 'data-popup' => true } and change your password and email to something you remember.</li>
+    <li>Go to each of the config sections
+      #{link_to 'Shipping Zones', admin_config_shipping_zones_path, 'data-popup' => true},
+      #{link_to 'Shipping Rates', admin_config_shipping_rates_path, 'data-popup' => true},
+      #{link_to 'Shipping Categories', admin_config_shipping_categories_path, 'data-popup' => true },
+      #{link_to 'Tax Rates', admin_config_tax_rates_path, 'data-popup' => true}.</li>
+    <li>
+    Then create #{link_to 'Properties', admin_properties_path, 'data-popup' => true}.  A property is just a characteristic that your products have.</li>
+    <li>Add #{link_to 'Product Type', admin_product_types_path, 'data-popup' => true}</li>
+    <li>Next create a #{link_to 'Prototype', admin_prototypes_path, 'data-popup' => true}.  A prototype is the building block of a product.  The prototype is used to inherit the types of properties that your products will have.</li>
+    <li>You should create a shipping category by going to #{link_to 'Shipping Categories', admin_config_shipping_categories_path, 'data-popup' => true }.</li>
+    <li>Next create a #{ link_to 'Product', admin_products_path, 'data-popup' => true}</li>
+    <li>Next create a Variant.  A variant is a specific type of product.  If Diet Gatorade is your product, Fruit Punch Gatorage might be your variant. To
+      do this click to edit your product and then click add variant.</li>
+    <li>Next you need to upload Images.  To do this click to edit your product and then click add image.</li>
+    <li>You need inventory .  To do this click #{link_to 'Inventory', admin_inventory_overviews_path, 'data-popup' => true}.  Then click purchase order and follow the step to create a purchase order.  Once the purchase order is complete, you need to click receive for the inventory to be in stock.
+    </li>
+    </ol>
+                   ",
+                            :title => "General Overview Gide", sticky: true, class_name: 'gritter-blue') %>
+<% end %>
+
+<% if controller_name == "products" %>
+    <%= js add_gritter(
+                   "
+                   Adding a product is very simple. First select a product type, next fill in your product's details and finally upload photos of your product
+                   ",
+                       :title => "Products Guide", sticky: true) %>
+<% end %>
+
+
+
+
+
+<% if controller_name == "customers" %>
+    <%= js add_gritter(
+                   "
+                     You get to see the list of all your customer. This shows you people who are signed up to your shop.
+                     You can call them customers or users which ever term you may understand.
+                   ",
+                   :title => "Customers Guide", sticky: true) %>
+<% end %>
+
+<% if controller_name == "posts" %>
+    <%= js add_gritter(
+                   "
+                    Myshopnanny offers you a mini blog tool for your shop. With this, you can create blog posts or blog about your products.
+                    Blog are displayed on your shop based on when you want them to be published. Always set the published date so your posts can be published based on the date you sechdule
+                   ",
+                   :title => "Blogging Guide", sticky: true) %>
+<% end %>
+
+
+<% if controller_name == "brands" %>
+    <%= js add_gritter(
+                   "
+                     Brands are important features your shop needs. A brand can be the maker of a product, or a model name to group your products by. Eg: samsung, nokia, htc, perry ellis, versace, louis vuitton etc.
+                     Start creating your brands now
+                   ",
+                   :title => "Brands Guide", sticky: true) %>
+<% end %>
+
+<% if controller_name == "categories" %>
+    <%= js add_gritter(
+                   "
+                     Categories are important features your shop needs. A category can be a name to group your products by. Eg: phones, shirts, bags, shoes etc.
+                     Start creating your categories now
+                   ",
+                   :title => "Categories Guide", sticky: true) %>
+<% end %>
+
+
+<% if controller_name == "mailing_lists" %>
+    <%= js add_gritter(
+                   "
+                     Your mailing list is the list of people who subscribed on your shop for your news letter.
+                     You can send news letters to these customers in the news letter section.
+                   ",
+                   :title => "Mailing List Guide", sticky: true) %>
+<% end %>
+
+<% if controller_name == "news_letters" %>
+    <%= js add_gritter(
+                   "
+                     News letter is used to send bulk emails about your shop or anything you want to announce to all subscribers of your shop.
+                     Start creating news letters if you have people subscribed to your shop.
+                   ",
+                   :title => "News Letter Guide", sticky: true) %>
+<% end %>
+
+

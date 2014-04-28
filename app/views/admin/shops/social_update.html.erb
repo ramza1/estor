@@ -1,0 +1,45 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "My shop details", admin_shop_path %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      Edit social details
+
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Edit Social Details
+<% end %>
+
+<div class="row-fluid">
+  <div class="offset2 span8">
+    <div class="social-box">
+      <div class="header">
+        <h4>Editing Social Details</h4>
+      </div>
+      <div class="body">
+        <%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal', method: 'put' }) do |f| %>
+            <fieldset style="margin-top:20px">
+              <%= f.input :facebook_page_url, label: "Your Shop Name", hint: "Ex: http://facebook.com/myshopnanny", input_html: {class: "input-xlarge"} %>
+              <%= f.input :twitter_username, hint: "Do not include the @ sign", input_html: {class: "input-xlarge"} %>
+              <%= f.input :rss, input_html: {class: "input-xlarge"} %>
+              <%= f.input :flickr, input_html: {class: "input-xlarge"} %>
+              <%= f.input :skype, input_html: {class: "input-xlarge"} %>
+              <%= f.input :google_plus, input_html: {class: "input-xlarge"} %>
+              <%= f.input :linkedin, input_html: {class: "input-xlarge"} %>
+              <div class="form-actions">
+                <%= f.submit "Update Social Details", class: "btn"  %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

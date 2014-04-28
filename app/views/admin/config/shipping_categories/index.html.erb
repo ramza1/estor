@@ -1,0 +1,28 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <div class="btn-group hidden-phone">
+          <%= link_to "Create a shipping Category", new_admin_config_shipping_category_url, class: "btn btn-primary" %>
+        </div>
+      </div>
+      <div class="body">
+        <% if @shipping_categories.empty? %>
+            <p class="alert alert-info">
+              No Shipping Category Available Yet
+            </p>
+        <% else %>
+            <%= render "list" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

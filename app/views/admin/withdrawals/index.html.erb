@@ -1,0 +1,33 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Withdrawals", admin_mailing_lists_path %>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Withdrawal transaction history
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <%= link_to "Withdrawal total sales (#{number_to_currency requested_shop.account_balance, unit: "₦", precision: 0})", admin_withdrawals_path, method: :post, class: "btn btn-info" %>
+      </div>
+      <div class="body">
+        <% if @withdrawals.empty? %>
+            <p class="alert alert-info">
+              You have not made any withdrawal yet. withdrawal takes 48hrs of working days to process.
+            </p>
+        <% else %>
+            <%= render "list"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

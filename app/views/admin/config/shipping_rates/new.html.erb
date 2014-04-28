@@ -1,0 +1,32 @@
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to "Shiping Rates", admin_config_shipping_rates_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+    Add a new Shipping Rate
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>New Shipping Rate</h4>
+      </div>
+      <div class="body">
+
+        <%= simple_form_for(@shipping_rate, :url => admin_config_shipping_rates_url, html: {class: "form-horizontal"}) do |f| %>
+            <%= render 'form', f:  f %>
+        <% end %>
+   </div>
+    </div>
+  </div>
+</div>
+

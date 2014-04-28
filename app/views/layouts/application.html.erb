@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title><%= content_for?(:title) ? yield(:title) : "Shop Name" %> - "Shop Name"</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- styles -->
+  <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800,700,300' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag "application" %>
+  <%= yield :head %>
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- fav and touch icons -->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<!-- Header Start -->
+<header>
+<!-- Sticky Navbar Start -->
+<%= render "navbar" %>
+<!--Sticky Navbar End -->
+<div class="header-white">
+  <div class="container extra-margin-for-header">
+    <%= render "search_and_logo" %>
+  </div>
+</div>
+</header>
+<!-- Header End -->
+
+<div id="maincontainer">
+<!-- Slider Start-->
+<%#= render "slider" %>
+<!-- Slider End-->
+  <% if flash.any? %>
+    <div class="container">
+      <div class="row">
+            <div class="notice span12">
+              <% flash.each do |name, msg| %>
+                  <div class="alert alert-<%= name == :notice ? "info" : "error" %>">
+                    <a class="close" data-dismiss="alert">×</a>
+                    <%= msg %>
+                  </div>
+              <% end %>
+            </div>
+      </div>
+    </div>
+  <% end %>
+
+<div class="container">
+<div class="row">
+
+<% if content_for?(:product) %>
+      <div class="span12">
+        <%= yield(:product)%>
+      </div>
+<% else %>
+<div class="span9">
+  <%= yield %>
+</div>
+
+<% if content_for?(:account) %>
+  <%= yield(:account) %>
+<% else %>
+<!-- Sidebar Start-->
+<%= render "aside" %>
+<% end %>
+<!-- Sidebar End-->
+<% end %>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<%= render "footer" %>
+<!-- /maincontainer -->
+<!-- javascript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+<%= javascript_include_tag "application" %>
+<%= yield :bottom %>
+
+</body>
+</html>

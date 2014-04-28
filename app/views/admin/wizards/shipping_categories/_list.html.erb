@@ -1,0 +1,23 @@
+<table class="table table-striped table-bordered dataTable" style="margin-top: 10px;">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @shipping_categories.each do |shipping_category| %>
+      <tr>
+        <td><%= shipping_category.name %></td>
+        <td>
+          <div class="btn-group">
+            <%= button_to 'Use', admin_wizards_shipping_category_path(shipping_category),
+                          :class => "btn spade inline-block",
+                          :method => :put %>
+          </div>
+        </td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
