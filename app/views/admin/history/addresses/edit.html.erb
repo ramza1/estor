@@ -1,0 +1,24 @@
+
+
+<div class="row-fluid">
+  <div class="offset1 span10">
+    <div class="social-box">
+      <div class="header">
+        <h4>Change Address</h4>
+        <span class="pull-right">
+          <%= link_to 'Back', admin_history_order_path(@order), class: "btn" %>
+        </span>
+      </div>
+      <div class="body">
+        <%= simple_form_for(@address, :url => admin_history_order_address_path(@order, @address), html: {class: "form-horizontal"}) do |f| %>
+            <%= render :partial => '/admin/history/addresses/form', :locals => {:f => f } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,59 @@
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>RMAs</h4>
+        <span class="pull-right">
+           <%= link_to 'Order Info',
+                       admin_history_order_path(@order),
+                       :class => 'btn' %>
+        </span>
+      </div>
+      <div class="body">
+        <div id="admin_rma_page_wrapper">
+          <div id="admin_rma_grid_wrapper" class='column pretty_table'>
+
+            <table class="table table-striped table-bordered dataTable">
+              <thead>
+              <tr>
+                <th>Number</th>
+                <th>Amount</th>
+                <th>User</th>
+                <th>Order Number</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <% @return_authorizations.each do |return_authorization| %>
+                  <tr>
+                    <td><%= link_to return_authorization.number, edit_admin_rma_order_return_authorization_path(@order, return_authorization) %></td>
+                    <td><%= return_authorization.amount %></td>
+                    <td><%= return_authorization.user_name %></td>
+                    <td><%= return_authorization.order_number %></td>
+                    <td><%= return_authorization.state %></td>
+                  </tr>
+              <% end %>
+            </table>
+
+            <%= will_paginate @return_authorizations %>
+          </div>
+
+          <div id="admin_new_rma_button" class="admin_new_button last">
+            <%#= link_to 'New Return authorization',
+                new_admin_rma_return_authorization_path,
+                :class => "button",
+                :id => "new_rma_button" %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+

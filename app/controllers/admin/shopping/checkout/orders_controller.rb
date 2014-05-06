@@ -7,7 +7,7 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
   #
   ##### THIS METHOD IS BASICALLY A CHECKOUT ENGINE
   def show
-    authorize! :create_orders, current_user
+    #authorize! :create_orders, current_user
 
     @order = find_or_create_order
     #@order = session_admin_cart.add_items_to_checkout(order) # need here because items can also be removed
@@ -17,12 +17,12 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
       if @order.order_items.empty?
         redirect_to admin_shopping_products_url() and return
       end
-      @credit_card ||= ActiveMerchant::Billing::CreditCard.new(cc_params)
+      @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
     end
   end
 
   def start_checkout_process
-    authorize! :create_orders, current_user
+    #authorize! :create_orders, current_user
 
     order = session_admin_order
     @order = session_admin_cart.add_items_to_checkout(order) # need here because items can also be removed

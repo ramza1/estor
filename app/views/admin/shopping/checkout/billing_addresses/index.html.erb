@@ -7,7 +7,7 @@
     <div  id='select-address-<%= i %>'
           class='panel five large-5 columns
                 <%= 'address_selected' if selected %>'>
-      <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => billing_address} %>
+      <%= render :partial => 'compact_address', :locals => {:shopping_address => billing_address} %>
       <%= link_to 'Use', select_address_admin_shopping_checkout_billing_address_path(billing_address), :method => 'put' %> |
       <%= link_to 'Edit', new_admin_shopping_checkout_billing_address_path(:old_address_id => billing_address.id) %>
     </div>

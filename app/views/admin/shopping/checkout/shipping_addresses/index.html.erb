@@ -1,19 +1,43 @@
-<h2>Select Shipping Address</h2>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h5>Select Shipping Address
+        <div class="pull-right"><%= link_to 'New Shipping address', new_admin_shopping_checkout_shipping_address_path, :class => 'btn' %></div>
+        </h5>
+      </div>
+      <div class="body">
+        <div class="row-fluid">
+          <div class="span8">
 
-<div class='clearfix'>
-<%= form_tag admin_shopping_checkout_shipping_addresses_path do %>
 
-  <% @shipping_addresses.each_with_index do |shipping_address, i| %>
-    <% selected = session_admin_order.ship_address_id == shipping_address.id %>
-    <div  id='select-address-<%= i %>'
-          class='panel five large-5 columns <%= 'address_selected' if selected %>'>
-      <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => shipping_address} %>
-      <%= link_to 'Use', select_address_admin_shopping_checkout_shipping_address_path(shipping_address), :method => 'put' %> |
-      <%= link_to 'Edit', new_admin_shopping_checkout_shipping_address_path(:old_address_id => shipping_address.id) %>
+            <div class='clearfix row-fluid'>
+              <%= form_tag admin_shopping_checkout_shipping_addresses_path do %>
+
+                  <% @shipping_addresses.each_with_index do |shipping_address, i| %>
+                      <% selected = session_admin_order.ship_address_id == shipping_address.id %>
+                      <div  id='select-address-<%= i %>'
+                            class='panel span3 <%= 'address_selected' if selected %>'>
+                        <%= render :partial => 'compact_address', :locals => {:shopping_address => shipping_address} %>
+                        <%= link_to 'Use', select_address_admin_shopping_checkout_shipping_address_path(shipping_address), :method => 'put', class: "btn btn-mini" %> |
+                        <%= link_to 'Edit', new_admin_shopping_checkout_shipping_address_path(:old_address_id => shipping_address.id), class: "btn btn-mini"  %>
+                      </div>
+                  <% end %>
+              <% end %>
+            </div>
+
+
+
+          </div>
+
+          <div id='cart-right-side-panel' class='span4'>
+            <%= render :partial => '/admin/shopping/right_panel_summary'%>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-<% end %>
+  </div>
 </div>
-<br />
 
-<%= link_to 'New Shipping address', new_admin_shopping_checkout_shipping_address_path, :class => 'button' %>
+
+

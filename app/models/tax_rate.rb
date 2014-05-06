@@ -1,5 +1,4 @@
 class TaxRate < ActiveRecord::Base
-  belongs_to :shop
   belongs_to :state
   belongs_to :country
 
@@ -34,8 +33,7 @@ class TaxRate < ActiveRecord::Base
 
   # region_id can be state or country depending on the setup in config/settings.yml
   def self.for_region(region_id)
-    shop ||= Shop.find(Shop.current_id)
-    where(["#{ shop.tax_per_state_id? ? 'state_id' : 'country_id'} = ?", region_id ])
+    where(["#{ Settings.tax_per_state_id ? 'state_id' : 'country_id'} = ?", region_id ])
   end
 
   def self.active_at_ids(date = Time.zone.now.to_date)

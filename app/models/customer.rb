@@ -101,4 +101,8 @@ class Customer < ActiveRecord::Base
     self.store_credit = StoreCredit.new(:amount => 0.0, :customer => self)
   end
 
+
+  def name
+    [first_name, last_name].join(" ")
+  end
 end

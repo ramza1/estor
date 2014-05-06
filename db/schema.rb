@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140428135031) do
+ActiveRecord::Schema.define(version: 20140506174138) do
 
   create_table "accounting_adjustments", force: true do |t|
     t.integer  "adjustable_id",                           null: false
@@ -151,18 +151,20 @@ ActiveRecord::Schema.define(version: 20140428135031) do
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "comments", force: true do |t|
-    t.string   "content"
-    t.integer  "order_id"
+    t.text     "note"
+    t.string   "commentable_type"
+    t.integer  "commentable_id"
+    t.integer  "created_by"
+    t.integer  "user_id"
     t.integer  "customer_id"
-    t.string   "shop_name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "shop_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "comments", ["customer_id"], name: "index_comments_on_customer_id", using: :btree
-  add_index "comments", ["order_id"], name: "index_comments_on_order_id", using: :btree
-  add_index "comments", ["shop_id"], name: "index_comments_on_shop_id", using: :btree
+  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
+  add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
+  add_index "comments", ["created_by"], name: "index_comments_on_created_by", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "countries", force: true do |t|
     t.string   "name"
@@ -312,6 +314,19 @@ ActiveRecord::Schema.define(version: 20140428135031) do
 
   add_index "inventories", ["shop_id"], name: "index_inventories_on_shop_id", using: :btree
 
+  create_table "invoices", force: true do |t|
+    t.integer  "order_id",                                                     null: false
+    t.decimal  "amount",          precision: 8, scale: 2,                      null: false
+    t.string   "invoice_type",                            default: "Purchase", null: false
+    t.string   "state",                                                        null: false
+    t.boolean  "active",                                  default: true,       null: false
+    t.decimal  "credited_amount", precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invoices", ["order_id"], name: "index_invoices_on_order_id", using: :btree
+
   create_table "item_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -375,7 +390,7 @@ ActiveRecord::Schema.define(version: 20140428135031) do
     t.integer  "customer_id"
     t.boolean  "active",                                   default: false
     t.boolean  "shipped",                                  default: false
-    t.integer  "shipments_count"
+    t.integer  "shipments_count",                          default: 0
     t.datetime "calculated_at"
     t.datetime "completed_at"
     t.decimal  "credited_amount", precision: 10, scale: 0
@@ -540,6 +555,55 @@ ActiveRecord::Schema.define(version: 20140428135031) do
   add_index "purchase_orders", ["supplier_id"], name: "index_purchase_orders_on_supplier_id", using: :btree
   add_index "purchase_orders", ["tracking_number"], name: "index_purchase_orders_on_tracking_number", using: :btree
 
+  create_table "return_authorizations", force: true do |t|
+    t.string   "number"
+    t.decimal  "amount",         precision: 8, scale: 2,                null: false
+    t.decimal  "restocking_fee", precision: 8, scale: 2, default: 0.0
+    t.integer  "order_id",                                              null: false
+    t.integer  "customer_id",                                           null: false
+    t.string   "state",                                                 null: false
+    t.integer  "created_by"
+    t.boolean  "active",                                 default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "return_authorizations", ["created_by"], name: "index_return_authorizations_on_created_by", using: :btree
+  add_index "return_authorizations", ["customer_id"], name: "index_return_authorizations_on_customer_id", using: :btree
+  add_index "return_authorizations", ["number"], name: "index_return_authorizations_on_number", using: :btree
+  add_index "return_authorizations", ["order_id"], name: "index_return_authorizations_on_order_id", using: :btree
+
+  create_table "return_conditions", force: true do |t|
+    t.string   "label"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "return_items", force: true do |t|
+    t.integer  "return_authorization_id",                 null: false
+    t.integer  "order_item_id",                           null: false
+    t.integer  "return_condition_id"
+    t.integer  "return_reason_id"
+    t.boolean  "returned",                default: false
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "return_items", ["order_item_id"], name: "index_return_items_on_order_item_id", using: :btree
+  add_index "return_items", ["return_authorization_id"], name: "index_return_items_on_return_authorization_id", using: :btree
+  add_index "return_items", ["return_condition_id"], name: "index_return_items_on_return_condition_id", using: :btree
+  add_index "return_items", ["return_reason_id"], name: "index_return_items_on_return_reason_id", using: :btree
+  add_index "return_items", ["updated_by"], name: "index_return_items_on_updated_by", using: :btree
+
+  create_table "return_reasons", force: true do |t|
+    t.string   "label"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sales", force: true do |t|
     t.integer  "shop_id"
     t.integer  "product_id"
@@ -562,6 +626,24 @@ ActiveRecord::Schema.define(version: 20140428135031) do
   end
 
   add_index "search_suggestions", ["shop_id"], name: "index_search_suggestions_on_shop_id", using: :btree
+
+  create_table "shipments", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "shipping_method_id",                null: false
+    t.integer  "address_id",                        null: false
+    t.string   "tracking"
+    t.string   "number",                            null: false
+    t.string   "state",                             null: false
+    t.datetime "shipped_at"
+    t.boolean  "active",             default: true, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shipments", ["address_id"], name: "index_shipments_on_address_id", using: :btree
+  add_index "shipments", ["number"], name: "index_shipments_on_number", using: :btree
+  add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
+  add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id", using: :btree
 
   create_table "shipping_categories", force: true do |t|
     t.string   "name",       null: false

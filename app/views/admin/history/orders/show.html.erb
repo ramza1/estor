@@ -1,0 +1,129 @@
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Orders</h4>
+      </div>
+      <div class="body">
+        <b>Order Information</b>
+        <table class="table table-striped table-bordered dataTable">
+          <thead>
+          <tr class='odd'>
+            <th class='column1_header'>Number</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Completed at</th>
+            <th>Shipped</th>
+          </tr>
+          </thead>
+              <tr class='<%= cycle("odd", "")%>'>
+                <td><%= link_to @order.number, admin_history_order_path(@order) %></td>
+                <td><%= @order.name %></td>
+                <td><%= @order.email %></td>
+                <td><%= @order.display_completed_at(:us_time) %></td>
+                <td><%= @order.has_shipment?.to_s %></td>
+              </tr>
+        </table>
+
+      <div class="row-fluid">
+         <div class="span6">
+           <% if @order.order_items.size > 0 %>
+
+               <div class=' six column'>
+                 <b>Items</b>
+
+                 <table class="table table-striped table-bordered dataTable">
+                   <thead>
+                   <tr class='odd'>
+                     <th>Name</th>
+                   </tr>
+                   </thead>
+                   <% @order.order_items.each do |item| %>
+                       <tr class='<%= cycle("odd", "")%>'>
+                         <td><%= item.variant.product_name %> </td>
+                       </tr>
+                   <% end %>
+                 </table>
+               </div>
+
+           <% end %>
+
+           <div class='six column'>
+             <b>Invoices:</b>
+
+             <table class="table table-striped table-bordered dataTable">
+               <thead>
+               <tr class='odd'>
+                 <th>Number</th>
+                 <th>State</th>
+                 <th>At</th>
+                 <th>Amount</th>
+               </tr>
+               </thead>
+               <% @order.invoices.each do |invoice| %>
+                   <tr class='<%= cycle("odd", "")%>'>
+                     <td><%= invoice.number %> </td>
+                     <td><%= invoice.state %></td>
+                     <td><%= I18n.localize(invoice.updated_at, :format => :us_time)%> </td>
+                     <td><%= number_to_currency invoice.amount %> </td>
+                   </tr>
+               <% end %>
+             </table>
+           </div>
+         </div>
+         <div class="span6">
+           <b>Shipping Address</b>
+           <div class=' six column well '>
+             <div  id='order-address'
+                   class='panel '>
+               <%= render :partial => 'compact_address', :locals => {:shopping_address => @order.ship_address} %>
+               <br>
+               <p><%= link_to 'Change Address', admin_history_order_addresses_path(@order), :class => 'btn btn-success' %> <br>
+                 (This will not change the shipments that have already been placed)</p>
+             </div>
+           </div>
+           <b>Shipments:</b>
+           <div class=' six column well'>
+
+             <% @order.shipments.each do |shipment| %>
+                 <div  id='order-shipment-items'
+                       class='panel'>
+                   State: <%= shipment.state.humanize %> <br/>
+                   Shipping Method: <%= shipment.shipping_method.name %> <br/>
+                   Shipping #: <%= shipment.number %> Tracking:<%= shipment.tracking %>
+                 </div>
+             <% end %>
+             <% if @order.shipments.empty? %>
+                 <div  id='order-shipment-items'
+                       class=' panel'>
+                   No Shipments have been made for this Order.
+                 </div>
+             <% end %>
+           </div>
+         </div>
+      </div>
+
+
+
+
+
+
+
+        <div class=' six column well'>
+          <b>Return Merchandise Authorization:</b>
+          <div class=' panel'>
+            <% if @order.return_authorizations.size > 0 %>
+                <%= link_to 'View RMAs', admin_rma_order_return_authorizations_path(@order),
+                            :class => 'btn ' %>
+                <br/><br/>
+            <% else %>
+                <%= link_to 'Create RMA', new_admin_rma_order_return_authorization_path(@order),
+                            :class => 'btn ' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

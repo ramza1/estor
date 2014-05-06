@@ -1,34 +1,69 @@
-<h2>Add Products</h2>
-<p id="notice"><%= notice %></p>
-
-<% if @product.variants.empty? %>
-  Sorry This product has no variants
-<% else %>
-  <%= form_tag admin_shopping_product_path(@product), :method => 'put' do %>
-    <% @product.variants.each_with_index do |variant, i| %>
-      <div class='panel product_admin_panel'>
-        <ul  id='variant-<%= i %>'
-              class='<%= cycle("odd", "even") %> clear  clearfix panel radius' style='margin-bottom:20px;'>
-          <li id='' class='six large-6 columns'>
-            <%#= raw variant.display_property_details %>
-            <% variant.variant_properties.each do |vp| %>
-              <label><%= vp.property.display_name %></label> <%= vp.description %><br/>
-            <% end %>
-            <b><%= number_to_currency( variant.price ) %></b>
-          </li>
-          <li class='four large-4 columns'>
-            Qty in Stock: <%= variant.display_stock_status %>(<%= variant.quantity_available %>)
-          </li>
-          <li id='variant-qty-<%= i %>' class='two large-2 columns' style='diplay:inline-block;'>
-            Quantity: <%= text_field_tag("variant[#{ variant.id }]", nil, :class => 'one', :style => 'width:50px;') %>
-          </li>
-
-        </ul>
-      </div>
-    <% end %>
-
-    <%= submit_tag 'Add Items' %>
-  <% end %>
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+    <li>
+      <%= link_to_unless_current "Products", admin_products_path %>
+    </li>
 <% end %>
 
-<%= link_to 'Back', admin_shopping_products_path %>
+<%= content_for(:page_title) do %>
+   Add Products
+<% end %>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h5>Add Products</h5>
+      </div>
+      <div class="body">
+        <div class="row-fluid">
+          <div class="span8">
+            <% if @product.variants.empty? %>
+                Sorry This product has no variants
+            <% else %>
+                <%= form_tag admin_shopping_product_path(@product), :method => 'put' do %>
+                    <% @product.variants.each_with_index do |variant, i| %>
+                        <div class='panel product_admin_panel'>
+                          <ul  id='variant-<%= i %>'
+                               class='<%= cycle("odd", "even") %> clear row-fluid  clearfix panel radius' style=' margin-left:0; list-style: none; margin-bottom:20px;'>
+                            <li id='' class='span6'>
+                              <%#= raw variant.display_property_details %>
+                              <% variant.variant_properties.each do |vp| %>
+                                  <label><%= vp.property.display_name %></label> <%= vp.description %><br/>
+                              <% end %>
+                              <b><%= number_to_currency( variant.price ) %></b>
+                            </li>
+                            <li class='span4'>
+                              Qty in Stock: <%= variant.display_stock_status %>(<%= variant.quantity_available %>)
+                            </li>
+                            <li id='variant-qty-<%= i %>' class='span2' style='diplay:inline-block;'>
+                              Quantity: <%= text_field_tag("variant[#{ variant.id }]", nil, :class => 'one', :style => 'width:50px;') %>
+                            </li>
+
+                          </ul>
+                        </div>
+                        <hr/>
+                    <% end %>
+
+                    <%= submit_tag 'Add Items', class: "btn" %>
+                <% end %>
+            <% end %>
+          </div>
+
+          <div id='cart-right-side-panel' class='span4'>
+            <%= render :partial => '/admin/shopping/right_panel_summary'%>
+          </div>
+        </div>
+
+
+        <%= link_to 'Back', admin_shopping_products_path %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,36 @@
+  <% if @address.errors.any? %>
+    <div class="alert alert-error">
+      <h2><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+      <ul>
+      <% @address.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.input :first_name %>
+  </div>
+  <div class="field">
+    <%= f.input :last_name %>
+  </div>
+  <div class="field">
+    <%= f.input :address1 %>
+  </div>
+  <div class="field">
+    <%= f.input :address2 %>
+  </div>
+  <div class="field">
+    <%= f.input :city %>
+  </div>
+  <div class="field">
+    <%= f.input :state_id, collection: states %>
+  </div>
+  <div class="field">
+    <%= f.input :zip_code %>
+  </div>
+  <div class="form-actions">
+    <%= f.submit class: "btn" %>
+  </div>

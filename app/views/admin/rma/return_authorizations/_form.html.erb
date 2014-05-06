@@ -1,0 +1,63 @@
+
+  <% if @return_authorization.errors.any? %>
+    <div class="alert alert-error">
+      <h4><%= pluralize(@return_authorization.errors.count, "error") %> prohibited this return authorization from being saved:</h4>
+
+      <ul>
+      <% @return_authorization.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.input :amount %>
+  </div>
+  <div class="field">
+    <%= f.input :restocking_fee %>
+  </div>
+
+
+
+
+
+  <div id="return_items" class=' large-6'>
+    <div class="row-fluid">
+    <% @order.order_items.each do |item| %>
+      <div  id='image_<%= item.id %>'
+            class="variant_form left  last">
+        <% return_item = @return_authorization.return_items.detect {|p| p.order_item_id == item.id } %>
+        <% return_item = return_item || ReturnItem.new(:order_item => item) %>
+        <% return_item.updated_by = current_user.id %>
+        <%= f.fields_for :return_items, return_item do |item_form|%>
+
+              <%= render :partial => 'item', :locals => { :item_form    => item_form,
+                                                          :return_item  => return_item,
+                                                          :order_item   => item } %>
+
+
+          <%= item_form.hidden_field :updated_by %>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+
+    <%= f.hidden_field :customer_id %>
+    <%= f.hidden_field :created_by %>
+
+
+  <div class='column float-left'>
+    <%= f.fields_for :comments do |comment_form|%>
+      <%= comment_form.hidden_field :customer_id %>
+      <%= comment_form.hidden_field :created_by %>
+    <div class="field ">
+      <%= comment_form.text_area :note, placeholder: "Leave a note", :class => 'span-8 height-40' %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Submit', :class => 'btn' %>
+  </div>

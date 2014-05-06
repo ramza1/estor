@@ -68,12 +68,12 @@
 
   <div class='twelve large-12 panel' >
     <h5>Shipping Address</h5>
-    <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => session_admin_order.ship_address} %>
+    <%= render :partial => 'compact_address', :locals => {:shopping_address => session_admin_order.ship_address} %>
     <%= link_to 'Change', admin_shopping_checkout_shipping_addresses_path %>
   </div>
   <div class='twelve large-12 panel'>
     <h5>Billing Address</h5>
-    <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => session_admin_order.bill_address} %>
+    <%= render :partial => 'compact_address', :locals => {:shopping_address => session_admin_order.bill_address} %>
     <%= link_to 'Change', admin_shopping_checkout_billing_addresses_path %>
   </div>
   <div class='clear' style='margin-bottom:8px;'></div>

@@ -1,11 +1,13 @@
 <% if @session_admin_order %>
   <%= render :partial => '/admin/shopping/checkout/right_panel_summary'%>
 <% else %>
-<h3>
+<h5>
   <%= session_admin_cart.customer_id ? session_admin_cart.customer.name : 'No Customer' %>
-</h3>
-<%= link_to 'change customer', admin_shopping_users_path %>
-  <table>
+  <span class="pull-right">
+    <%= link_to 'change customer', admin_shopping_users_path, class: "btn btn-small" %>
+  </span>
+</h5>
+<table class="table table-striped table-bordered">
     <thead>
       <tr class='odd'>
         <th class='column1_header'>
@@ -41,6 +43,6 @@
     </tfoot>
   </table>
   <% unless session_admin_cart.shopping_cart_items.empty? %>
-    <%= link_to 'Checkout', start_checkout_process_admin_shopping_checkout_order_path, :class => 'button', :method => 'POST' %>
+    <%= link_to 'Checkout', start_checkout_process_admin_shopping_checkout_order_path, :class => 'btn btn-success', :method => 'POST' %>
   <% end %>
 <% end %>

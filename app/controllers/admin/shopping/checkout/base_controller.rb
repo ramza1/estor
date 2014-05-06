@@ -19,8 +19,8 @@ class Admin::Shopping::Checkout::BaseController < Admin::Shopping::BaseControlle
       return admin_shopping_products_url()
     elsif session_admin_order.ship_address_id.nil?
       return admin_shopping_checkout_shipping_addresses_url
-    elsif session_admin_order.bill_address_id.nil?
-      return admin_shopping_checkout_billing_addresses_url()
+    #elsif session_admin_order.bill_address_id.nil?
+      #return admin_shopping_checkout_billing_addresses_url()
     elsif session_admin_order.order_items.any?{|oi| oi.shipping_rate_id.nil?}
       return admin_shopping_checkout_shipping_methods_url()
     else

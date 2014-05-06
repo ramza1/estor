@@ -13,5 +13,6 @@
 
   <ul id="collapse-orders" class="accordion-body collapse nav nav-list collapse <%= in_open("carts") %>">
     <li class="<%= active_controller("carts") %>"><%= link_to "Create Order", admin_shopping_carts_url %></li>
+    <li class="<%= active_controller("orders") %>"><%= link_to "Old Order", admin_history_orders_url %></li>
   </ul>
 </div>

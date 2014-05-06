@@ -1,0 +1,84 @@
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>RMA Details</h4>
+
+      </div>
+      <div class="body">
+
+        <div class="row-fluid">
+          <div class='span6'>
+            <div class=' well'>
+              <h3>RMA Details</h3>
+
+              <b>Number:<%= @return_authorization.number %></b><br/>
+              Amount: <%= @return_authorization.amount %> <br/>
+              Restocking fee: <%= @return_authorization.restocking_fee %> <br/>
+              State: <%= @return_authorization.state %><br/>
+
+
+              <div  id='order-items'
+                    class='span-8 rounded-10 line_item_blue float-left'>
+                <% @return_authorization.return_items.each do |item| %>
+                    <%= item.order_item.variant.product_name %> <br/>
+                <% end %>
+              </div>
+            </div>
+
+
+            <div class=' large-4 four'>
+              <% if @return_authorization.authorized? %>
+                  <%= link_to 'Cancel RMA',
+                              edit_admin_rma_order_return_authorization_path(@order, @return_authorization),
+                              :class => 'btn btn-danger', :method => :delete, :data => {:confirm => "Are you sure, you want to Cancel?"}, style: "margin-bottom: 5px;" %>
+                  <br/>
+                  <%= button_to 'Receive RMA',
+                                complete_admin_rma_order_return_authorization_path(@order, @return_authorization),
+                                :class => 'btn btn-success', :data => {:confirm => "Are you sure, you want to Receive?"}, :method => :put%>
+              <% end %>
+            </div>
+
+            <div class='btn-group'>
+              <% if @return_authorization.authorized? %>
+                  <%= link_to 'Edit RMA',
+                              edit_admin_rma_order_return_authorization_path(@order, @return_authorization),
+                              :class => 'btn'%>
+              <% end %>
+              <%= link_to 'Order Info',
+                          admin_history_order_path(@order),
+                          :class => 'btn' %>
+              <%= link_to 'All RMAs for this Order.',
+                          admin_rma_order_return_authorizations_path(@order),
+                          :class => 'btn' %>
+            </div>
+          </div>
+          <div class="span6 well">
+            <h3>Order Details</h3>
+            <div class=''>
+              Order Number: <%= @order.number %>
+            </div>
+             <b>Items</b>
+            <table class="table table-striped table-bordered dataTable">
+              <thead>
+              <tr class='odd'>
+                <th>Name</th>
+              </tr>
+              </thead>
+              <% @order.order_items.each do |item| %>
+                  <tr class='<%= cycle("odd", "")%>'>
+                    <td><%= item.variant.product_name %> </td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

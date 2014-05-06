@@ -50,6 +50,7 @@ class Order < ActiveRecord::Base
   extend FriendlyId
   friendly_id :number
   include Presentation::OrderPresenter
+
   has_many   :order_items, :dependent => :destroy
   has_many   :shipments
   has_many   :invoices
@@ -59,7 +60,6 @@ class Order < ActiveRecord::Base
   has_many   :canceled_invoices   , ->  { where(state: 'canceled') }  ,     class_name: 'Invoice'
   has_many   :return_authorizations
   has_many   :comments, as: :commentable
-  scope :visible_orders, -> {with_state(:paid, :ready_for_payment, :awaiting_shipping_fees, :rejected, :complete)}
 
   belongs_to :customer
   belongs_to :coupon
@@ -84,35 +84,20 @@ class Order < ActiveRecord::Base
   CHARACTERS_SEED = 21
 
   state_machine :initial => 'in_progress' do
+    state 'in_progress'
+    state 'complete'
+    state 'paid'
+    state 'canceled'
+
     after_transition :to => 'paid', :do => [:mark_items_paid]
-    after_transition :to => 'awaiting_shipping_fees', do: [:update_price]
-    after_transition :to => 'ready_for_payment', do: [:update_price]
-    after_transition :to => 'complete', do: [:update_price]
-
-    event :shipping_fees_request do
-      transition :to => 'awaiting_shipping_fees', :from => 'in_progress'
-    end
-
-    event :ready_to_pay do
-      transition :to => 'ready_for_payment', :from => 'awaiting_shipping_fees'
-    end
 
     event :complete do
-      transition :to => 'complete', :from => 'awaiting_shipping_fees'
+      transition :to => 'complete', :from => 'in_progress'
     end
 
     event :pay do
-      transition :to => 'paid', :from => ['complete']
+      transition :to => 'paid', :from => ['in_progress', 'complete']
     end
-
-    event :reject_order do
-      transition :to => 'rejected', :from => ['awaiting_shipping_fees']
-    end
-
-    event :reopen do
-      transition :to => 'awaiting_shipping_fees', :from => ['rejected']
-    end
-
   end
 
   def mark_items_paid
@@ -295,12 +280,12 @@ class Order < ActiveRecord::Base
   # @return [none]  Sets sub_total and total for the object
   def find_total(force = false)
     calculate_totals if self.calculated_at.nil? || order_items.any? {|item| (item.updated_at > self.calculated_at) }
-    #self.deal_time ||= Time.zone.now
-    #self.deal_amount = Deal.best_qualifing_deal(self)
+    self.deal_time ||= Time.zone.now
+    self.deal_amount = Deal.best_qualifing_deal(self)
     self.find_sub_total
-   # taxable_money     = (self.sub_total - deal_amount - coupon_amount) * ((100.0 + order_tax_percentage) / 100.0)
-    self.total        = (self.sub_total + shipping_charges).round_at( 2 )
-    #self.taxed_total  = (taxable_money + shipping_charges).round_at( 2 )
+    taxable_money     = (self.sub_total - deal_amount - coupon_amount) * ((100.0 + order_tax_percentage) / 100.0)
+    self.total        = (self.sub_total + shipping_charges - deal_amount - coupon_amount ).round_at( 2 )
+    self.taxed_total  = (taxable_money + shipping_charges).round_at( 2 )
   end
 
   def find_sub_total
@@ -352,9 +337,6 @@ class Order < ActiveRecord::Base
   # @param [none]
   # @return [Float] amount to remove from store credit
   def amount_to_credit
-    unless customer.store_credit.present?
-      customer.start_store_credits
-    end
     [find_total, customer.store_credit.amount].min.to_f.round_at( 2 )
   end
 
@@ -429,7 +411,7 @@ class Order < ActiveRecord::Base
     self.save! if self.new_record?
     tax_rate_id = state_id ? variant.product.tax_rate(state_id) : nil
     quantity.times do
-      self.order_items.push(OrderItem.create(:order => self, :variant_id => variant.id, :price => variant.price, :tax_rate_id => tax_rate_id))
+      self.order_items.push(OrderItem.create(:order => self,:variant_id => variant.id, :price => variant.price, :tax_rate_id => tax_rate_id))
     end
   end
 

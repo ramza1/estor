@@ -1,29 +1,76 @@
-<h2>Pick a Shipping Method</h2>
+
+<%= content_for(:breadcrumb) do %>
+    <li>
+      <%= link_to "Dashboard", admin_root_url %>
+      <span class="icon-angle-right"></span>
+    </li>
+<% end %>
+
+<%= content_for(:page_title) do %>
+
+<% end %>
 
 
-  <%= form_tag(admin_shopping_checkout_shipping_method_path(session_admin_order.id), :method => :put) do -%>
-    <% @order_items.group_by(&:ship_category_id).each do |shipping_category_id, items| %>
-      <div class='column float-left last'>
-          <% items.each do |item| %>
-            <div class=' panel shipping_methods_admin_panel clearfix'  style='width:535px;'>
-                <div class='seven large-7 columns'>
-                  <%= image_tag(item.variant.product.featured_image(:mini)) %>
-                  <%= item.variant.product.name %> Quantity: <%= item.quantity %>
-                </div>
-                <div class='five large-5 columns' style='text-align:left;'>
-                  <% item.variant.variant_properties.each do |vp| %>
-                    <label><%= vp.property.display_name %></label> <%= vp.description %><br/>
-                  <% end %>
-                </div>
-            </div>
-          <% end %>
-          <ul>
-          <% items.first.shipping_rate_options(session_admin_order.sub_total).each do |rate| %>
-            <li><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %> <%= rate.name_rate_min %></li>
-          <% end %>
-          </ul>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Pick a Shipping Method</h4>
       </div>
-    <% end %>
+      <div class="body">
 
-    <%= submit_tag 'continue', :class => 'button'%>
-  <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <%= form_tag(admin_shopping_checkout_shipping_method_path(session_admin_order.id), :method => :put) do -%>
+            <table class="table table-striped table-bordered">
+              <thead>
+              <tr>
+                <th class="image"></th>
+                <th class="name">Name</th>
+                <th class="quantity">Property</th>
+                <th class="price">Quantity</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
+                  <% items.group_by(&:variant).each do |variant, items| %>
+                      <tr>
+                        <td><%= image_tag(variant.product.featured_image(:mini)) %></td>
+                        <td><%= variant.product.name %></td>
+                        <td><%= raw variant.display_property_details %></td>
+                        <td><%= items.size %></td>
+                      </tr>
+                  <% end %>
+                  <tr>
+                    <% items.first.shipping_rate_options(session_admin_order.sub_total).each do |rate| %>
+                        <td>Select a shipping Method</td>
+                        <td colspan="3" style="font-weight: bold;"><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %> <%= rate.name_rate_min %></td>
+                    <% end %>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+            <%= submit_tag 'continue', :class => 'btn'%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,27 @@
+
+
+
+
+
+
+
+
+<div class="row-fluid">
+  <div class="offset1 span10">
+    <div class="social-box">
+      <div class="header">
+        <h4>Edit RMA</h4>
+        <span class="pull-right">
+          <%= link_to 'Show', admin_rma_order_return_authorization_path(@order, @return_authorization), :class => 'btn' %> |
+          <%= link_to 'Back', admin_rma_order_return_authorizations_path(@order), :class => 'btn' %>
+        </span>
+      </div>
+      <div class="body">
+        <%= simple_form_for(@return_authorization, :url => admin_rma_order_return_authorization_path(@order, @return_authorization), html: {class: "form-horizontal"}) do |f| %>
+            <%= render :partial => '/admin/rma/return_authorizations/form', :locals => {:f => f} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

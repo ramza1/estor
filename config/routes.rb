@@ -123,6 +123,24 @@ Shopnany::Application.routes.draw do
         resources :shipping_categories, only: [:index, :create, :update]
         resources :product_types,       only: [:index, :create, :update]
       end
+
+      namespace :history do
+        resources  :orders, only: [:index, :show] do
+          resources  :addresses, only: [:index, :show, :edit, :update, :new, :create]
+        end
+      end
+
+      namespace :rma do
+        resources  :orders do
+          resources  :return_authorizations do
+            member do
+              put :complete
+            end
+          end
+        end
+        #resources  :shipments
+      end
+
       resources :users
       root :to => 'dashboard#index'
       namespace :images do

@@ -52,8 +52,8 @@ class Address < ActiveRecord::Base
   validates :address1,    :presence => true,       :length => { :maximum => 255 }
   validates :city,        :presence => true,
             :format   => { :with => CustomValidators::Names.name_validator },       :length => { :maximum => 75 }
-  validates :state_id,      :presence => true,  :if => Proc.new { |address| Shop.find(Shop.current_id).require_state_in_address?}
-  validates :country_id,    :presence => true,  :if => Proc.new { |address| !Shop.find(Shop.current_id).require_state_in_address?}
+  validates :state_id,      :presence => true,  :if => Proc.new { |address| Settings.require_state_in_address}
+  validates :country_id,    :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
   #validates :state_name,  :presence => true,  :if => Proc.new { |address| address.state_id.blank?   }
   validates :zip_code,    :presence => true,       :length => { :minimum => 5, :maximum => 12 }
   before_validation :sanitize_data

@@ -7,7 +7,7 @@ module Presentation
     # @param [none]
     # @return [String] user name on the order
     def name
-      self.user.name
+      self.customer.name
     end
 
     # formated date of the complete_at datetime on the order

@@ -4,13 +4,12 @@ class Admin::Shopping::UsersController < Admin::Shopping::BaseController
   # GET /admin/shopping/users
   def index
    params[:page] ||= 1
-    @users = User.admin_grid(params).order(sort_column + " " + sort_direction).
-                                    paginate(:per_page => 25, :page => params[:page].to_i)
+    @users = Customer.paginate(:per_page => 25, :page => params[:page].to_i)
   end
 
   # POST /admin/shopping/users
   def create
-    @customer = User.find_by_id(params[:user_id])
+    @customer = Customer.find_by_id(params[:customer_id])
     session_admin_cart.customer = @customer
     add_to_recent_user(@customer)
     if session_admin_cart.save

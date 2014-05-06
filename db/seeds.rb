@@ -16,3 +16,19 @@ puts "DEAL TYPES"
 DealType::TYPES.each do |dt|
   DealType.find_or_create_by(name: dt)
 end
+
+puts "Return Reasons"
+ReturnReason::REASONS.each do |value|
+  rr = ReturnReason.find_by_label(value)
+  unless rr
+    ReturnReason.create(:label => value, :description => value )
+  end
+end
+
+puts "Return CONDITIONS"
+ReturnCondition::CONDITIONS.each do |value|
+  rc = ReturnCondition.find_by_label(value)
+  unless rc
+    ReturnCondition.create(:label => value, :description => value )
+  end
+end
