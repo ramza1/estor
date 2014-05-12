@@ -6,14 +6,6 @@ GIT
       mime-types
       orm_adapter (~> 0.5.0)
 
-GIT
-  remote: https://github.com/Compass/compass-rails.git
-  revision: ab84a09c0b84cc979e78540be7bfcb386ef5047d
-  specs:
-    compass-rails (2.0.0.pre)
-      compass (>= 0.12.2)
-      sprockets (<= 2.11.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -94,6 +86,8 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (= 3.2.14)
+    compass-rails (1.1.3)
+      compass (>= 0.12.2)
     connection_pool (1.2.0)
     css_parser (1.3.5)
       addressable
@@ -300,7 +294,7 @@ DEPENDENCIES
   chronic
   ckeditor!
   coffee-rails (~> 4.0.0)
-  compass-rails!
+  compass-rails
   devise
   exception_notification
   friendly_id (~> 5.0.1)
