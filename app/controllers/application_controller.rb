@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :check_for_users
   include BootstrapFlashHelper
   protect_from_forgery :except => [:notify, :thank_you, :failure_alert,  :single_notify]
 
@@ -138,5 +139,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+
+  def check_for_users
+    unless User.exists?
+      redirect_to new_user_registration_path and return
+    end
+    if User.exists?
+      redirect_to user_session_path and return
+    end
+  end
 
 end
