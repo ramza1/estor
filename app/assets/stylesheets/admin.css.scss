@@ -133,3 +133,10 @@ body{
   color: #4d4d4d;
   margin-bottom: 0.1875em;
 }
+
+.vertical-list{
+  label {
+    display: inline-block;
+    width: 120px;
+  }
+}

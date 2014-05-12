@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506174138) do
+ActiveRecord::Schema.define(version: 20140507114332) do
 
   create_table "accounting_adjustments", force: true do |t|
     t.integer  "adjustable_id",                           null: false
@@ -374,9 +374,11 @@ ActiveRecord::Schema.define(version: 20140506174138) do
     t.integer  "shop_id"
     t.integer  "variant_id"
     t.integer  "tax_rate_id"
+    t.integer  "shipment_id"
   end
 
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+  add_index "order_items", ["shipment_id"], name: "index_order_items_on_shipment_id", using: :btree
   add_index "order_items", ["shipping_rate_id"], name: "index_order_items_on_shipping_rate_id", using: :btree
   add_index "order_items", ["shop_id"], name: "index_order_items_on_shop_id", using: :btree
   add_index "order_items", ["tax_rate_id"], name: "index_order_items_on_tax_rate_id", using: :btree

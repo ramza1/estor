@@ -1,0 +1,18 @@
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Comment</h4>
+        <span class="pull-right">
+            <%= link_to "Edit", edit_admin_fulfillment_order_comment_path(order, @comment), :class => 'btn' %>
+          <%= link_to "Destroy", admin_fulfillment_order_comment_path(order, @comment), :data => {:confirm => 'Are you sure?'}, :method => :delete, :class => 'btn' %>
+          <%= link_to "View All", admin_fulfillment_order_comments_path(order), :class => 'btn' %>
+        </span>
+      </div>
+      <div class="body">
+        <%= @comment.note %>
+      </div>
+    </div>
+  </div>
+</div>
+

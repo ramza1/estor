@@ -130,6 +130,33 @@ Shopnany::Application.routes.draw do
         end
       end
 
+      namespace :fulfillment do
+        resources  :orders do
+          member do
+            put :create_shipment
+          end
+          resources  :comments
+        end
+
+        namespace :partial do
+          resources  :orders do
+            resources :shipments, only: [ :create, :new, :update ]
+          end
+        end
+
+        resources  :shipments do
+          member do
+            put :ship
+          end
+          resources  :addresses , only: [:edit, :update]# This is for editing the shipment address
+        end
+      end
+
+      namespace :document do
+        resources :invoices
+      end
+
+
       namespace :rma do
         resources  :orders do
           resources  :return_authorizations do

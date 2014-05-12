@@ -1,0 +1,65 @@
+
+
+
+
+
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>
+          <% if @order %>
+              Shipments for Order # <%= @order.number %>
+          <% else %>
+              Shipments
+          <% end %>
+        </h4>
+      </div>
+      <div class="body">
+        <table class="table table-striped table-bordered dataTable">
+          <thead>
+          <tr class='odd'>
+            <th class='column1_header'>Number</th>
+            <th>Order #</th>
+            <th>Shipped at</th>
+            <th>Tracking</th>
+            <th>State</th>
+            <th>Items</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <% @shipments.each do |shipment| %>
+              <% if shipment.has_items? %>
+                  <tr class='<%= cycle("odd", "")%>'>
+                    <td><%= shipment.number %></td>
+                    <td><%= link_to shipment.order.number, edit_admin_fulfillment_order_path(shipment.order) %></td>
+                    <td><%= I18n.localize(shipment.shipped_at, :format => :us_time) if shipment.shipped_at %></td>
+                    <td><%= shipment.tracking %></td>
+                    <td><%= shipment.state.humanize %></td>
+                    <td>
+                      <%= raw shipment.order_items.collect {|item| item.variant.product_name }.join('<br/>')  %>
+
+                    </td>
+                    <td><%= link_to 'Show', admin_fulfillment_shipment_path(shipment), class: "btn" %></td>
+                    <td><%= link_to 'Edit', edit_admin_fulfillment_shipment_path(shipment), class: "btn" %></td>
+                    <td>
+                      <% unless shipment.shipped? %>
+                          <%= button_to 'Mark Shipped',
+                                        ship_admin_fulfillment_shipment_path(shipment, :order_id => shipment.order.number),
+                                        data: {:confirm => "Are you sure?"},
+                                        :method => :put, class: "btn btn-success" %>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

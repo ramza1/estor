@@ -1,0 +1,19 @@
+<div class="accordion-group <%= active_controller("") %> <%= active_controller("") %>">
+  <div class="accordion-heading">
+
+    <a class="accordion-toggle <%= opened_tab("") %> <%= opened_tab("") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-full">
+      <img src="/assets/img/icons/stuttgart-icon-pack/32x32/product.png" alt="Form Stuff">
+      <span>Fulfillment</span>
+
+
+
+      <span class="arrow"></span>
+    </a>
+  </div>
+
+  <ul id="collapse-full" class="accordion-body collapse nav nav-list collapse <%= in_open("") %>">
+    <li><%= link_to 'Invoices', admin_document_invoices_path %></li>
+    <li><%= link_to 'Orders', admin_fulfillment_orders_path %></li>
+    <li><%= link_to 'Shipments', admin_fulfillment_shipments_path %></li>
+  </ul>
+</div>

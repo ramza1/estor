@@ -1,0 +1,31 @@
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>Change address</h4>
+      </div>
+      <div class="body">
+        <div class="row-fluid">
+
+
+        <% @addresses.each_with_index do |address, i| %>
+            <% selected = @address.id == address.id %>
+            <div  id='select-address-<%= i %>'
+                  class='span3 well
+              <%= cycle("line_item_yellow", "line_item_gray") %>
+              <%= 'address_selected' if selected %>'>
+              <%= render :partial => 'compact_address', :locals => {:shopping_address => address} %>
+              <% if selected %>
+                  Currently Selected.
+              <% else %>
+                  <%= link_to 'Use', admin_fulfillment_shipment_address_path(@shipment, address), :method => 'put', class: "btn" %>
+              <% end %>
+              <%#= link_to 'Edit', new_admin_shopping_shipping_address_path(:old_address_id => shipping_address.id) %>
+            </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

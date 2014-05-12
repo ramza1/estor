@@ -497,9 +497,6 @@ class Order < ActiveRecord::Base
   def self.fulfillment_grid(params = {})
     grid = Order.includes([:customer]).where({ :orders => {:shipped => false }} ).where("orders.completed_at IS NOT NULL")
     grid = grid.where({:active => true })                     unless  params[:show_all].present? && params[:show_all] == 'true'
-    grid = grid.where("orders.number LIKE ?", "#{params[:number]}%")  if params[:number].present?
-    grid = grid.where("orders.shipped = ?", true)                     if (params[:shipped].present? && params[:shipped] == 'true')
-    grid = grid.where("orders.email LIKE ?", "#{params[:email]}%")    if params[:email].present?
     grid
   end
 

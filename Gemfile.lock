@@ -6,9 +6,18 @@ GIT
       mime-types
       orm_adapter (~> 0.5.0)
 
+GIT
+  remote: https://github.com/Compass/compass-rails.git
+  revision: ab84a09c0b84cc979e78540be7bfcb386ef5047d
+  specs:
+    compass-rails (2.0.0.pre)
+      compass (>= 0.12.2)
+      sprockets (<= 2.11.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.0.2)
     actionmailer (4.0.2)
       actionpack (= 4.0.2)
       mail (~> 2.5.4)
@@ -45,6 +54,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    afm (0.2.0)
     american_date (1.1.0)
     arel (4.0.2)
     atomic (1.1.14)
@@ -67,7 +77,7 @@ GEM
       railties (>= 3.0)
       sass-rails (>= 3.2)
     chronic (0.10.2)
-    chunky_png (1.3.0)
+    chunky_png (1.3.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.3)
@@ -84,8 +94,6 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (= 3.2.14)
-    compass-rails (1.1.3)
-      compass (>= 0.12.2)
     connection_pool (1.2.0)
     css_parser (1.3.5)
       addressable
@@ -104,6 +112,7 @@ GEM
       activerecord (~> 4.0.0)
     fssm (0.2.10)
     gritter (1.0.3)
+    hashery (2.1.1)
     highline (1.6.21)
     hike (1.2.3)
     httparty (0.12.0)
@@ -157,7 +166,16 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    pdf-reader (1.3.3)
+      Ascii85 (~> 1.0.0)
+      afm (~> 0.2.0)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     polyglot (0.3.3)
+    prawn (0.12.0)
+      pdf-reader (>= 0.9.0)
+      ttfunk (~> 1.0.2)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -194,6 +212,7 @@ GEM
       css_parser (~> 1.3.4)
       nokogiri (> 1.5.0)
       sprockets
+    ruby-rc4 (0.1.5)
     sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -242,6 +261,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    ttfunk (1.0.3)
     turbolinks (2.2.1)
       coffee-rails
     twitter-bootstrap-rails (2.2.8)
@@ -277,8 +297,10 @@ DEPENDENCIES
   bluecloth
   capistrano (~> 2.15.5)
   chosen-rails
+  chronic
   ckeditor!
   coffee-rails (~> 4.0.0)
+  compass-rails!
   devise
   exception_notification
   friendly_id (~> 5.0.1)
@@ -291,7 +313,9 @@ DEPENDENCIES
   less-rails
   mysql2
   net-ssh (= 2.7.0)
+  nokogiri (~> 1.6.0)
   paperclip
+  prawn (~> 0.12.0)
   quiet_assets
   rails (= 4.0.2)
   rails_config

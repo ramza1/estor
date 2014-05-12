@@ -10,3 +10,4 @@ SITE_URL = "myshopnanny.com"
 BILLING_AMOUNT = 12500
 
 MONTH = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+require 'printing/invoice_printer'

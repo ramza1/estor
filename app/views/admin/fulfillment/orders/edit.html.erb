@@ -1,0 +1,82 @@
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="social-box">
+      <div class="header">
+        <h4>New shipment for Order # <%= @order.number %>  </h4>
+        <% if @order.paid? && @order.order_items.any?(&:unshipped?) %>
+            <span class="pull-right">
+            <%= link_to 'New Shipment',
+                        new_admin_fulfillment_partial_order_shipment_path( @order ),
+                        :class => 'btn btn-success' %>
+            </span>
+        <% end %>
+      </div>
+      <div class="body">
+        <b>Shipment for <%= link_to @order.customer.name, admin_customer_path(@order.customer) %></b>
+        <h4>Order Items</h4>
+        <%= render "order_items_list", order: @order %>
+
+
+        <div class="row-fluid">
+          <div class="span6">
+            <div class='panel'>
+              <h4>Shipping address</h4>
+              <div class='well'>
+                <%= render :partial => 'compact_address', :locals => {:shopping_address => @order.ship_address} %>
+              </div>
+            </div>
+
+            <div id="shipment-details-box" class=' four large-4 column'>
+              <%= render :partial => 'admin/fulfillment/orders/shipment_details', :locals => {:order => @order} %>
+            </div>
+
+            <div class='well'>
+              <b>Return Merchandise Authorization:</b>
+              <div class=' panel'>
+                <% if @order.return_authorizations.size > 0 %>
+                    <%= link_to 'View RMAs', admin_rma_order_return_authorizations_path(@order),
+                                :class => 'btn ' %>
+                    <br/><br/>
+                <% else %>
+                    <%= link_to 'Create RMA', new_admin_rma_order_return_authorization_path(@order),
+                                :class => 'btn ' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="span6">
+            <div class='panel'>
+              <h4>Invoice</h4>
+              <% @order.invoices.each do |invoice| %>
+                  <div id='invoice-line-<%= invoice.id %>' class='order-invoice' data-invoice_id='<%= invoice.id %>' data-order_id='<%= @order.id %>'>
+                    <% if @order.invoices.last.id == invoice.id %>
+                        <%= render :partial => 'invoice_details', :locals => { :invoice => @order.invoices.last } %>
+                    <% end %>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="dialog" title="Cancel Invoice">
+  <div id='dialog-message'>
+    <p>Are you sure you want to Cancel the Order and Shipment? </p>
+  </div>
+</div>
+
+
+
+<% content_for :bottom_head do -%>
+    <%= javascript_include_tag "admin/fulfillment" %>
+    <script>
+        <% @order.invoices.each do |invoice| %>
+        // Hadean.Utility.registerOnLoadHandler(Hadean.Fulfillment.initialize(<%= invoice.id %>, <%= @order.id %> ));
+        <% end %>
+    </script>
+<% end %>

@@ -64,6 +64,11 @@ gem 'unicorn'
 gem 'net-ssh', '2.7.0'
 gem 'capistrano', "~> 2.15.5"
 gem "rails_config"
+gem 'prawn',        '~> 0.12.0'
+gem 'nokogiri',     '~> 1.6.0'
+gem 'chronic'
+# Use https if you are pushing to HEROKU
+gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git'
 
 
 group :doc do

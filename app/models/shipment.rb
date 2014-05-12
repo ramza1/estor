@@ -111,7 +111,7 @@ class Shipment < ActiveRecord::Base
   # @param [none]
   # @return [ Array [Address] ] all user addresses
   def shipping_addresses
-    order.user.shipping_addresses
+    order.customer.shipping_addresses
   end
 
   ## finds the Shipment in the admin area (includes to prevent N + 1 queries)
@@ -119,7 +119,7 @@ class Shipment < ActiveRecord::Base
   # @param [Integer]  shipment.id
   # @return [Shipment]
   def self.find_fulfillment_shipment(id)
-    includes([{:order => {:user => :shipping_addresses}} , :address ]).find(id)
+    includes([{:order => {:customer => :shipping_addresses}} , :address ]).find(id)
   end
 
   ## determines the shipment id from the shipment.number
