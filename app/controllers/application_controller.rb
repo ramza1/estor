@@ -141,10 +141,10 @@ class ApplicationController < ActionController::Base
 
 
   def check_for_users
-    unless User.exists?
+    unless User.exists? or (controller_name == 'registrations')
       redirect_to new_user_registration_path and return
     end
-    if User.exists?
+    if (controller_name == 'registrations') and (action_name == 'new') and User.exists?
       redirect_to user_session_path and return
     end
   end
