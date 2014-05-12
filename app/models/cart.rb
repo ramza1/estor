@@ -56,7 +56,7 @@ class Cart < ActiveRecord::Base
       cart_item = add_cart_items(items, quantity_to_purchase, customer, cart_item_type_id, variant_id)
     elsif variant.sold_out?
       cart_item = saved_cart_items.create(variant_id:   variant_id,
-                                          customer:         customer,
+                                          customer_id:         customer,
                                           item_type_id: ItemType::SAVE_FOR_LATER_ID,
                                           quantity:     qty
       ) if items.size < 1
