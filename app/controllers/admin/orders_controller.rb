@@ -1,7 +1,7 @@
 class Admin::OrdersController < Admin::BaseController
 
   def index
-     @orders = Order.visible_orders.order("created_at desc")
+    @orders = Order.find_finished_order_grid(params).paginate(:page => pagination_page, :per_page => pagination_rows)
   end
 
   def show
