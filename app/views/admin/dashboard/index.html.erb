@@ -33,16 +33,6 @@
         <h4>Order History</h4>
       </div>
       <div class="body">
-        <%= content_for(:breadcrumb) do %>
-            <li>
-              <%= link_to "Dashboard", admin_root_url %>
-              <span class="icon-angle-right"></span>
-            </li>
-            <li>
-              <%= link_to_unless_current "Orders", admin_orders_path %>
-            </li>
-        <% end %>
-
         <%= content_for(:page_title) do %>
             Orders
         <% end %>

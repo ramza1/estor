@@ -1,13 +1,3 @@
-<%= content_for(:breadcrumb) do %>
-    <li>
-      <%= link_to "Dashboard", admin_root_url %>
-      <span class="icon-angle-right"></span>
-    </li>
-    <li>
-      <%= link_to_unless_current "Customers", admin_customers_path %>
-    </li>
-<% end %>
-
 <%= content_for(:page_title) do %>
     People Signed up to your shop(customers)
 <% end %>
