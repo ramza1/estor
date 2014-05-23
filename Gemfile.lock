@@ -48,10 +48,10 @@ GEM
     addressable (2.3.5)
     afm (0.2.0)
     american_date (1.1.0)
+    ancestry (2.0.0)
+      activerecord (>= 3.0.0)
     arel (4.0.2)
     atomic (1.1.14)
-    awesome_nested_set (3.0.0.rc.3)
-      activerecord (>= 4.0.0, < 5)
     bcrypt-ruby (3.1.2)
     bluecloth (2.2.0)
     builder (3.1.4)
@@ -287,7 +287,7 @@ DEPENDENCIES
   activemerchant (~> 1.29.3)
   addressable (~> 2.3.5)
   american_date
-  awesome_nested_set (~> 3.0.0.rc.3)
+  ancestry
   bluecloth
   capistrano (~> 2.15.5)
   chosen-rails

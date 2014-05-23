@@ -35,9 +35,10 @@ gem 'jquery-ui-rails'
 gem 'bluecloth'
 gem "chosen-rails"
 gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
+gem 'ancestry'
 
 gem "american_date"
-gem "awesome_nested_set", "~> 3.0.0.rc.3"
+#gem "awesome_nested_set", "~> 3.0.0.rc.3"
 
 gem 'sinatra', require: false
 gem 'slim', "~> 1.3.8"

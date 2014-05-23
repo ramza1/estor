@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :check_for_users
+  #before_filter :check_for_users
   include BootstrapFlashHelper
   protect_from_forgery :except => [:notify, :thank_you, :failure_alert,  :single_notify]
 
@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
                 :random_user,
                 :current_customer_id,
                 :session_cart,
+                :session_saved_cart_items,
                 :is_production_simulation,
                 :product_types
 
@@ -84,6 +85,11 @@ class ApplicationController < ActionController::Base
     session_cart!
   end
 
+  def session_saved_cart_items
+    return @session_cart.saved_cart_items if defined?(@session_cart)
+    session_cart!
+  end
+
   # use this method if you want to force a SQL query to get the cart.
 
   def session_cart!
@@ -137,6 +143,7 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
+=begin
   private
 
 
@@ -148,5 +155,6 @@ class ApplicationController < ActionController::Base
       redirect_to user_session_path and return
     end
   end
+=end
 
 end

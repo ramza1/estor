@@ -32,6 +32,8 @@
 //= require admin/product_form
 //= require ckeditor/config
 //= require chosen-jquery
+//= require select2
+//= require base
 
 
 

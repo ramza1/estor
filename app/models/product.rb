@@ -51,6 +51,7 @@ class Product < ActiveRecord::Base
 
   has_many :active_variants, -> { where(deleted_at: nil) },
            class_name: 'Variant'
+  scope :recent, -> {order(created_at: :desc)}
 
 
   before_validation :sanitize_data
@@ -70,6 +71,7 @@ class Product < ActiveRecord::Base
   validates :permalink,             uniqueness: true,      length: { maximum: 150 }
 
   validate  :ensure_available
+  has_one :sale
 
   def hero_variant
     active_variants.detect{|v| v.master } || active_variants.first

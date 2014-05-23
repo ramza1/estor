@@ -1,31 +1,40 @@
-  <h1 class="headingmain"><span>Account Login</span></h1>
-  <section class="newcustomer">
-    <h2 class="heading2">New Customer </h2>
-    <div class="loginbox">
-      <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-      <br>
-      <%= link_to "Create an Account", new_customer_registration_path, class: "btn btn-success"%>
+<section class="my_account parallax" style="background-position: 50% 0px;">
+
+  <!-- CONTAINER -->
+  <div class="container">
+
+    <div class="my_account_block clearfix">
+      <div class="login">
+        <h2>I'M ALREADY REGISTERED</h2>
+        <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "login_form"}) do |f| %>
+              <%= f.input :email, label: false, placeholder: "email", :required => false, :autofocus => true, input_html: {class: "span3"} %>
+              <%= f.input :password, label: false, placeholder: "password", :required => false, input_html: {class: "span3"}  %>
+             <div class="clearfix">
+               <% if devise_mapping.rememberable? %>
+               <div class="pull-left"><%= f.check_box :remember_me, id: "categorymanufacturer1"%><label for="categorymanufacturer1">Keep me signed</label></div>
+               <% end %>
+              <div class="pull-right"><%= link_to "Forgot your password?", new_password_path(resource_name), class: "forgot_pass" %></div>
+             </div>
+             <div class="center">
+              <%= f.button :submit, "Login", class: "btn btn-success" %>
+            </div>
+        <% end %>
+      </div>
+      <div class="new_customers">
+        <h2>NEW CUSTOMERS</h2>
+        <p>Register with Glammy Shop to enjoy personalized services, including:</p>
+        <ul>
+          <li><a href="javascript:void(0);">—  Online Order Status</a></li>
+          <li><a href="javascript:void(0);">—  Love List</a></li>
+          <li><a href="javascript:void(0);">—  Sign up to receive exclusive news and private sales</a></li>
+          <li><a href="javascript:void(0);">—  Place Test Orders</a></li>
+          <li><a href="javascript:void(0);">—  Quick and easy checkout</a></li>
+        </ul>
+        <div class="center"><a class="btn active" href="<%= url_for new_customer_registration_url %>">create new account</a></div>
+      </div>
     </div>
-  </section>
-  <section class="returncustomer">
-    <h2 class="heading2">Returning Customer </h2>
-    <div class="loginbox">
-      <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "form-vertical"}) do |f| %>
-        <fieldset>
-          <%= f.input :email, :required => false, :autofocus => true, input_html: {class: "span3"} %>
-          <%= f.input :password, :required => false, input_html: {class: "span3"}  %>
-          <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-          <%= f.button :submit, "Login", class: "btn btn-success" %>
-        </fieldset>
-      <% end %>
-    </div>
 
+    <div class="my_account_note center">HAVE A QUESTION? <b>1 800 888 02828</b></div>
+  </div><!-- //CONTAINER -->
+</section>
 
-
-    <%= render "devise/shared/links" %>
-  </section>
-
-
-<%= content_for(:account) do %>
-    <%= render "account_menu" %>
-<% end %>

@@ -1,0 +1,1 @@
+(function(){jQuery(function(){return $("#featured_product_product_ids").select2({placeholder:"Select Products",width:"400px",allowClear:!0})})}).call(this);

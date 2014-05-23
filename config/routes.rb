@@ -110,10 +110,12 @@ Shopnany::Application.routes.draw do
     resources :categories
     resources :brands
     resources :states
+    resources :product_types
 
     get "search" => "products#search", as: :search
 
     namespace :admin do
+      resources :featured_products
       namespace :wizards do
         resources :brands,              only: [:index, :create, :update]
         resources :products,            only: [:new, :create]

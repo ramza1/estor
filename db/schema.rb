@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507114332) do
+ActiveRecord::Schema.define(version: 20140522124611) do
 
   create_table "accounting_adjustments", force: true do |t|
     t.integer  "adjustable_id",                           null: false
@@ -260,6 +260,21 @@ ActiveRecord::Schema.define(version: 20140507114332) do
   add_index "deals", ["product_type_id"], name: "index_deals_on_product_type_id", using: :btree
   add_index "deals", ["shop_id"], name: "index_deals_on_shop_id", using: :btree
 
+  create_table "featured_products", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "featured_products_products", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "featured_product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "featured_products_products", ["featured_product_id"], name: "index_featured_products_products_on_featured_product_id", using: :btree
+  add_index "featured_products_products", ["product_id"], name: "index_featured_products_products_on_product_id", using: :btree
+
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -454,15 +469,15 @@ ActiveRecord::Schema.define(version: 20140507114332) do
   add_index "product_properties", ["shop_id"], name: "index_product_properties_on_shop_id", using: :btree
 
   create_table "product_types", force: true do |t|
-    t.string  "name",                     null: false
-    t.integer "parent_id"
-    t.boolean "active",    default: true
+    t.string  "name",                    null: false
+    t.boolean "active",   default: true
     t.integer "shop_id"
     t.integer "rgt"
     t.integer "lft"
+    t.string  "ancestry"
   end
 
-  add_index "product_types", ["parent_id"], name: "index_product_types_on_parent_id", using: :btree
+  add_index "product_types", ["ancestry"], name: "index_product_types_on_ancestry", using: :btree
   add_index "product_types", ["shop_id"], name: "index_product_types_on_shop_id", using: :btree
 
   create_table "products", force: true do |t|

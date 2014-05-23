@@ -15,21 +15,16 @@
 //= require jquery.ui.all
 //= require twitter/bootstrap
 //= require bootstrap
-//= require prettify
-//= require respond.min
-//= require jquery.flexslider
-//= require cloud-zoom.1.0.2
-//= require custom
-//= require products
-//= require masonry
+//= require superfish.min
+//= require jquery.sticky
+//= require jquery.flexslider-min
+//= require parallax
+//= require jquery.jcarousel
+//= require fancySelect
+//= require animate
+//= require myscript
 
 
-
-window.onload = function() {
-    var wall = new Masonry( document.getElementById('container'), {
-        columnWidth: 150
-    });
-};
 
 
 

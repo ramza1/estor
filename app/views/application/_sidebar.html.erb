@@ -42,10 +42,10 @@
               </a>
             </div>
           </div>
-          <div class="accordion-group <%= active_controller("brands") %> <%= active_controller("image_groups") %> <%= active_controller("prototypes") %> <%= active_controller("product_types") %> <%= active_controller("products") %> <%= active_controller("products") %>">
+          <div class="accordion-group <%= active_controller("brands") %> <%= active_controller("featured_products") %> <%= active_controller("image_groups") %> <%= active_controller("prototypes") %> <%= active_controller("product_types") %> <%= active_controller("products") %> <%= active_controller("products") %>">
             <div class="accordion-heading">
 
-              <a class="accordion-toggle <%= opened_tab("products") %> <%= active_controller("brands") %> <%= opened_tab("properties") %> <%= opened_tab("variants") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-form-stuff">
+              <a class="accordion-toggle <%= opened_tab("featured_products") %> <%= opened_tab("products") %> <%= active_controller("brands") %> <%= opened_tab("properties") %> <%= opened_tab("variants") %>" data-toggle="collapse" data-parent="#accordion2" href="#collapse-form-stuff">
                 <%= image_tag "img/icons/stuttgart-icon-pack/32x32/product.png"%>
                 <span>Merchandise</span>
 
@@ -55,13 +55,14 @@
               </a>
             </div>
 
-            <ul id="collapse-form-stuff" class="accordion-body collapse nav nav-list collapse <%= in_open("products")%> <%= in_open("variants")%> <%= in_open("brands")%> <%= in_open("properties")%>">
+            <ul id="collapse-form-stuff" class="accordion-body collapse nav nav-list collapse <%= in_open("products")%> <%= in_open("variants")%> <%= in_open("featured_products")%> <%= in_open("brands")%> <%= in_open("properties")%>">
               <li class="<%= active_controller("products") %>"><%= link_to 'Products', admin_products_path %></li>
               <li class="<%= active_controller("properties") %>"><%= link_to 'Properties', admin_properties_path %></li>
               <li class="<%= active_controller("product_types") %>"><%= link_to 'Product Types', admin_product_types_path %></li>
               <li class="<%= active_controller("prototypes") %>"><%= link_to 'Prototypes', admin_prototypes_path %></li>
               <li class="<%= active_controller("image_groups") %>"><%= link_to 'Image Groups', admin_image_groups_path %></li>
               <li class="<%= active_controller("brands") %>"><%= link_to 'Brands', admin_brands_path %></li>
+              <li class="<%= active_controller("featured_products") %>"><%= link_to 'Featured Products', admin_featured_products_path %></li>
             </ul>
           </div>
 

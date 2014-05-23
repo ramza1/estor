@@ -39,8 +39,12 @@ class Admin::Generic::SalesController < Admin::Generic::BaseController
 
   def destroy
     @sale = Sale.find(params[:id])
+    if @sale.product.present?
+      redirect_to admin_generic_sales_url, :alert => "Sorry you cannot delete this sale. its assigned to a product"
+    else
     @sale.destroy
     redirect_to admin_generic_sales_url, :notice => "Successfully destroyed sale."
+   end
   end
 
   private

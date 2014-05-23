@@ -1,44 +1,59 @@
+<section class="my_account parallax" style="background-position: 50% 0px;">
 
-  <h1 class="headingmain"><span>Register Account</span></h1>
-  <br>
-  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {class: "form-horizontal"}) do |f| %>
-      <%= f.error_notification %>
-    <div class="registerbox">
-      <fieldset>
-        <%= f.input :first_name %>
-        <%= f.input :last_name  %>
-        <%= f.input :email, :required => true, :autofocus => true %>
-        <%= f.input :phone_number %>
-      </fieldset>
+  <!-- CONTAINER -->
+  <div class="container">
+
+    <div class="my_account_block clearfix">
+      <div class="login">
+        <h2>NEW CUSTOMERS</h2>
+        <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {class: "form-horizontal"}) do |f| %>
+            <%= f.error_notification %>
+            <div class="registerbox">
+              <fieldset>
+                <%= f.input :first_name, label: false, placeholder: "First Name" %>
+                <%= f.input :last_name, label: false, placeholder: "Last Name"  %>
+                <%= f.input :email, label: false, placeholder: "Email", :required => true, :autofocus => true %>
+                <%= f.input :phone_number, label: false, placeholder: "Phone Number" %>
+              </fieldset>
+            </div>
+            <div class="registerbox">
+              <fieldset>
+                <%= f.input :address, label: false, placeholder: "Address" %>
+
+              </fieldset>
+            </div>
+            <div class="registerbox">
+              <fieldset>
+                <%= f.input :password, label: false, placeholder: "Password", :required => true %>
+                <%= f.input :password_confirmation, label: false, placeholder: "Re type password", :required => true %>
+              </fieldset>
+            </div>
+            <div class="registerbox">
+              <fieldset>
+                I have read and agree to the <a href="#" >Privacy Policy</a>
+              </fieldset>
+            </div>
+            <div class="form-actions">
+              &nbsp;
+              <%= f.button :submit, "Sign up", class: "btn btn-success" %>
+            </div>
+        <% end %>
+      </div>
+      <div class="new_customers">
+        <h2>HAVE AN ACCOUNT?</h2>
+        <p>Register with us to enjoy personalized services, including:</p>
+        <ul>
+          <li><a href="javascript:void(0);">—  Online Order Status</a></li>
+          <li><a href="javascript:void(0);">—  Love List</a></li>
+          <li><a href="javascript:void(0);">—  Sign up to receive exclusive news and private sales</a></li>
+          <li><a href="javascript:void(0);">—  Place Test Orders</a></li>
+          <li><a href="javascript:void(0);">—  Quick and easy checkout</a></li>
+        </ul>
+        <div class="center"><a class="btn active" href="<%= url_for new_customer_registration_url %>">Login</a></div>
+      </div>
     </div>
-    <div class="registerbox">
-      <fieldset>
-        <%= f.input :address %>
 
-      </fieldset>
-    </div>
-    <div class="registerbox">
-      <fieldset>
-        <%= f.input :password, :required => true %>
-        <%= f.input :password_confirmation, :required => true %>
-      </fieldset>
-    </div>
-    <div class="registerbox">
-      <fieldset>
-        I have read and agree to the <a href="#" >Privacy Policy</a>
-      </fieldset>
-    </div>
-    <div class="form-actions">
-      &nbsp;
-      <%= f.button :submit, "Sign up", class: "btn btn-success" %>
-    </div>
- <% end %>
-  <div class="clearfix"></div><br>
+    <div class="my_account_note center">HAVE A QUESTION? <b>1 800 888 02828</b></div>
+  </div><!-- //CONTAINER -->
+</section>
 
-
-
-
-
-  <%= content_for(:account) do %>
-      <%= render "account_menu" %>
-  <% end %>

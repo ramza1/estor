@@ -84,4 +84,12 @@ module ApplicationHelper
     end
   end
 
+  def discount_price(total_sum, discount)
+   dis = ((total_sum * discount.to_f) / 100)
+   dis = total_sum - dis
+   dis
+  end
+
+
+
 end

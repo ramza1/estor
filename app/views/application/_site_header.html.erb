@@ -1,0 +1,126 @@
+<header>
+
+  <!-- TOP INFO -->
+  <div class="top_info" style="background: #000">
+
+    <!-- CONTAINER -->
+    <div class="container clearfix">
+      <ul class="secondary_menu">
+        <% if current_customer %>
+            <li><%= link_to "My Account", myaccount_root_url %></li>
+        <% else %>
+            <li><%= link_to "login", new_customer_session_path %></li>
+            <li><%= link_to "create an account", new_customer_registration_path %></li>
+        <% end %>
+      </ul>
+
+      <div class="live_chat"><a href="javascript:void(0);" ><i class="fa fa-comment-o"></i> Live chat</a></div>
+
+      <div class="phone_top">have a question? <a href="tel:1 800 888 2828" >1 800 888 2828</a></div>
+    </div><!-- //CONTAINER -->
+  </div><!-- TOP INFO -->
+
+
+  <!-- MENU BLOCK -->
+  <div class="menu_block">
+
+    <!-- CONTAINER -->
+    <div class="container clearfix">
+
+      <!-- LOGO -->
+      <div class="logo">
+        <a href="<%= url_for root_url %>">
+          <%= image_tag "logo.png" %>
+        </a>
+      </div><!-- //LOGO -->
+
+
+      <!-- SEARCH FORM -->
+      <div class="top_search_form">
+        <a class="top_search_btn" href="javascript:void(0);" ><i class="fa fa-search"></i></a>
+        <%= form_tag search_path, method: :get do %>
+            <%= text_field_tag :q, @q, :placeholder => "Search here...", id: "search" %>
+        <% end %>
+      </div><!-- SEARCH FORM -->
+
+
+      <!-- SHOPPING BAG -->
+      <div class="shopping_bag">
+        <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p><span> <%= session_cart.shopping_cart_items.size%></span></a>
+        <div class="cart">
+          <ul class="cart-items">
+          <% if session_cart.shopping_cart_items.size > 0 %>
+                <% session_cart.shopping_cart_items.each do |item| %>
+            <li class="clearfix">
+              <%= image_tag(item.variant.featured_image(:small), class: "cart_item_product") %>
+              <%= link_to item.variant.name, product_path(item.variant.product), class: "cart_item_title" %>
+              <span class="cart_item_price"><%= number_to_currency(item.total, unit: "&#8358;".html_safe, precision: 0) %></span>
+            </li>
+            <% end %>
+          <% else %>
+              <li>Cart is empty</li>
+             <% end %>
+          </ul>
+              <div class="cart_total">
+                <div class="clearfix"><span class="cart_subtotal">bag subtotal: <b><%= number_to_currency session_cart.sub_total, unit: "&#8358;".html_safe, precision: 0 %></b></span></div>
+                <a class="btn active" href="<%= url_for shopping_cart_items_path %>">Checkout</a>
+              </div>
+        </div>
+      </div><!-- //SHOPPING BAG -->
+
+
+      <!-- LOVE LIST -->
+      <div class="love_list">
+        <a class="love_list_btn" href="javascript:void(0);" ><i class="fa fa-heart-o"></i><p>Love list</p><span><%= session_saved_cart_items.size%></span></a>
+        <div class="cart">
+          <ul class="cart-items">
+            <% if session_saved_cart_items.size > 0 %>
+                <% session_saved_cart_items.each do |item| %>
+                    <li class="clearfix">
+                      <%= image_tag(item.variant.featured_image(:small), class: "cart_item_product") %>
+                      <%= link_to item.variant.name, product_path(item.variant.product), class: "cart_item_title" %>
+                      <span class="cart_item_price"><%= number_to_currency(item.total, unit: "&#8358;".html_safe, precision: 0) %></span>
+                    </li>
+                <% end %>
+            <% else %>
+                <li>Cart is empty</li>
+            <% end %>
+          </ul>
+          <div class="cart_total">
+            <a class="btn active" href="<%= url_for shopping_cart_items_path %>">Checkout</a>
+          </div>
+        </div>
+      </div><!-- //LOVE LIST -->
+
+
+      <!-- MENU -->
+      <ul class="navmenu center">
+        <li class="sub-menu first active">
+          <%= link_to "Home", root_url %>
+        </li>
+
+        <% ProductType.roots.each do |product_type| %>
+
+        <li class="<% if product_type.descendants.any? %>sub-menu<% end %>">
+          <%= link_to product_type.name %>
+          <% if product_type.descendants.any? %>
+          <ul class="mega_menu megamenu_col1 clearfix">
+            <% product_type.descendants.in_groups_of(7, false) do |category_row| %>
+              <li class="col">
+                <ol>
+                   <% category_row.each do |category|%>
+                       <li><%=link_to category.name, category %></li>
+                   <% end %>
+                </ol>
+              </li>
+            <% end %>
+          </ul>
+          <% end %>
+        </li>
+        <% end %>
+        <li class="last sale_menu"><a href="#" >Sale</a></li>
+
+      </ul><!-- //MENU -->
+    </div><!-- //MENU BLOCK -->
+  </div><!-- //CONTAINER -->
+</header><!-- //HEADER -->

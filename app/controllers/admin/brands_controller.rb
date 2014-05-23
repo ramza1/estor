@@ -51,7 +51,7 @@ class Admin::BrandsController < Admin::BaseController
   private
 
   def allowed_params
-    params.require(:brand).permit(:name)
+    params.require(:brand).permit(:name, :icon)
   end
 
 end
