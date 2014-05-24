@@ -80,8 +80,11 @@
   </div><!-- //NEWSLETTER FORM WIDGET -->
 </div>
 
+<%= content_for "js" do %>
 <script>
     $( "#slider-range" ).on( "slidestop", function( event, ui ) {
         alert('mad man')
-    } );
+    });
 </script>
+
+<% end %>

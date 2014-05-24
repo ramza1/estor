@@ -46,7 +46,7 @@
 
 
 <%= javascript_include_tag "application" %>
-
+<%= yield :js %>
 <script>
     if (top != self) top.location.replace(self.location.href);
 </script>

@@ -34,7 +34,7 @@ class Admin::Wizards::BrandsController < Admin::Wizards::BaseController
   private
 
   def allowed_params
-    params.require(:brand).permit(:name)
+    params.require(:brand).permit(:name, :icon)
   end
 
   def form_info

@@ -22,6 +22,7 @@
 //= require jquery.jcarousel
 //= require fancySelect
 //= require animate
+//= require isotope
 //= require myscript
 
 
