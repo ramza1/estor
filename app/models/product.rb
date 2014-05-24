@@ -73,6 +73,12 @@ class Product < ActiveRecord::Base
   validate  :ensure_available
   has_one :sale
 
+  def summary
+    summery = description.gsub(/<\/?[^>]*>/, "").squeeze(" ").strip[0..350]
+    summery = summery.gsub("&nbsp;", "")
+    summery
+  end
+
   def hero_variant
     active_variants.detect{|v| v.master } || active_variants.first
   end

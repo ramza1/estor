@@ -102,14 +102,14 @@
         <% ProductType.roots.each do |product_type| %>
 
         <li class="<% if product_type.descendants.any? %>sub-menu<% end %>">
-          <%= link_to product_type.name %>
+          <%= link_to product_type.name, products_path(product_type_id: product_type.id) %>
           <% if product_type.descendants.any? %>
           <ul class="mega_menu megamenu_col1 clearfix">
             <% product_type.descendants.in_groups_of(7, false) do |category_row| %>
               <li class="col">
                 <ol>
                    <% category_row.each do |category|%>
-                       <li><%=link_to category.name, category %></li>
+                       <li><%=link_to category.name, products_path(product_type_id: category.id) %></li>
                    <% end %>
                 </ol>
               </li>

@@ -1,6 +1,39 @@
-<section id="latest">
-  <h1 class="headingfull"><span>Latest Products</span></h1>
-  <ul class="thumbnails" id="container">
-    <%= render @products %>
-  </ul>
+<section class="shop">
+  <div class="container" style="padding-top: 134px;">
+    <div class="row">
+      <%= render "products_sidebar" %>
+      <div class="col-lg-9 col-sm-9 padbot20">
+        <div class="sorting_options clearfix">
+
+          <!-- COUNT TOVAR ITEMS -->
+          <div class="count_tovar_items">
+            <p><%= @product_type.name %></p>
+            <span><%= pluralize @products.size, "item" %></span>
+          </div><!-- //COUNT TOVAR ITEMS -->
+
+          <!-- TOVAR FILTER -->
+          <div class="product_sort">
+            <p>SORT BY</p>
+            <div class="fancy-select"><select class="basic fancified" style="width: 1px; height: 1px; display: block; position: absolute; top: 0px; left: 0px; opacity: 0;">
+              <option value="">Popularity</option>
+              <option>Reting</option>
+              <option>Date</option>
+            </select><div class="trigger">Popularity</div><ul class="options"><li data-raw-value="Reting">Reting</li><li data-raw-value="Date">Date</li></ul></div>
+          </div><!-- //TOVAR FILTER -->
+
+          <!-- PRODUC SIZE -->
+          <div id="toggle-sizes">
+            <a class="view_box active" href="javascript:void(0);"><i class="fa fa-th-large"></i></a>
+            <a class="view_full" href="javascript:void(0);"><i class="fa fa-th-list"></i></a>
+          </div><!-- //PRODUC SIZE -->
+        </div>
+        <div class="row shop_block">
+            <%= render @products %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </section>

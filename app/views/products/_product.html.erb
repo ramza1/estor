@@ -1,20 +1,23 @@
-<li class="span3 item">
-  <%= link_to truncate(product.name, length: 25), product, class: "prdocutname", "data-toggle"=>"tooltip", "title"=> product.name %>
-  <div class="thumbnail">
-    <%= link_to image_tag(product.featured_image(:product), style: "min-width: 260px; min-height: 173px;", title: product.name), product %>
-    <div class="caption">
-      <div class="price pull-left">
-        <span class="newprice"><%= number_to_currency product.price_range.first %>
-          <% if product.price_range? %>
-                        to
-              <%= number_to_currency product.price_range.last %>
-                    <% end %>
-        </span> <br/>
+<div class="tovar_wrapper col-lg-4 col-md-4 col-sm-6 col-xs-6 col-ss-12 padbot40">
+  <div class="tovar_item clearfix <% if product.sale.present? %>tovar_sale<% end %>">
+    <div class="tovar_img">
+      <div class="tovar_img_wrapper" style="height: 370px;">
+        <%= image_tag(product.featured_image(:product)) %>
+        <%= image_tag(product.featured_image(:product)) %>
       </div>
-      <a href="<%= url_for product %>" class="cartadd pull-right tooltip-test" title="Add to Cart"> Add to Cart </a>
-                  <span class="links pull-left"><%= link_to "Buy Now", product_path(product), class: "info" %>
-                    <a class="wishlist" href="<%= url_for product %>">View full details</a>
-                  </span>
+      <div class="tovar_item_btns">
+        <div class="open-project-link"><a class="open-project tovar_view" href="<%= url_for product %>"><span>quick</span> view</a></div>
+        <a class="add_bag" href="<%= url_for product %>"><i class="fa fa-shopping-cart"></i></a>
+        <a class="add_lovelist" href="<%= url_for product %>"><i class="fa fa-heart"></i></a>
+      </div>
     </div>
+    <div class="tovar_description clearfix">
+        <%= link_to truncate(product.name, length: 25), product, class: "tovar_title" %>
+      <span class="tovar_price">
+         <%= number_to_currency product.sale.present? ? discount_price(product.price_range.first, product.sale.percent_off)  :  product.price_range.first,
+                                unit: "&#8358;".html_safe, precision: 0 %>
+      </span>
+    </div>
+    <div class="tovar_content"><%= product.summary %></div>
   </div>
-</li>
+</div>
