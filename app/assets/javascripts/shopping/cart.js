@@ -32,7 +32,7 @@ if (typeof Hadean.Cart.newForm == "undefined") {
         $( propId ).addClass('selected');
           jQuery('#cart_item_variant_id').val($(this).data("variant_id"));
           jQuery(".variant_select").removeClass('selected_variant, btn-success');
-          jQuery(this).addClass('selected_variant, btn-success');
+          jQuery(this, 'li').addClass('selected_variant, btn-success');
           //jQuery('#submit_add_to_cart').removeClass('add-to-cart').addClass('ready-to-add-to-cart');
         }
       );

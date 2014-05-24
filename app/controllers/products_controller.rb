@@ -20,6 +20,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    min_price = params[:min_price]   if params[:min_price].present?
+    max_price = params[:max_price]   if params[:max_price].present?
+    variant_name = params[:variant_name]   if params[:variant_name].present?
+    brands = params[:brand_ids] if params[:brand_ids].present?
+
+  end
+
   private
 
   def form_info

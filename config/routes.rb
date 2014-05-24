@@ -95,6 +95,7 @@ Shopnany::Application.routes.draw do
     get "activation" => "payments#notify", as: :payments_notify
     get "success" => "payments#thank_you", as: :payments_successful
     get "failed" => "payments#failure_alert", as: :payments_failed
+    post 'find_products' => "products#search", as: :find_products
 
     devise_for :customers, :path_prefix => 'account'
     resources :customers do

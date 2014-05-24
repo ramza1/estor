@@ -11,16 +11,6 @@
             <span><%= pluralize @products.size, "item" %></span>
           </div><!-- //COUNT TOVAR ITEMS -->
 
-          <!-- TOVAR FILTER -->
-          <div class="product_sort">
-            <p>SORT BY</p>
-            <div class="fancy-select"><select class="basic fancified" style="width: 1px; height: 1px; display: block; position: absolute; top: 0px; left: 0px; opacity: 0;">
-              <option value="">Popularity</option>
-              <option>Reting</option>
-              <option>Date</option>
-            </select><div class="trigger">Popularity</div><ul class="options"><li data-raw-value="Reting">Reting</li><li data-raw-value="Date">Date</li></ul></div>
-          </div><!-- //TOVAR FILTER -->
-
           <!-- PRODUC SIZE -->
           <div id="toggle-sizes">
             <a class="view_box active" href="javascript:void(0);"><i class="fa fa-th-large"></i></a>
@@ -37,3 +27,9 @@
   </div>
 
 </section>
+
+<style>
+  .menu_block{
+      border-bottom: 1px solid #eee;
+  }
+</style>

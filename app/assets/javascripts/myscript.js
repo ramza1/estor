@@ -348,24 +348,7 @@ function tovarfotoHeight() {
 
 
 
-/*-----------------------------------------------------------------------------------*/
-/*	Tovar Sizes
-/*-----------------------------------------------------------------------------------*/
-jQuery(document).ready(function() {
-	// toggle variable sizes of all elements
-	$('#toggle-sizes').find('a.view_full').click(function(){
-		$('a.view_box').removeClass('active');
-		$(this).addClass('active');
-		$('.shop_block').addClass('variable-sizes').isotope('reLayout');
-		return false;
-	});
-	$('#toggle-sizes').find('a.view_box').click(function(){
-		$('a.view_full').removeClass('active');
-		$(this).addClass('active');
-		$('.shop_block').removeClass('variable-sizes').isotope('reLayout');
-		return false;
-	});
-});
+
 
 
 
