@@ -19,6 +19,9 @@
     <h3>Filter by price</h3>
     <%= hidden_field_tag :min_price %>
     <%= hidden_field_tag :max_price %>
+    <% if params[:product_type_id] %>
+       <%= hidden_field_tag :product_type_id, @product_type.id %>
+    <% end %>
     <div id="price-range" class="clearfix">
       <label for="amount">Range:</label>
       <input type="text" id="amount">
@@ -79,12 +82,16 @@
                     jQuery('#variant_name').val($(this).data("variant_name"));
                     jQuery(".vs").removeClass('active');
                     jQuery(this).addClass('active');
+                    $('.shop_block').empty();
+                    $('.product_sort').show();
                     $(this).closest('form').submit();
                     //jQuery('#submit_add_to_cart').removeClass('add-to-cart').addClass('ready-to-add-to-cart');
                 }
         );
        $(function(){
            $('#form-search').on('change', function(){
+               $('.shop_block').empty();
+               $('.product_sort').show();
                $(this).closest('form').submit();
            })
        })

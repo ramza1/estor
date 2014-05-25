@@ -1,0 +1,6 @@
+<% if @products.empty? %>
+   $(".shop_block").html("<p class='alert alert-warning'>0 products found</p>")
+<% else %>
+$(".shop_block").append("<%= j render @products %>")
+<% end %>
+$('.product_sort').hide();

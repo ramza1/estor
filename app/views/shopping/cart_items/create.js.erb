@@ -1,0 +1,7 @@
+<% if flash[:notice].present? %>
+       $("#notification").html("<div class='alert alert-warning'><%= flash[:notice] %></div>")
+<% else %>
+$('#cart-item-count').text("<%= session_cart.shopping_cart_items.size %>")
+$("#notification").html("<div class='alert alert-success'>Item Added to cart</div>")
+<% end %>
+

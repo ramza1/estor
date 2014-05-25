@@ -46,11 +46,11 @@
 
       <!-- SHOPPING BAG -->
       <div class="shopping_bag">
-        <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p><span> <%= session_cart.shopping_cart_items.size%></span></a>
+        <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p><span id="cart-item-count"> <%= session_cart.shopping_cart_items.size%></span></a>
         <div class="cart">
           <ul class="cart-items">
           <% if session_cart.shopping_cart_items.size > 0 %>
-                <% session_cart.shopping_cart_items.each do |item| %>
+                <% session_cart.shopping_cart_items.first(3).each do |item| %>
             <li class="clearfix">
               <%= image_tag(item.variant.featured_image(:small), class: "cart_item_product") %>
               <%= link_to item.variant.name, product_path(item.variant.product), class: "cart_item_title" %>
@@ -75,7 +75,7 @@
         <div class="cart">
           <ul class="cart-items">
             <% if session_saved_cart_items.size > 0 %>
-                <% session_saved_cart_items.each do |item| %>
+                <% session_saved_cart_items.first(3).each do |item| %>
                     <li class="clearfix">
                       <%= image_tag(item.variant.featured_image(:small), class: "cart_item_product") %>
                       <%= link_to item.variant.name, product_path(item.variant.product), class: "cart_item_title" %>

@@ -11,15 +11,21 @@
             <span><%= pluralize @products.size, "item" %></span>
           </div><!-- //COUNT TOVAR ITEMS -->
 
+          <div class="product_sort" style="position: relative; display: none;">
+            <%= image_tag "preloader.gif", style: "position: absolute; top: -15px;" %>
+          </div>
+
           <!-- PRODUC SIZE -->
           <div id="toggle-sizes">
             <a class="view_box active" href="javascript:void(0);"><i class="fa fa-th-large"></i></a>
             <a class="view_full" href="javascript:void(0);"><i class="fa fa-th-list"></i></a>
           </div><!-- //PRODUC SIZE -->
         </div>
-        <div class="row shop_block">
+
+          <div class="row shop_block">
             <%= render @products %>
-        </div>
+          </div>
+
 
       </div>
     </div>

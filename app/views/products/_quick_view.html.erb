@@ -1,0 +1,103 @@
+<div class="tover_view_page element_fade_in">
+  <div class="tover_view_header clearfix">
+    <p>Quick view</p>
+    <a id="tover_view_page_close" href="javascript:void(0);">Close<i>X</i></a>
+  </div>
+
+  <div class="clearfix">
+    <div class="tovar_view_fotos clearfix">
+      <div id="slider1" class="flexslider">
+        <ul class="slides">
+          <% product.images.each do |image| %>
+             <li><a href="javascript:void(0);" ><%= image_tag(image.photo.url(:large)) %></a></li>
+          <% end %>
+        </ul>
+      </div>
+      <div id="carousel1" class="flexslider">
+        <ul class="slides">
+          <% product.images.each do |image| %>
+              <li><a href="javascript:void(0);" ><%= image_tag(image.photo.url(:product)) %></a></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tovar_view_description">
+      <div class="tovar_view_title"><%= product.name %></div>
+      <div class="tovar_article"><%= product.summary %></div>
+      <div class="clearfix tovar_brend_price">
+        <div class="pull-left tovar_brend"><%= product.brand.name if product.brand.present? %></div>
+        <div class="pull-right tovar_view_price">
+          <%= number_to_currency product.sale.present? ? discount_price(product.price_range.first, product.sale.percent_off)  :  product.price_range.first,
+                                 unit: "&#8358;".html_safe, precision: 0 %>
+        </div>
+      </div>
+      <% if product.active_variants.empty? %>
+          <p class="alert alert-warning">
+            Sorry this product is not currently available.
+          </p>
+      <% else %>
+    <div class="tovar_size_select">
+        <div class="clearfix">
+          <p class="pull-left">Select SIZE</p>
+          <span>Size & Fit</span>
+        </div>
+      <% product.active_variants.each_with_index do |variant, i| %>
+          <a id='variant_<%= variant.id %>'
+               href="javascript:void(0);"
+               class='variant_select secondary <%= 'active' if i == 0 %>'
+               data-variant_id='<%= variant.id %>' style="width: 88px;">
+            <%= raw variant.product_name %>
+          </a>
+      <% end %>
+      </div>
+          <%= form_for  cart_item,
+                        :url  => shopping_cart_items_path(cart_item), remote: true,
+                        :html => { :id => 'new_cart_item', :class => 'custom form-inline quantitybox' } do |f| %>
+              <%= f.hidden_field :variant_id %>
+              <div class="tovar_view_btn">
+              <%= f.select :quantity, [1,2,3,4,5,6], {:include_blank => false}, :class => 'basic' %>
+
+              <% unless @product.active_variants.empty? %>
+                  <%= link_to '#', :id => 'submit_add_to_cart', :class => 'add_bag' do %>
+                        <i class="fa fa-shopping-cart"></i>Add to bag
+                  <% end %>
+                    <a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>
+              <% end %>
+              </div>
+          <% end %>
+
+      <% end %>
+      <div id="notification">
+
+      </div>
+      <div class="tovar_shared clearfix">
+        <p>Share item with friends</p>
+        <ul>
+          <li><a class="facebook" href="javascript:void(0);" ><i class="fa fa-facebook"></i></a></li>
+          <li><a class="twitter" href="javascript:void(0);" ><i class="fa fa-twitter"></i></a></li>
+          <li><a class="linkedin" href="javascript:void(0);" ><i class="fa fa-linkedin"></i></a></li>
+          <li><a class="google-plus" href="javascript:void(0);" ><i class="fa fa-google-plus"></i></a></li>
+          <li><a class="tumblr" href="javascript:void(0);" ><i class="fa fa-tumblr"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
