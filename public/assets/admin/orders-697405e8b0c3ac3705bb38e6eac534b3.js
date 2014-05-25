@@ -1,1 +1,0 @@
-(function(){jQuery(function(){return Morris.Line({element:"orders_chart",data:$("#orders_chart").data("orders"),xkey:"created_at",ykeys:["price"],labels:["Price"]})})}).call(this);
