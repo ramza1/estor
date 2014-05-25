@@ -27,12 +27,17 @@ class Admin::ProductsController < Admin::BaseController
 
   def create
     @product = Product.new(allowed_params)
+
     if @product.save
-      redirect_to edit_admin_products_description_url(@product), notice: 'Product was successfully created.'
+      flash[:notice] = "Success, You should create a variant for the product."
+      redirect_to edit_admin_products_description_url(@product)
     else
-      render action: "new"
+      form_info
+      flash[:error] = "The product could not be saved"
+      render :action => :new
     end
   end
+
 
   def add_properties
     prototype  = Prototype.includes(:properties).find(params[:id])
