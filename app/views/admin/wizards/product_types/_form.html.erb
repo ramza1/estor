@@ -15,9 +15,7 @@
 <div class="control-group">
   <%= form.label :parent, class: " control-label" %>
   <div class="controls">
-    <%= form.select :parent_id,
-                    nested_set_options(ProductType, ProductType.new) {|i| "#{'-' * i.level} #{i.name}" },
-                    { :include_blank => true }, class: "input-xlarge span9" %>
+    <%= f.collection_select :parent_id, ProductType.all, :id, :name, include_blank: true, class: "input-xlarge" %>
   </div>
 </div>
 
