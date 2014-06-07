@@ -25,12 +25,12 @@
 //= require jquery.dataTables.min
 //= require tables.dynamic
 //= require sidebar
+//= require ckeditor/override
 //= require ckeditor/init
 //= require jquery.gritter.min
 //= require jquery.pulsate.min
 //= require master/theme_images
 //= require admin/product_form
-//= require ckeditor/config
 //= require chosen-jquery
 //= require select2
 //= require base
