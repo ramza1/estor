@@ -52,10 +52,8 @@ class Country < ActiveRecord::Base
   # @param none
   # @return [Array] an array of arrays with [string, country.id]
   def self.form_selector
-    Rails.cache.fetch("Country-form_selector") do
       data = Country.where(:active => true).order('abbreviation ASC').map { |c| [c.abbrev_and_name, c.id] }
       data.blank? ? [[]] : data
-    end
   end
   private
   def expire_cache
