@@ -6,7 +6,7 @@ class Admin::PrototypesController < Admin::BaseController
   end
 
   def new
-    @all_properties = Property.all
+    @all_properties = Property.active
     if @all_properties.empty?
       flash[:notice] = "You must create a property before you create a prototype."
       redirect_to new_admin_property_path
