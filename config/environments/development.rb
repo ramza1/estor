@@ -22,9 +22,10 @@ Shopnany::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
   PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',
-                                          :small => '100x100>',
+                                          :small => '170x210#',
                                           :product => '320x320>',
-                                          :large => '600x600>' },
+                                          :large => '600x600>',
+                                          :featured => '370x507#' },
                               :default_style => :product}
 
   # Debug mode disables concatenation and preprocessing of assets.

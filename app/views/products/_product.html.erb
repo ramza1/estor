@@ -2,8 +2,8 @@
   <div class="tovar_item clearfix <% if product.sale.present? %>tovar_sale<% end %>">
     <div class="tovar_img">
       <div class="tovar_img_wrapper" style="height: 370px;">
-        <%= image_tag(product.featured_image(:product)) %>
-        <%= image_tag(product.featured_image(:product)) %>
+        <%= image_tag(product.featured_image(:featured)) %>
+        <%= image_tag(product.featured_image(:featured)) %>
       </div>
       <div class="tovar_item_btns">
         <div class="open-project-link"><a class="open-project tovar_view" href="<%= url_for product %>"><span>quick</span> view</a></div>

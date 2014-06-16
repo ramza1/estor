@@ -59,8 +59,8 @@
           <div class="tovar_item <% if product.sale.present? %>tovar_sale<% end %>">
             <div class="tovar_img">
               <div class="tovar_img_wrapper">
-                <%= image_tag product.featured_image(:product), class: "img" %>
-                <%= image_tag product.featured_image(:product), class: "img_h" %>
+                <%= image_tag product.featured_image(:featured), class: "img" %>
+                <%= image_tag product.featured_image(:featured), class: "img_h" %>
 
               </div>
               <div class="tovar_item_btns">

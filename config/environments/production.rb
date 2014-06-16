@@ -80,9 +80,10 @@ Shopnany::Application.configure do
   config.active_support.deprecation = :notify
 
   PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',
-                                          :small => '100x100>',
+                                          :small => '170x210#',
                                           :product => '320x320>',
-                                          :large => '600x600>' },
+                                          :large => '600x600>',
+                                          :featured => '370x507#' },
                               :default_style => :product}
 
   # Disable automatic flushing of the log to improve performance.
