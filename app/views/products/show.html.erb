@@ -1,145 +1,242 @@
-<% content_for :head do -%>
-    <%= stylesheet_link_tag 'pikachoose_product.css' %>
-<% end %>
 
-<%= content_for :product do %>
-    <div class="row-fluid">
-    <div class="span5">
-      <ul class="thumbnails mainimage">
-        <% if @product.hero_variant.low_stock? %>
-            <%= image_tag("ribbons/#{@product.hero_variant.stock_status}.png",
-                          :width => 63, :height => 62,
-                          :style => 'border:none;',
-                          :class => 'upper_left_overlay'
-                ) %>
-        <% end %>
-        <% if @product.images.size == 1 %>
-            <ul>
-              <% @product.images.each do |image|%>
-                  <li>
-                    <a><%= image_tag(image.photo.url(:large)) %></a>
-                  </li>
-              <% end %>
-            </ul>
-        <% elsif @product.images.size == 0 %>
-            <ul>
-              <li>
-                <a><%= image_tag(@product.featured_image(:large)) %></a>
-              </li>
-            </ul>
-        <% else %>
-            <ul id="pikame" class="jcarousel-skin-pika row-fluid" style="margin-top: 5px;">
-              <% @product.images.each do |image|%>
-                  <li class="span3">
-                    <a><%= image_tag(image.photo.url(:large)) %></a>
-                  </li>
-              <% end %>
-            </ul>
+<!-- BREADCRUMBS -->
+<section class="breadcrumb parallax margbot30"></section>
+<!-- //BREADCRUMBS -->
+
+
+<!-- TOVAR DETAILS -->
+<section class="tovar_details padbot70">
+
+<!-- CONTAINER -->
+<div class="container">
+
+  <!-- ROW -->
+  <div class="row">
+
+    <!-- SIDEBAR TOVAR DETAILS -->
+    <div class="col-lg-3 col-md-3 sidebar_tovar_details">
+      <h3><b>other <%= @product.product_type.name.pluralize%></b></h3>
+
+      <ul class="tovar_items_small clearfix">
+        <% @product.product_type.products.random_products.each do |product| %>
+        <li class="clearfix">
+          <%= image_tag product.featured_image(:product), class: "tovar_item_small_img" %>
+          <%= link_to product.name, product, class: "tovar_item_small_title"%>
+          <span class="tovar_item_small_price">
+          <%= number_to_currency product.sale.present? ? discount_price(product.price_range.first, product.sale.percent_off)  :  product.price_range.first,
+                                 unit: "&#8358;".html_safe, precision: 0 %>
+          </span>
+        </li>
         <% end %>
       </ul>
+    </div><!-- //SIDEBAR TOVAR DETAILS -->
 
-    </div>
-    <div class="span7">
-          <div class=' clearfix'>
-            <% if @product.active_variants.empty? %>
-                <div id='no-variant-available' class=' four large-4 last'>
-                  Sorry this product is not currently available.
+    <!-- TOVAR DETAILS WRAPPER -->
+    <div class="col-lg-9 col-md-9 tovar_details_wrapper clearfix">
+      <div class="tovar_details_header clearfix margbot35">
+        <h3 class=""><b><%= @product.product_type.name.pluralize%></b>
+          <a class="small pull-right" href="<%= url_for @product.product_type %>" >More form <%= @product.product_type.name.pluralize %></a>
+        </h3>
+      </div>
+
+      <!-- CLEARFIX -->
+      <div class="clearfix padbot40">
+        <div class="tovar_view_fotos clearfix">
+          <div id="slider2" class="flexslider">
+            <ul class="slides">
+              <% @product.images.each do |image| %>
+                  <li><a href="javascript:void(0);" ><%= image_tag(image.photo.url(:large)) %></a></li>
+              <% end %>
+            </ul>
+          </div>
+          <div id="carousel2" class="flexslider">
+            <ul class="slides">
+              <% @product.images.each do |image| %>
+                  <li><a href="javascript:void(0);" ><%= image_tag(image.photo.url(:product)) %></a></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tovar_view_description">
+          <div class="tovar_view_title"><%= @product.name %></div>
+          <div class="clearfix tovar_brend_price">
+            <% if @product.active_variants.any? %>
+              <div class="tovar_article"><%= @product.active_variants.first.sku %> <%= @product.hero_variant.display_stock_status%></div>
+            <% end %>
+            <div class="pull-left tovar_brend"><%= @product.brand.name if @product.brand.present? %></div>
+            <div class="pull-right tovar_view_price">
+              <%= number_to_currency @product.sale.present? ? discount_price(@product.price_range.first, @product.sale.percent_off)  :  @product.price_range.first,
+                                     unit: "&#8358;".html_safe, precision: 0 %>
+            </div>
+          </div>
+          <% if @product.active_variants.empty? %>
+              <p class="alert alert-warning">
+                Sorry this product is not currently available.
+              </p>
+          <% else %>
+              <div class="tovar_size_select">
+                <div class="clearfix">
+                  <p class="pull-left">Select SIZE</p>
+                  <span>Size & Fit</span>
                 </div>
-            <% else %>
+                <% @product.active_variants.each_with_index do |variant, i| %>
+                    <a id='variant_<%= variant.id %>'
+                       href="javascript:void(0);"
+                       class='variant_select secondary <%= 'active' if i == 0 %>'
+                       data-variant_id='<%= variant.id %>' style="width: 88px;">
+                      <%= raw variant.product_name %>
+                    </a>
+                <% end %>
+              </div>
+              <%= form_for  @cart_item,
+                            :url  => shopping_cart_items_path(@cart_item), remote: true,
+                            :html => { :id => 'new_cart_item', :class => 'custom form-inline quantitybox' } do |f| %>
+                  <%= f.hidden_field :variant_id %>
+                  <div class="tovar_view_btn">
+                    <%= f.select :quantity, [1,2,3,4,5,6], {:include_blank => false}, :class => 'basic' %>
 
-                <div id='left_product_wrapper' class='columns five large-5'>
-                  <!-- <ul class='horizontal-list'>
-            <li><%= link_to 'Share', '#share-product', :class => 'button small share' %></li>
-          </ul> -->
-                </div>
-                <div id='right_2_product_wrapper' class='six columns large-6 last'>
-                  <div id='right_product_wrapper' class=''>
-                    <div class='product_title_name'><%= @product.name.titleize %></div>
-                    <% if @product.active_variants.count > 0 %>
-                        <div class='product_content'>
-                          <div class='product_content_price'>
-                            <%= number_to_currency @product.active_variants.first.price %>
-                          </div>
-
-                        </div>
-                        <div id='your_product' class='panel'>
-                          <% @product.active_variants.each_with_index do |variant, i| %>
-                              <div id='variant_<%= variant.id %>'
-                                   class='tiny btn variant_select secondary <%= 'selected_variant btn-success' if i == 0 %>'
-                                   data-variant_id='<%= variant.id %>'>
-                                <%= raw variant.product_name %>
-                              </div>
-                          <% end %>
-                          <div  class='properties_inner_wrapper ' >
-                            <%= form_for  @cart_item,
-                                          :url  => shopping_cart_items_path(@cart_item),
-                                          :html => { :id => 'new_cart_item', :class => 'custom form-inline quantitybox' } do |f| %>
-                                <%= f.hidden_field :variant_id %>
-
-                                  Quantity: <br/>
-                                <%= f.select :quantity, [1,2,3,4], {:include_blank => false}, {:class => ' '} %>
-
-                                  <% unless @product.active_variants.empty? %>
-                                      <%= link_to '#', :id => 'submit_add_to_cart', :class => 'small btn' do %>
-                                        <i class="carticon"></i>  Add to Cart
-                                       <% end %>
-                                  <% end %>
-                            <% end %>
-                          </div>
-                          <div  class='clearfix' style='margin-bottom:20px;' >&nbsp;</div>
-                        </div>
-
-                        <div class="productdesc">
-                          <ul class="nav nav-tabs" id="myTab">
-                            <li class="active"><a href="#description">Product</a>
-                            </li>
-                            <li><a href="#specification">Properties</a>
-                            </li>
-                          </ul>
-                          <div class="tab-content">
-                            <div class="tab-pane active" id="description">
-                              <%= raw @product.description %>
-                            </div>
-                            <div class="tab-pane " id="specification">
-                              <% @product.active_variants.each_with_index do |var, i| %>
-                                  <div id='variant_properties_<%= var.id %>' class='variant_properties <%= 'selected' if i == 0 %>'>
-                                    <ul class='vertical-list'>
-                                      <% var.variant_properties.each do |prop| %>
-                                          <li><label><%= prop.property_name %>:</label>  <%= prop.description %></li>
-                                      <% end %>
-                                    </ul>
-                                  </div>
-                              <% end %>
-                            </div>
-                          </div>
-                        </div>
-
+                    <% unless @product.active_variants.empty? %>
+                        <%= link_to '#', :id => 'submit_add_to_cart', :class => 'add_bag' do %>
+                            <i class="fa fa-shopping-cart"></i>Add to bag
+                        <% end %>
+                        <a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>
                     <% end %>
                   </div>
+              <% end %>
+
+          <% end %>
+          <div id="notification">
+
+          </div>
+          <div class="tovar_shared clearfix">
+            <p>Share item with friends</p>
+            <ul>
+              <li><a class="facebook" href="javascript:void(0);" ><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="javascript:void(0);" ><i class="fa fa-twitter"></i></a></li>
+              <li><a class="linkedin" href="javascript:void(0);" ><i class="fa fa-linkedin"></i></a></li>
+              <li><a class="google-plus" href="javascript:void(0);" ><i class="fa fa-google-plus"></i></a></li>
+              <li><a class="tumblr" href="javascript:void(0);" ><i class="fa fa-tumblr"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- //CLEARFIX -->
+
+      <!-- TOVAR INFORMATION -->
+      <div class="tovar_information">
+        <ul class="tabs clearfix">
+          <li class="current">Details</li>
+          <li>Reviews (2)</li>
+        </ul>
+        <div class="box visible">
+         <%= raw @product.description%>
+        </div>
+        <div class="box">
+          <ul class="comments">
+            <li>
+              <div class="clearfix">
+                <p class="pull-left"><strong><a href="javascript:void(0);" >John Doe</a></strong></p>
+                <span class="date">2013-10-09 09:23</span>
+                <div class="pull-right rating-box clearfix">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                  <i class="fa fa-star-o"></i>
                 </div>
+              </div>
+              <p>Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus.Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque.</p>
+            </li>
+            <li>
+              <div class="clearfix">
+                <p class="pull-left"><strong><a href="javascript:void(0);" >John Doe</a></strong></p>
+                <span class="date">2013-10-09 09:23</span>
+                <div class="pull-right rating-box clearfix">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
                 </div>
-    </div>
-</div>
+              </div>
+              <p>Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus.Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque.</p>
 
-      <%#= render "related_products" %>
+              <ul>
+                <li>
+                  <p><strong><a href="javascript:void(0);" >Jane Doe</a></strong></p>
+                  <p>Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus.Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque.</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
 
+          <h3>WRITE A REVIEW</h3>
+          <p>Now please write a (short) review....(min. 200, max. 2000 characters)</p>
+          <div class="clearfix">
+            <textarea id="review-textarea"></textarea>
+            <label class="pull-left rating-box-label">Your Rate:</label>
+            <div class="pull-left rating-box clearfix">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <input type="submit" class="dark-blue big" value="Submit a review">
+          </div>
+        </div>
+      </div><!-- //TOVAR INFORMATION -->
+    </div><!-- //TOVAR DETAILS WRAPPER -->
+  </div><!-- //ROW -->
+</div><!-- //CONTAINER -->
+</section><!-- //TOVAR DETAILS -->
+ <%= content_for :js do %>
+<script>
+    var Hadean = window.Hadean || { };
+    if (typeof Hadean.Cart == "undefined") {
+        Hadean.Cart = {};
+    }
+    dd = null;
+    if (typeof Hadean.Cart.newForm == "undefined") {
+        Hadean.Cart.newForm = {
+            newFormId : '#new_cart_item',
+            addToCart : true,
+
+            initialize      : function() {
+                jQuery('#submit_add_to_cart').click( function() {
+                            if (jQuery('#cart_item_variant_id').val() == '' ) { // Select to see if variant is selected in hidden field
+                                alert('Please click on a specific item to add.');
+                            } else
+                            if (Hadean.Cart.newForm.addToCart) {
+                                Hadean.Cart.newForm.addToCart = false;// ensure no double clicking
+                                jQuery(Hadean.Cart.newForm.newFormId).submit();
+                                $('html,body').animate({
+                                            scrollTop: $("#notification").offset().top},
+                                        'slow');
+
+                            }
+                        }
+                );
+                // This code is to change the color of the selected and non-selected variants
+                jQuery('.variant_select').click( function() {
+
+                            jQuery('.variant_properties').each( function(index, obj) {
+                                jQuery(obj).removeClass('selected');
+                            });
+
+                            var propId = '#variant_properties_' + $(this).data("variant_id");
+                            $( propId ).addClass('selected');
+                            jQuery('#cart_item_variant_id').val($(this).data("variant_id"));
+                            jQuery(".variant_select").removeClass('selected_variant, active');
+                            jQuery(this, 'li').addClass('selected_variant, active');
+                            //jQuery('#submit_add_to_cart').removeClass('add-to-cart').addClass('ready-to-add-to-cart');
+                        }
+                );
+            }
+        };
+        jQuery(function() {
+            Hadean.Cart.newForm.initialize();
+        });
+    };
+</script>
 <% end %>
-<% end %>
-
-
-<% content_for :bottom do -%>
-    <%= javascript_include_tag 'shopping/cart.js' %>
-    <%= javascript_include_tag 'jquery.jcarousel.js' %>
-    <%= javascript_include_tag 'jquery.pikachoose.full.js' %>
-
-    <% if @product.images.size > 1 %>
-        <script>
-            $(document).ready(function (){
-                $("#pikame").PikaChoose({autoPlay:true, carousel:false, carouselVertical:false});
-                $('#pikame').data('pikachoose').Pause();
-            });
-        </script>
-    <% end %>
-    <%#= javascript_include_tag 'product_page.js' %>
-<% end %>
-

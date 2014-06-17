@@ -28,6 +28,8 @@ class Product < ActiveRecord::Base
   extend FriendlyId
   friendly_id :permalink, use: :finders
   include Presentation::ProductPresenter
+
+  scope :random_products, -> {order("rand(id)").limit(4)}
   #include ProductFilters
   #include ProductSolr # If you want to use SOLR search uncomment
 
