@@ -1,18 +1,26 @@
-<tr>
-  <td class="image"><%= image_tag item.variant.featured_image %></td>
-  <td  class="name"><%= link_to item.variant.product_name, item.variant.product %><br/>
-    <%=  item.variant.brand_name.blank? ? '' : ['-', item.variant.brand_name].join(' ') %><br/>
-    <%= item.variant.display_stock_status('', '') %>
+<tr class="cart_item">
+  <td class="product-thumbnail"><a href="<%= url_for item.variant.product %>" ><%= image_tag item.variant.featured_image, width: "100px" %></a></td>
+  <td class="product-name">
+    <%= link_to item.variant.product_name, item.variant.product %>
+    <ul class="variation">
+      <br/>
+      <%= item.variant.display_stock_status('', '') %>
+      <li class="variation-Color">Brand <span><%=  item.variant.brand_name.blank? ? '' : ['-', item.variant.brand_name].join(' ') %></span></li>
+      <li class="variation-Size">Size: <span><%= item.variant.name %></span></li>
+    </ul>
   </td>
-  <td class="quantity"><%= cart_items_form.text_field :quantity, :size=>"2", class: "span2" %></td>
-  <td class="price"><%= number_to_currency(item.price, unit: "₦", precision: 0) %></td>
-  <td class="total"><%= number_to_currency(item.total, unit: "₦", precision: 0) %></td>
-  <td>
-    <%= link_to image_tag('update.png'),
-                move_to_shopping_cart_item_path(item, :variant_id => item.variant_id,
-                                                :item_type_id => ItemType::SAVE_FOR_LATER_ID),
-                :method => 'put', class: "tooltip-test", "data-original-title"=>"Save for later" %>
-    <%= link_to image_tag('remove.png'), shopping_cart_item_path(item, :variant_id => item.variant_id),
-                :method => :delete, class: "tooltip-test", "data-original-title"=>"Remove" %>
+
+  <td class="product-price"><%= number_to_currency(item.price, unit: "₦", precision: 0) %></td>
+
+  <td class="product-quantity">
+    <%= cart_items_form.select :quantity, [item.quantity, 1,2,3,4,5,6], {:include_blank => false}, :class => 'basic' %>
   </td>
+
+  <td class="product-subtotal"><%= number_to_currency(item.total, unit: "₦", precision: 0) %></td>
+
+  <td class="product-remove">
+    <%= link_to shopping_cart_item_path(item, :variant_id => item.variant_id),
+                :method => :delete do %>
+        <span>Delete</span> <i>X</i>
+    <% end %>
 </tr>

@@ -51,3 +51,93 @@
     <%= render "saved_items" unless @saved_cart_items.empty? %>
 <% end %>
 <% end %>
+
+
+
+<!-- BREADCRUMBS -->
+<section class="breadcrumb parallax margbot30"></section>
+<!-- //BREADCRUMBS -->
+
+
+<!-- PAGE HEADER -->
+<section class="page_header">
+
+  <!-- CONTAINER -->
+  <div class="container">
+    <h3 class="pull-left"><b>Shopping bag</b></h3>
+
+    <div class="pull-right">
+      <a href="<%= url_for products_url %>" >Back to shop<i class="fa fa-angle-right"></i></a>
+    </div>
+  </div><!-- //CONTAINER -->
+</section><!-- //PAGE HEADER -->
+
+
+<!-- SHOPPING BAG BLOCK -->
+<section class="shopping_bag_block">
+
+  <!-- CONTAINER -->
+  <div class="container">
+
+    <!-- ROW -->
+    <div class="row">
+
+      <!-- CART TABLE -->
+      <div class="col-lg-9 col-md-9 padbot40">
+        <%= form_for session_cart, :url => shopping_cart_item_path(session_cart), :as => :cart do |cart_form| %>
+        <table class="shop_table">
+          <thead>
+          <tr>
+            <th class="product-thumbnail"></th>
+            <th class="product-name">Item</th>
+            <th class="product-price">Price</th>
+            <th class="product-quantity">Quantity</th>
+            <th class="product-subtotal">Total</th>
+            <th class="product-remove"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @cart_items.each_with_index do |item, i| %>
+              <%= cart_form.fields_for :shopping_cart_items, item do |cart_items_form| %>
+                  <%= render :partial => 'cart_item', :locals => {:cart_items_form => cart_items_form, :item => item, :i => i }%>
+              <% end %>
+          <% end %>
+          </tbody>
+        </table>
+            <%= cart_form.submit 'update cart', class: "btn btn-info" %>  <span>Make changes above and update cart.</span>
+
+      </div><!-- //CART TABLE -->
+
+
+      <!-- SIDEBAR -->
+      <div id="sidebar" class="col-lg-3 col-md-3 padbot50">
+
+        <!-- BAG TOTALS -->
+        <div class="sidepanel widget_bag_totals">
+          <h3>BAG TOTALS</h3>
+          <table class="bag_total">
+            <tr class="cart-subtotal clearfix">
+              <th>Sub total</th>
+              <td><%= number_to_currency session_cart.sub_total, unit: "&#8358;".html_safe, precision: 0 %></td>
+            </tr>
+            <tr class="shipping clearfix">
+              <th>SHIPPING</th>
+              <td>TDB</td>
+            </tr>
+            <tr class="total clearfix">
+              <th>Total</th>
+              <td><%= number_to_currency session_cart.sub_total, unit: "&#8358;".html_safe, precision: 0 %></td>
+            </tr>
+          </table>
+<!--          <form class="coupon_form" action="javascript:void(0);" method="get">
+            <input type="text" name="coupon" value="Have a coupon?" onFocus="if (this.value == 'Have a coupon?') this.value = '';" onBlur="if (this.value == '') this.value = 'Have a coupon?';" />
+            <input type="submit" value="Apply">
+          </form>-->
+         <%= cart_form.submit "checkout", {:checkout => 1, :class => 'btn active'} %>
+          <% end %>
+          <a class="btn inactive" href="<%= products_url %>" >Continue shopping</a>
+        </div><!-- //REGISTRATION FORM -->
+      </div><!-- //SIDEBAR -->
+    </div><!-- //ROW -->
+  </div><!-- //CONTAINER -->
+</section><!-- //SHOPPING BAG BLOCK -->

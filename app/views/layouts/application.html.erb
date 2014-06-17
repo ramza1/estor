@@ -3,7 +3,7 @@
 <head>
 
   <meta charset="utf-8">
-  <title>Glammy | Modern eCommerce html Template </title>
+  <title>CURVY FASHIONISTA BOUTIQUE </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -50,7 +50,14 @@
 <%= yield :js %>
 <script>
     if (top != self) top.location.replace(self.location.href);
-</script>
+    <% if flash.any? %>
+        $(function(){
+            <% flash.each do |name, msg| %>
+               $("<div class='alert alert-<%= name == :notice ? "info" : "warning" %>'> <%= msg %> <a class='close' data-dismiss='alert'>×</a></div>").prependTo(".padbot40")
+            <% end %>
+        });
+    <% end %>
 
+</script>
 </body>
 </html>

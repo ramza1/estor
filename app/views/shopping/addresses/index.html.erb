@@ -1,46 +1,41 @@
-<% if  @shopping_addresses.empty? %>
-    <h1 class="headingmain"><span>New Address</span></h1>
-<% else %>
-    <h1 class="headingmain"><span>Pick an Address</span></h1>
-<% end %>
+<section class="my_account parallax" style="background-position: 50% 0px;">
 
-<div class='row'>
-  <% @shopping_addresses.each do |shopping_address| %>
-      <div class='span3'>
-        <%= render :partial => 'compact_address', :locals => {:shopping_address => shopping_address} %>
-        <%= button_to 'Use', select_address_shopping_address_path(shopping_address), :class => 'btn small btn-info', :method => :put %>
-        <%= link_to 'Edit', edit_shopping_address_path(shopping_address) %>
-        <%= link_to 'Delete', shopping_address_path(shopping_address), :data => {:confirm => 'Are you sure?'}, :method => :delete %>
-      </div>
-  <% end %>
-</div>
-<div class="row">
-  <div class="span12">
-    <% if session_order.ready_to_checkout? %>
-        <%= link_to 'Order Summary', shopping_orders_path, :class => 'button green' %>
-    <% end %>
-  </div>
-</div>
-<br />
-<% unless  @shopping_addresses.empty? %>
-<h1 class="headingmain"><span>Add a new shipping Address</span></h1>
-<% end %>
-<%= simple_form_for @shopping_address, :url => shopping_addresses_path, html: {class: ""} do |address_form| %>
-    <% if @shopping_address.errors.any? %>
-        <div class="alert alert-error" style="margin-top: 10px;">
-          <h4><%= pluralize(@shopping_address.errors.count, "error") %> prohibited this product from being saved:</h4>
+  <!-- CONTAINER -->
+  <div class="container">
 
-          <ul>
-            <% @shopping_address.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
+    <div class="my_account_block clearfix">
+      <div class="login">
+        <h2>Create A New Shipping Address</h2>
+        <%= simple_form_for @shopping_address, :url => shopping_addresses_path, html: {class: "login_form"} do |address_form| %>
+            <% if @shopping_address.errors.any? %>
+                <div class="alert alert-warning" style="margin-top: 10px;">
+                  <h4><%= pluralize(@shopping_address.errors.count, "error") %> prohibited this product from being saved:</h4>
+
+                  <ul>
+                    <% @shopping_address.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
             <% end %>
-          </ul>
-        </div>
-    <% end %>
-    <%= render :partial =>  'form', :locals => {:f => address_form}  %>
-<% end %>
+            <%= render :partial =>  'form', :locals => {:f => address_form}  %>
+        <% end %>
+      </div>
+      <div class="new_customers row">
+        <h2>Pick an Address</h2>
+        <% @shopping_addresses.each do |shopping_address| %>
+            <div class='col-md-4 well'>
+              <%= render :partial => 'compact_address', :locals => {:shopping_address => shopping_address} %>
+              <%= button_to 'Use', select_address_shopping_address_path(shopping_address), :method => :put %>
+              <%= link_to 'Edit', edit_shopping_address_path(shopping_address) %>
+              <%= link_to 'Delete', shopping_address_path(shopping_address), :data => {:confirm => 'Are you sure?'}, :method => :delete %>
+            </div>
+        <% end %>
+     </div>
+    </div>
+
+    <div class="my_account_note center">HAVE A QUESTION? <b>1 800 888 02828</b></div>
+  </div><!-- //CONTAINER -->
+</section>
 
 
-<%= content_for(:account) do %>
-    <%= render "account_menu" %>
-<% end %>

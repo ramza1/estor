@@ -3,7 +3,7 @@ class Shopping::AddressesController < Shopping::BaseController
   # GET /shopping/addresses
   def index
     @form_address = @shopping_address = Address.new
-    if requested_shop.require_state_in_address && countries.size == 1
+    if !Settings.require_state_in_address && countries.size == 1
       @shopping_address.country = countries.first
     end
     form_info

@@ -26,7 +26,7 @@
         <tbody>
         <tr>
           <td class="textright"><b>Sub-Total:</b></td>
-          <td class="textright"><%= number_to_currency session_cart.sub_total, unit: "&#8358;", precision: 0 %></td>
+          <td class="textright"><%= number_to_currency session_cart.sub_total, unit: "&#8358;".html_safe, precision: 0 %></td>
         </tr>
         </tbody>
       </table>

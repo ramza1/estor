@@ -33,10 +33,12 @@
 
     <!-- TOVAR DETAILS WRAPPER -->
     <div class="col-lg-9 col-md-9 tovar_details_wrapper clearfix">
-      <div class="tovar_details_header clearfix margbot35">
-        <h3 class=""><b><%= @product.product_type.name.pluralize%></b>
-          <a class="small pull-right" href="<%= url_for @product.product_type %>" >More form <%= @product.product_type.name.pluralize %></a>
+      <div class="tovar_details_header page_header clearfix margbot35">
+        <h3 class="pull-left"><b><%= @product.product_type.name.pluralize%></b>
         </h3>
+        <div class="pull-right">
+          <a href="<%= url_for @product.product_type %>">More form <%= @product.product_type.name.pluralize %><i class="fa fa-angle-right"></i></a>
+        </div>
       </div>
 
       <!-- CLEARFIX -->
