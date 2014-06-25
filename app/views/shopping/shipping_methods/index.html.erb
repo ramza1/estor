@@ -1,51 +1,90 @@
-<%= content_for :product do %>
-    <ul class="breadcrumb">
-      <li>
-        <%= link_to "Home", root_url %>
-        <span class="divider">/</span>
-      </li>
-      <li>
-        <%= link_to "Products", products_path %>
-        <span class="divider">/</span>
-      </li>
-      <li class="">CheckOut
-        <span class="divider">/</span></li>
-      <li class="active">Shipping Method</li>
-    </ul>
-    <h1 class="headingmain"><span>Pick a Shipping Method</span></h1>
-    <%= form_tag(shopping_shipping_method_path(session_order.id), html: {class: 'custom'}, method: :put) do -%>
-        <div class="cart-info">
-          <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-              <th class="image"></th>
-              <th class="name">Name</th>
-              <th class="quantity">Property</th>
-              <th class="price">Quantity</th>
-            </tr>
-           </thead>
-            <tbody>
-            <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
-                <% items.group_by(&:variant).each do |variant, items| %>
-               <tr>
-                 <td><%= image_tag(variant.product.featured_image(:mini)) %></td>
-                 <td><%= variant.product.name %></td>
-                 <td><%= raw variant.display_property_details %></td>
-                 <td><%= items.size %></td>
-               </tr>
-                <% end %>
-                <tr>
-                  <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
-                      <td>Select a shipping Method</td>
-                      <td colspan="3" style="font-weight: bold;"><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %> <%= rate.name_rate_min %></td>
-                  <% end %>
-                </tr>
-            <% end %>
-            </tbody>
-          </table>
-          <div class='ten large-10 clearfix offset-by-two'>
-            <%= submit_tag 'Proceed', :class => 'btn btn-success' %>
-          </div>
+<section class="breadcrumb parallax margbot30"></section>
+<!-- //BREADCRUMBS -->
+
+
+<!-- PAGE HEADER -->
+<section class="page_header">
+
+  <!-- CONTAINER -->
+  <div class="container">
+    <h3 class="pull-left"><b>Shipping Method</b></h3>
+
+    <div class="pull-right">
+      <a href="<%= url_for products_url %>" >Back to shop<i class="fa fa-angle-right"></i></a>
+    </div>
+  </div><!-- //CONTAINER -->
+</section><!-- //PAGE HEADER -->
+
+
+<!-- SHOPPING BAG BLOCK -->
+<section class="shopping_bag_block">
+
+  <!-- CONTAINER -->
+  <div class="container">
+
+    <!-- ROW -->
+    <div class="row">
+
+      <%= form_tag(shopping_shipping_method_path(session_order.id), html: {class: 'custom'}, method: :put) do -%>     <!-- CART TABLE -->
+      <div class="col-lg-9 col-md-9 padbot40">
+        <table class="shop_table">
+              <thead>
+              <tr>
+                <th class="product-thumbnail"></th>
+                <th class="product-name">Item</th>
+                <th class="product-price">Details</th>
+                <th class="product-quantity">Quantity</th>
+                <th class="product-remove"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
+                  <% items.group_by(&:variant).each do |variant, items| %>
+                          <tr>
+                            <td><%= image_tag(variant.product.featured_image(:mini)) %></td>
+                            <td><%= variant.product.name %></td>
+                            <td><%= raw variant.display_property_details %></td>
+                            <td><%= items.size %></td>
+                          </tr>
+                      <% end %>
+                      <tr>
+                        <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
+                            <td>Select a shipping Method</td>
+                            <td colspan="3" style="font-weight: bold;"><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %> <%= raw rate.name_rate_min %></td>
+                        <% end %>
+                      </tr>
+              <% end %>
+              </tbody>
+            </table>
+           </div><!-- //CART TABLE -->
+
+
+            <!-- SIDEBAR -->
+            <div id="sidebar" class="col-lg-3 col-md-3 padbot50">
+
+              <!-- BAG TOTALS -->
+              <div class="sidepanel widget_bag_totals">
+                <h3>BAG TOTALS</h3>
+                <table class="bag_total">
+                  <tr class="cart-subtotal clearfix">
+                    <th>Sub total</th>
+                    <td><%= number_to_currency session_cart.sub_total, unit: "&#8358;".html_safe, precision: 0 %></td>
+                  </tr>
+                  <tr class="shipping clearfix">
+                    <th>SHIPPING</th>
+                    <td>TDB</td>
+                  </tr>
+                  <tr class="total clearfix">
+                    <th>Total</th>
+                    <td><%= number_to_currency session_cart.sub_total, unit: "&#8358;".html_safe, precision: 0 %></td>
+                  </tr>
+                </table>
+                <%= submit_tag 'continue', :class => 'btn active' %>
+
+        </div><!-- //REGISTRATION FORM -->
+        </div><!-- //SIDEBAR -->
+      <% end %>
         </div>
-    <% end %>
-<% end %>
+          <!-- //ROW -->
+  </div><!-- //CONTAINER -->
+</section><!-- //SHOPPING BAG BLOCK -->

@@ -1,13 +1,13 @@
 
 
   <div class='row-fluid clearfix <%= cycle("line_item_blue", "line_item_light_gray") -%>' style="margin-bottom: 10px;">
-    <div class='span4'>
+    <div class='col-md-3'>
       <%= image_tag(items.first.variant.product.featured_image(:mini)) %>
     </div>
-    <div class="span4">
+    <div class="col-md-6">
       <%= items.first.variant.product.name %> Quantity: <%= items.size %>
     </div>
-    <div class='span4'>
+    <div class='col-md-3'>
       <%= raw items.first.variant.display_property_details %>
     </div>
   </div>

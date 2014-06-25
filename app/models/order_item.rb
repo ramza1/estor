@@ -53,7 +53,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def product_type_ids
-    product_type.self_and_ancestors.map(&:id)
+    product_type.descendants.map(&:id)
   end
 
   # if the order item has been shipped it will return true

@@ -36,7 +36,7 @@ gem 'bluecloth'
 gem "chosen-rails"
 gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
 gem 'ancestry'
-
+gem 'google_currency'
 gem "american_date"
 #gem "awesome_nested_set", "~> 3.0.0.rc.3"
 

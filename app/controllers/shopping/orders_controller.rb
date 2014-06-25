@@ -1,3 +1,5 @@
+require 'money'
+require 'money/bank/google_currency'
 class Shopping::OrdersController < Shopping::BaseController
   before_filter :authenticate_customer!
   # GET /shopping/orders
@@ -32,7 +34,6 @@ class Shopping::OrdersController < Shopping::BaseController
   def update
     @order = find_or_create_order
     @order.ip_address = request.remote_ip
-
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new(cc_params)
 
     address = @order.bill_address.cc_params
@@ -80,6 +81,20 @@ class Shopping::OrdersController < Shopping::BaseController
       elsif current_user
         redirect_to myaccount_orders_url
       end
+    end
+  end
+
+  def apply_coupon
+    @order = Order.find_by_number(params[:id])
+    @coupon = Coupon.find_by_code(params[:coupon])
+
+    if @coupon && @coupon.eligible?(@order)
+      flash[:notice] = "Successfully added coupon code #{@coupon.code}."
+      @order.update_attribute(:coupon_id, @coupon.id)
+      redirect_to shopping_orders_url
+    else
+      flash[:notice] = "Sorry coupon code: #{params[:coupon]} is not valid."
+      redirect_to shopping_orders_url
     end
   end
   private

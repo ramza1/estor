@@ -67,7 +67,7 @@ class ShippingRate < ActiveRecord::Base
 
   private
   def charge_amount
-    number_to_currency(rate) + per_item_verbage
+    number_to_currency(rate, unit: "&#8358;".html_safe) + per_item_verbage
   end
 
   def per_item_verbage

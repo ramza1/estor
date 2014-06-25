@@ -321,6 +321,7 @@ Shopnany::Application.routes.draw do
           post :pay
           post :delivery_request
           post :session_delivery_request
+          post :apply_coupon
         end
       end
       resources  :shipping_methods

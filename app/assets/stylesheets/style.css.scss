@@ -40,7 +40,6 @@ iframe {
 a, input, select, textarea {
 	vertical-align:top;
 	outline:none !important;
-	-webkit-appearance: none;
 	-webkit-border-radius: 0;
 }
 
@@ -2460,6 +2459,7 @@ ul.comments li ul li{
 	margin:0 0 10px;
 	padding:14px 18px 7px;
 	border:2px solid #ccc;
+  overflow: hidden;
 }
 .blog .sidepanel {margin-bottom:20px;}
 
@@ -3560,7 +3560,7 @@ table tr.cart_item td.product-subtotal {
 /*	MY ACCOUNT
 /*-----------------------------------------------------------------------------------*/
 .my_account {
-	padding-top:250px;
+	padding-top:129px;
 	background-image: image-url("my_account_bg.jpg");
 }
 
