@@ -1,4 +1,9 @@
 $('#tovar_content').empty();
 $('#tovar_content').html("<%= j render "products/quick_view", product: @product, cart_item: @cart_item %>");
-$('.flexslider .slides>li').css('display', 'block')
+$('.flexslider .slides>li').css('display', 'block');
+
+//fancySelect
+$('.basic').fancySelect();
+
+
 

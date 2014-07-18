@@ -1,0 +1,51 @@
+<section class="shop">
+  <div class="container" style="padding-top: 134px;">
+    <div class="row">
+      <%= render "account_sidebar" %>
+      <div class="col-lg-9 col-sm-9 padbot20">
+        <div class="sorting_options clearfix">
+
+          <!-- COUNT TOVAR ITEMS -->
+          <div class="count_tovar_items">
+            <p>Addresses</p>
+            <span><%= pluralize @addresses.size, "address" %>
+
+            </span>
+
+
+          </div><!-- //COUNT TOVAR ITEMS -->
+
+
+          <div class="product_sort" style="position: relative; display: none;">
+            <%= image_tag "preloader.gif", style: "position: absolute; top: -15px;" %>
+          </div>
+        </div>
+
+        <div class="row shop_block">
+          <% if @addresses.empty? %>
+              <p class="alert alert-info">
+                You currently do not have any addresses.
+              </p>
+          <% else %>
+              <div id='final-order-shipping-address'>
+                <div class=''>
+                  <%= render :partial => 'compact_address', :collection => @addresses, as: :address %>
+                </div>
+              </div>
+          <% end %>
+          <%= link_to 'Add address', new_myaccount_address_url, :class => 'btn btn-success' %>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+    .menu_block{
+        border-bottom: 1px solid #eee;
+    }
+</style>

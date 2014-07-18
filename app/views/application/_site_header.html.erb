@@ -7,7 +7,8 @@
     <div class="container clearfix">
       <ul class="secondary_menu">
         <% if current_customer %>
-            <li><%= link_to "My Account", myaccount_root_url %></li>
+            <li><%= link_to "My Account", myaccount_orders_url %></li>
+            <li><%= link_to "log Out", destroy_customer_session_path, method: :delete %></li>
         <% else %>
             <li><%= link_to "login", new_customer_session_path %></li>
             <li><%= link_to "create an account", new_customer_registration_path %></li>

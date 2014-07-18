@@ -1,4 +1,6 @@
 Shopnany::Application.routes.draw do
+  get "store_credits/show"
+  get "addresses/index"
   get "products/show"
   get "products/index"
 

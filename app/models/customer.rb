@@ -10,6 +10,8 @@ class Customer < ActiveRecord::Base
    #               :last_name, :remember_me, :address, :country, :state, :zip, :phone_number
 
   validates :first_name, :last_name, :phone_number, :address, :presence => true
+  has_many    :finished_orders,           -> { where(state: ['complete', 'paid']) },  class_name: 'Order'
+  has_many    :completed_orders,          -> { where(state: 'complete') },            class_name: 'Order'
   # attr_accessible :title, :body
 
 

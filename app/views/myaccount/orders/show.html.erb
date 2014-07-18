@@ -1,0 +1,62 @@
+<section class="shop">
+  <div class="container" style="padding-top: 134px;">
+    <div class="row">
+      <%= render "account_sidebar" %>
+      <div class="col-lg-9 col-sm-9 padbot20">
+        <div class="sorting_options clearfix">
+
+          <!-- COUNT TOVAR ITEMS -->
+          <div class="count_tovar_items">
+            <p>Order NO: <%= @order.number %></p>
+            <span>Details</span>
+          </div><!-- //COUNT TOVAR ITEMS -->
+
+        </div>
+
+        <div class="row-fluid shop_block">
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <td class='left-align'> Number: </td><td> <%= @order.number %> </td>
+            </tr>
+            <tr>
+              <td class='left-align'> Completed at: </td><td> <%= @order.display_completed_at %> </td>
+            </tr>
+            <tr>
+              <td class='left-align'> Shipping Address: </td>
+              <td>
+                <%= render :partial => 'compact_address', :locals => {:shopping_address => @order.ship_address} if @order.ship_address_id%>
+              </td>
+            </tr>
+            <tr>
+              <td class='left-align'> Billing Address: </td>
+              <td>
+                <%= render :partial => 'compact_address', :locals => {:shopping_address => @order.bill_address} if @order.bill_address_id %>
+              </td>
+            </tr>
+
+            <tr>
+              <td COLSPAN=2> Items </td>
+            </tr>
+            <% @order.order_items.each do |item| %>
+                <tr>
+                  <td class='left-align' COLSPAN=2> <%= item.variant.product_name %> </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+    .menu_block{
+        border-bottom: 1px solid #eee;
+    }
+</style>

@@ -1,0 +1,9 @@
+<div class="col-md-12 well">
+
+<%= address.name %><br/>
+<%= raw address.address_lines('<br/>') %><br/>
+<%= address.city_state_zip %><br/>
+<span class="pull-right">
+  <%= link_to "Edit", edit_myaccount_address_path(address) %> | <%= link_to "Delete", myaccount_address_path(address), method: :delete%>
+</span>
+</div>

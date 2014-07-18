@@ -1,0 +1,59 @@
+<section class="shop">
+  <div class="container" style="padding-top: 134px;">
+    <div class="row">
+      <%= render "account_sidebar" %>
+      <div class="col-lg-9 col-sm-9 padbot20">
+        <div class="sorting_options clearfix">
+
+          <!-- COUNT TOVAR ITEMS -->
+          <div class="count_tovar_items">
+            <p>Orders</p>
+            <span><%= pluralize @orders.size, "order" %></span>
+          </div><!-- //COUNT TOVAR ITEMS -->
+
+          <div class="product_sort" style="position: relative; display: none;">
+            <%= image_tag "preloader.gif", style: "position: absolute; top: -15px;" %>
+          </div>
+        </div>
+
+        <div class="row shop_block">
+             <% if @orders.empty? %>
+                 <p class="alert alert-info">
+                   You currently do not have any orders.
+                 </p>
+             <% else %>
+              <table class="table table-bordered">
+                <thead>
+                <tr class='odd'>
+                  <th>Number</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Completed at</th>
+                </tr>
+                </thead>
+
+                <% @orders.each do |order| %>
+                    <tr class='<%= cycle("odd", "")%>'>
+                      <td><%= link_to order.number, myaccount_order_path(order) %></td>
+                      <td><%= raw number_to_currency order.first_invoice_amount, unit: "&#8358;".html_safe, precision: 0 %></td>
+                      <td><%= order.status %></td>
+                      <td><%= order.display_completed_at(:us_time) %></td>
+                    </tr>
+                <% end %>
+              </table>
+             <% end %>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+    .menu_block{
+        border-bottom: 1px solid #eee;
+    }
+</style>

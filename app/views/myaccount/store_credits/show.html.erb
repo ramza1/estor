@@ -1,0 +1,40 @@
+<section class="shop">
+  <div class="container" style="padding-top: 134px;">
+    <div class="row">
+      <%= render "account_sidebar" %>
+      <div class="col-lg-9 col-sm-9 padbot20">
+        <div class="sorting_options clearfix">
+
+          <!-- COUNT TOVAR ITEMS -->
+          <div class="count_tovar_items">
+            <p><%= current_customer.display_name%> Store Credits</p>
+            <span><%= raw number_to_currency @store_credit.amount, unit: "&#8358;".html_safe, precision: 0 %></span>
+          </div><!-- //COUNT TOVAR ITEMS -->
+
+
+          <div class="product_sort" style="position: relative; display: none;">
+            <%= image_tag "preloader.gif", style: "position: absolute; top: -15px;" %>
+          </div>
+        </div>
+
+        <div class="row-fluid shop_block">
+
+
+          <p id='users-credits' class='alert alert-info'>
+            You currently have <%= raw number_to_currency @store_credit.amount, unit: "&#8358;".html_safe, precision: 0 %> worth of credits.
+          </p>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+    .menu_block{
+        border-bottom: 1px solid #eee;
+    }
+</style>

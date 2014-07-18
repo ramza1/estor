@@ -1,0 +1,31 @@
+<div id="sidebar" class="col-lg-3 col-md-3 col-sm-3 padbot50">
+  <% if @product_type %>
+      <% @categories = @product_type.subtree %>
+  <% else %>
+      <% @categories = ProductType.all %>
+  <% end %>
+  <!-- CATEGORIES -->
+  <div class="sidepanel widget_categories">
+    <h3>Menu</h3>
+          <li><%=link_to "Orders", myaccount_orders_url %></li>
+          <li><%=link_to "Addresses", myaccount_addresses_url %></li>
+          <li><%=link_to "Profile", myaccount_overview_url %></li>
+          <li><%=link_to "Credits", myaccount_store_credit_url %></li>
+
+
+  </div><!-- //CATEGORIES -->
+
+
+  <!-- NEWSLETTER FORM WIDGET -->
+  <div class="sidepanel widget_newsletter">
+    <div class="newsletter_wrapper">
+      <h3>NEWSLETTER</h3>
+      <form class="newsletter_form clearfix" action="javascript:void(0);" method="get">
+        <input type="text" name="newsletter" value="Enter E-mail &amp; Get 10% off" onfocus="if (this.value == 'Enter E-mail &amp; Get 10% off') this.value = '';" onblur="if (this.value == '') this.value = 'Enter E-mail &amp; Get 10% off';">
+        <input class="btn newsletter_btn" type="submit" value="Sign up &amp; get 10% off">
+      </form>
+    </div>
+  </div><!-- //NEWSLETTER FORM WIDGET -->
+</div>
+
+
