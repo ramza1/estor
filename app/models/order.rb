@@ -181,7 +181,7 @@ class Order < ActiveRecord::Base
   ## This method creates the invoice and payment method.  If the payment is not authorized the whole transaction is roled back
   def create_invoice(credit_card, charge_amount, args, credited_amount = 0.0)
     transaction do
-      new_invoice = create_invoice_transaction(credit_card, charge_amount, args, credited_amount)
+      new_invoice = create_invoice_transaction(credit_card, charge_amount, args,  credited_amount)
       if new_invoice.succeeded?
         remove_user_store_credits
 

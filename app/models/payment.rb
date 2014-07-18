@@ -52,10 +52,11 @@ class Payment < ActiveRecord::Base
 
   def capture_cim
     @gateway = GATEWAY
-
+    bank = Money::Bank::GoogleCurrency.new
+    b = amount / bank.get_rate(:NGN, :USD).to_f
     response = @gateway.create_customer_profile_transaction({:transaction => {
                            :type                        => :auth_capture,
-                           :amount                      => self.invoice.amount.to_s,
+                           :amount                      => self.invoice.amount.to_s / bank.get_rate(:NGN, :USD).to_f,
                            :customer_profile_id         => self.invoice.order.user.customer_cim_id,
                            :customer_payment_profile_id => self.invoice.order.user.payment_profile.payment_cim_id}})
 
@@ -94,6 +95,8 @@ class Payment < ActiveRecord::Base
       end
 
       def capture(amount, authorization, options = {})
+        #bank = Money::Bank::GoogleCurrency.new
+        #b = amount / bank.get_rate(:NGN, :USD).to_f
         process('capture', amount) do |gw|
           gw.capture(amount, authorization, options)
         end
@@ -101,19 +104,19 @@ class Payment < ActiveRecord::Base
 
       def charge( amount, profile_key, options ={})
 
-        bank = Money::Bank::GoogleCurrency.new
-        b = bank.get_rate(:NGN, :USD).to_f * amount
+        #bank = Money::Bank::GoogleCurrency.new
+        #b = amount / bank.get_rate(:NGN, :USD).to_f
         options[:order_id] ||= unique_order_number
         if GATEWAY.respond_to?(:purchase)
-          process( 'charge', b ) do |gw|
-            gw.purchase( b, profile_key, options )
+          process( 'charge', amount ) do |gw|
+            gw.purchase( amount, profile_key, options )
           end
         else
           # do it in 2 transactions
-          process( 'charge', b ) do |gw|
-            result = gw.authorize( b, profile_key, options )
+          process( 'charge', amount ) do |gw|
+            result = gw.authorize( amount, profile_key, options )
             if result.success?
-              gw.capture( b, result.reference, options )
+              gw.capture( amount, result.reference, options )
             else
               result
             end
@@ -123,6 +126,8 @@ class Payment < ActiveRecord::Base
 
       # validate card via transaction
       def validate_card( credit_card, options ={})
+        #bank = Money::Bank::GoogleCurrency.new
+        #b = amount / bank.get_rate(:NGN, :USD).to_f
         options[:order_id] ||= unique_order_number
         # authorize $1
         amount = 100
@@ -145,6 +150,8 @@ class Payment < ActiveRecord::Base
       end
 
       def process(action, amount = nil)
+        #bank = Money::Bank::GoogleCurrency.new
+        #b = amount / bank.get_rate(:NGN, :USD).to_f
         result = Payment.new
         result.amount = (amount && !amount.integer?) ? (amount * 100).to_i : amount
         result.action = action

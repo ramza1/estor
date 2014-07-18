@@ -37,16 +37,18 @@ class Shopping::OrdersController < Shopping::BaseController
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new(cc_params)
 
     address = @order.bill_address.cc_params
-
+    bank = Money::Bank::GoogleCurrency.new
+    b = @order.credited_total / bank.get_rate(:NGN, :USD).to_f
+    c = @order.amount_to_credit / bank.get_rate(:NGN, :USD).to_f
     if !@order.in_progress?
       session_cart.mark_items_purchased(@order)
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
     elsif @credit_card.valid?
       if response = @order.create_invoice(@credit_card,
-                                          @order.credited_total,
+                                          b.round(0),
                                           {:email => @order.email, :billing_address=> address, :ip=> @order.ip_address },
-                                          @order.amount_to_credit)
+                                          c.round(0))
         if response.succeeded?
           expire_all_browser_cache
           ##  MARK items as purchased

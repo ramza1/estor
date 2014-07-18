@@ -23,13 +23,13 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   # POST /shopping/addresses
   def create
     if params[:address].present?
-      @shopping_address = current_user.addresses.new(allowed_params)
-      @shopping_address.default = true          if current_user.default_shipping_address.nil?
-      @shopping_address.billing_default = true  if current_user.default_billing_address.nil?
+      @shopping_address = current_customer.addresses.new(allowed_params)
+      @shopping_address.default = true          if current_customer.default_shipping_address.nil?
+      @shopping_address.billing_default = true  if current_customer.default_billing_address.nil?
       @shopping_address.save
       @form_address = @shopping_address
     elsif params[:shopping_address_id].present?
-      @shopping_address = current_user.addresses.find(params[:shopping_address_id])
+      @shopping_address = current_customer.addresses.find(params[:shopping_address_id])
     end
 
       if @shopping_address.id
@@ -42,19 +42,19 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   end
 
   def update
-    @shopping_address = current_user.addresses.new(allowed_params)
+    @shopping_address = current_customer.addresses.new(allowed_params)
     @shopping_address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
     # if we are editing the current default address then this is the default address
-    @shopping_address.default         = true if params[:id].to_i == current_user.default_shipping_address.try(:id)
-    @shopping_address.billing_default = true if params[:id].to_i == current_user.default_billing_address.try(:id)
+    @shopping_address.default         = true if params[:id].to_i == current_customer.default_shipping_address.try(:id)
+    @shopping_address.billing_default = true if params[:id].to_i == current_customer.default_billing_address.try(:id)
 
       if @shopping_address.save
         update_order_address_id(@shopping_address.id)
         redirect_to(next_form_url(session_order))
       else
         # the form needs to have an id
-        @form_address = current_user.addresses.find(params[:id])
+        @form_address = current_customer.addresses.find(params[:id])
         # the form needs to reflect the attributes to customer entered
         @form_address.attributes = allowed_params
         @form_address.phones.build if @form_address.phones.empty?
@@ -64,7 +64,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   end
 
   def select_address
-    address = current_user.addresses.find(params[:id])
+    address = current_customer.addresses.find(params[:id])
     update_order_address_id(address.id)
     redirect_to next_form_url(session_order)
   end
@@ -91,7 +91,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   end
 
   def form_info
-    @shopping_addresses = current_user.shipping_addresses
+    @shopping_addresses = current_customer.shipping_addresses
     @states     = State.form_selector
   end
 

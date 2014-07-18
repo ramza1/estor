@@ -32,3 +32,8 @@ ReturnCondition::CONDITIONS.each do |value|
     ReturnCondition.create(:label => value, :description => value )
   end
 end
+
+puts "PHONE TYPES"
+PhoneType::NAMES.each do |phone_type|
+  PhoneType.find_or_create_by(name: phone_type)
+end

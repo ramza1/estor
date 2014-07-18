@@ -17,3 +17,9 @@ uses_resque_for_background_emails: false
 # Set this up with your Google Analytics Code for Devopment
 google:
   analytics_code: false
+
+paypal:
+  ip: 192.168.0.1
+  login: ramzauchenna_api1.gmail.com
+  password: WLVVC92UGFEFZXR4
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacAy9gb3CjzhUTXRrBo6aLuqhIhHwh

@@ -19,6 +19,13 @@ Shopnany::Application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  ActiveMerchant::Billing::Base.mode = :test
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+    :login      => Settings.paypal.login,
+    :password   => Settings.paypal.password,
+    :signature  => Settings.paypal.signature
+  )
+
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
   PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',

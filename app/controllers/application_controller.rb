@@ -143,6 +143,19 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
+
+  def cc_params
+    {
+        :brand              => params[:type],
+        :number             => params[:number],
+        :verification_value => params[:verification_value],
+        :month              => params[:month],
+        :year               => params[:year],
+        :first_name         => params[:first_name],
+        :last_name          => params[:last_name]
+    }
+  end
+
 =begin
   private
 

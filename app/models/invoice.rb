@@ -133,7 +133,8 @@ class Invoice < ActiveRecord::Base
   # @param [Decimal] amount in dollars
   # @return [Invoice] invoice object
   def Invoice.generate(order_id, charge_amount, credited_amount = 0.0)
-    Invoice.new(:order_id => order_id, :amount => charge_amount, :invoice_type => PURCHASE, :credited_amount => credited_amount)
+    order = Order.find(order_id)
+    Invoice.new(:order_id => order_id, :amount => order.credited_total, :invoice_type => PURCHASE, :credited_amount => order.amount_to_credit)
   end
 
   def capture_complete_order
@@ -217,8 +218,11 @@ class Invoice < ActiveRecord::Base
   # @param [none]
   # @return [Integer] amount of the invoice in cents
   def integer_amount
-    times_x_amount = amount.integer? ? 1 : 100
-    (amount * times_x_amount).to_i
+    bank = Money::Bank::GoogleCurrency.new
+    b = amount / bank.get_rate(:NGN, :USD).to_f
+    b = b.round(0)
+    times_x_amount = b.integer? ? 1 : 100
+    (b * times_x_amount).to_i
   end
 
   def authorize_payment(credit_card, options = {})

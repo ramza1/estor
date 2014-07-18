@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522124611) do
+ActiveRecord::Schema.define(version: 20140627132036) do
 
   create_table "accounting_adjustments", force: true do |t|
     t.integer  "adjustable_id",                           null: false
@@ -428,6 +428,63 @@ ActiveRecord::Schema.define(version: 20140522124611) do
   add_index "orders", ["ship_address_id"], name: "index_orders_on_ship_address_id", using: :btree
   add_index "orders", ["shop_id"], name: "index_orders_on_shop_id", using: :btree
   add_index "orders", ["slug"], name: "index_orders_on_slug", using: :btree
+
+  create_table "payment_profiles", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "address_id"
+    t.string   "payment_cim_id"
+    t.boolean  "default"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "last_digits"
+    t.string   "month"
+    t.string   "year"
+    t.string   "cc_type"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "card_name"
+  end
+
+  add_index "payment_profiles", ["address_id"], name: "index_payment_profiles_on_address_id", using: :btree
+  add_index "payment_profiles", ["customer_id"], name: "index_payment_profiles_on_customer_id", using: :btree
+
+  create_table "payments", force: true do |t|
+    t.integer  "invoice_id"
+    t.string   "confirmation_id"
+    t.integer  "amount"
+    t.string   "error"
+    t.string   "error_code"
+    t.string   "message"
+    t.string   "action"
+    t.text     "params"
+    t.boolean  "success"
+    t.boolean  "test"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payments", ["invoice_id"], name: "index_payments_on_invoice_id", using: :btree
+
+  create_table "phone_types", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "phones", force: true do |t|
+    t.integer  "phone_type_id"
+    t.string   "number",                         null: false
+    t.string   "phoneable_type",                 null: false
+    t.integer  "phoneable_id",                   null: false
+    t.boolean  "primary",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "phones", ["phone_type_id"], name: "index_phones_on_phone_type_id", using: :btree
+  add_index "phones", ["phoneable_id"], name: "index_phones_on_phoneable_id", using: :btree
+  add_index "phones", ["phoneable_type"], name: "index_phones_on_phoneable_type", using: :btree
 
   create_table "posts", force: true do |t|
     t.datetime "published_at"

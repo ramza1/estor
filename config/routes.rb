@@ -331,6 +331,12 @@ Shopnany::Application.routes.draw do
           put :select_address
         end
       end
+
+      resources  :billing_addresses do
+        member do
+          put :select_address
+        end
+      end
     end
 
     namespace :myaccount do
