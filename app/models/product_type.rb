@@ -5,7 +5,7 @@ class ProductType < ActiveRecord::Base
 
   validates :name,    presence: true, length: { :maximum => 255 }
 
-
+  default_scope { where(active: true) }
 
   FEATURED_TYPE_ID = 1
 
