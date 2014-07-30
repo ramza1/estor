@@ -6,6 +6,7 @@ class ProductType < ActiveRecord::Base
   validates :name,    presence: true, length: { :maximum => 255 }
 
 
+
   FEATURED_TYPE_ID = 1
 
   # paginated results from the admin ProductType grid

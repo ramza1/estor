@@ -1,6 +1,7 @@
 class Admin::ProductTypesController < Admin::BaseController
+  respond_to :html, :json
   def index
-    @product_types = ProductType.all
+    @product_types = ProductType.where(active: true).order(name: :asc)
   end
 
   def show

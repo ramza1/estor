@@ -30,6 +30,7 @@ class Admin::Config::TaxRatesController < Admin::BaseController
   # POST /admin/config/tax_rates
   def create
     @tax_rate = TaxRate.new(allowed_params)
+    @tax_rate.country = params[:select_country] if params[:select_country].present?
 
     if @tax_rate.save
       redirect_to(admin_config_tax_rate_url(@tax_rate), :notice => 'Tax rate was successfully created.')
@@ -61,7 +62,7 @@ class Admin::Config::TaxRatesController < Admin::BaseController
   private
 
   def allowed_params
-    params.require(:tax_rate).permit(:percentage, :state_id, :country_id, :start_date, :end_date, :active)
+    params.require(:tax_rate).permit!
   end
 
   def countries

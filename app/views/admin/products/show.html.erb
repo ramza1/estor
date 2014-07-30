@@ -24,9 +24,7 @@
 <%= content_for :head do %>
     <%= stylesheet_link_tag "colorbox" %>
 <% end %>
-<p class="alert alert-info">
-  <b><i class="icon-screenshot"></i> Drag and drop image(s) any were on this page to upload it instantly</b>
-</p>
+
 <div class="row-fluid">
   <div class="span12">
     <div class="social-box">
@@ -126,27 +124,11 @@
         <h4>Photos of <%= @product.name %></h4>
       </div>
       <div class="body gallery">
-        <p class="custom_p2">
-          <i class="icon-screenshot"></i>
-          Drag and drop images to the upload form or select multiple images to be uploaded at once
-        </p>
         <ul id="images" class="product-images thumbnails">
           <%= render @product.images %>
         </ul>
-        <div class="clear"></div>
-        <div class="photo-upload">
-          <%= simple_form_for @product.images.new, :url  => admin_product_images_path(@product), html: {class: "form-inline fileupload"} do |f| %>
-              <%= file_field_tag(:photo, multiple: true, name: "image[photo]") %>
-              <%#= f.input :photo, label: "Upload product image(s)", as: :file, input_html: {multiple: true, name: "image[photo]"} %>
-          <% end %>
-        </div>
 
-        <script id="template-upload" type="text/x-tmpl">
-          <div class="upload">
-            {%=o.name%}
-            <div class="progress progress-striped active"><div class="bar" style="width: 0%"></div></div>
-          </div>
-        </script>
+
 
       </div>
     </div>

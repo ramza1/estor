@@ -23,7 +23,7 @@
       <div class="control-group">
         <label class="control-label">Country</label>
         <div class="controls">
-          <%= select_tag :select_country, options_from_collection_for_select(Country.all, 'id', 'name'), {:include_blank => true, class: "input-xlarge"} %>
+          <%= f.select :country_id, options_from_collection_for_select(Country.all, 'id', 'name'), {:include_blank => true, class: "input-xlarge"} %>
         </div>
       </div>
 

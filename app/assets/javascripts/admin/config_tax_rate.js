@@ -11,7 +11,7 @@ Hadean.TaxRateForm = {
   stateSelect : '#tax_rate_state_id',
 
   initialize : function() {
-    var select_country  = '#select_country'
+    var select_country  = '#tax_rate_country_id'
     jQuery(select_country).
             bind('change',
               function() {
