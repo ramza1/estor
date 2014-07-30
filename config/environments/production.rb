@@ -49,6 +49,7 @@ Shopnany::Application.configure do
 
   # Precompile additional assets
   config.assets.precompile += %w( .svg .eot .woff .ttf )
+  config.assets.precompile += %w( *.js )
   config.assets.precompile +=  %w[admin.css admin.js html5shiv]
 
   # Prepend all log lines with the following tags.

@@ -1,0 +1,1 @@
+(function(){jQuery(function(){return $("#search").autocomplete({source:"/search_suggestions"})})}).call(this);
