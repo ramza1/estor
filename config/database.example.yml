@@ -1,8 +1,8 @@
 production:
   adapter: mysql2
   encoding: utf8
-  database: plussizeboutique
+  database: xxx
   pool: 50
-  username: plussizeboutique
-  password: okaforuchenna11
+  username: xxxx
+  password: xxx
   host: 127.0.0.1

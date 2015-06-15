@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: phones
-#
-#  id             :integer(4)      not null, primary key
-#  phone_type_id  :integer(4)
-#  number         :string(255)     not null
-#  phoneable_type :string(255)     not null
-#  phoneable_id   :integer(4)      not null
-#  primary        :boolean(1)      default(FALSE)
-#  created_at     :datetime
-#  updated_at     :datetime
-#
-
 class Phone < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   belongs_to :phone_type

@@ -1,27 +1,3 @@
-# == Class Info
-#
-#  Every monetary charge creates an invoice.  Thus when you charge a customer XYZ,
-#  you are actually using an invoice for the charge and not the order.  This allows
-#  flexibility within accounting and returns and even some new charge that will be made
-#  in the future.  If the system was only doing Cash-Based account the Invoices table
-#  would be the only table needed.  NOTE: DO NOT THINK FOR A SECOND CASH BASED ACCOUNT IS GOOD ENOUGH!
-
-
-# == Schema Information
-#
-# Table name: invoices
-#
-#  id              :integer(4)      not null, primary key
-#  order_id        :integer(4)      not null
-#  amount          :decimal(8, 2)   not null
-#  invoice_type    :string(255)     default("Purchase"), not null
-#  state           :string(255)     not null
-#  active          :boolean(1)      default(TRUE), not null
-#  created_at      :datetime
-#  updated_at      :datetime
-#  credited_amount :decimal(8, 2)   default(0.0)
-#
-
 class Invoice < ActiveRecord::Base
 
   has_many :payments

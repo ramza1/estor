@@ -1,56 +1,14 @@
-# == Schema Information
-#
-# Table name: payments
-#
-#  id              :integer(4)      not null, primary key
-#  invoice_id      :integer(4)
-#  confirmation_id :string(255)
-#  amount          :integer(4)
-#  error           :string(255)
-#  error_code      :string(255)
-#  message         :string(255)
-#  action          :string(255)
-#  params          :text
-#  success         :boolean(1)
-#  test            :boolean(1)
-#  created_at      :datetime
-#  updated_at      :datetime
-#
 require 'money'
 require 'money/bank/google_currency'
 class Payment < ActiveRecord::Base
   belongs_to :invoice
   serialize :params
-  # this is initialized to an instance of ActiveMerchant::Billing::Base.gateway
-  #cattr_accessor :gateway
 
   validates :amount,      :presence => true
   validates :invoice_id,  :presence => true
 
 
-#  ActiveMerchant::Billing::AuthorizeNetCimGateway
-#  METHOD: create_customer_profile_transaction(options)
-#
-#   Creates a new payment transaction from an existing customer profile
-#
-#   This is what is used to charge a customer whose information you have stored in a Customer Profile.
-#
-#   Returns a Response object that contains the result of the transaction in params[‘direct_response’]
-#   Options
-#
-#       * :transaction — A hash containing information on the transaction that is being requested. (REQUIRED)
-#
-#   Transaction
-#
-#       * :type — The type of transaction. Can be either :auth_only, :capture_only, or :auth_capture. (REQUIRED)
-#       * :amount — The amount for the tranaction. Formatted with a decimal. For example "4.95" (REQUIRED)
-#       * :customer_profile_id — The Customer Profile ID of the customer to use in this transaction. (REQUIRED)
-#       * :customer_payment_profile_id — The Customer Payment Profile ID of the Customer Payment Profile to use in this transaction. (REQUIRED)
-
-
-
-
-  def capture_cim
+def capture_cim
     @gateway = GATEWAY
     bank = Money::Bank::GoogleCurrency.new
     b = amount / bank.get_rate(:NGN, :USD).to_f

@@ -1,1 +1,0 @@
-!function(r){return r.fn.extend({clickOutside:function(t,n){var i;return i=void 0,i=this,r("body").bind("click",function(e){if(n&&r.inArray(e.target,n)>-1);else if(!r.contains(i[0],e.target))return t(e,i)}),this}})}(jQuery),Array.indexOf||(Array.prototype.indexOf=function(r){var t;for(t=0;t<this.length;){if(this[t]===r)return t;t++}return-1});

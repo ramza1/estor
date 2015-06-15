@@ -90,14 +90,6 @@ Shopnany::Application.configure do
   # config.autoflush_log = false
 
   ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.sendgrid.net',
-      :port           => '587',
-      :authentication => :plain,
-      :user_name      => 'Blanck magazine',
-      :password       => 'workstation100',
-      :domain         => 'blanckdigital.com'
-  }
 
   config.middleware.use ExceptionNotification::Rack,
                         :email => {

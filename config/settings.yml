@@ -1,9 +1,9 @@
 
 encryption_key: someRandomBINARYKEY
 mailer:
-  server: mail.example.com
-  username: someLOGIN
-  password: s0meth1ngs3cr3t
+  server: xxx
+  username: xxx
+  password: sxxx
 
 vat: false
 require_state_in_address: true
@@ -20,6 +20,6 @@ google:
 
 paypal:
   ip: 192.168.0.1
-  login: ramzauchenna_api1.gmail.com
-  password: WLVVC92UGFEFZXR4
-  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacAy9gb3CjzhUTXRrBo6aLuqhIhHwh
+  login: xxx
+  password: xxx
+  signature: xxx
